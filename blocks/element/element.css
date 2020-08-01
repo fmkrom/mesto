@@ -1,0 +1,9 @@
+@import "./__rectangle/element__rectangle.css";
+@import "./__image/element__image.css";
+@import "./__text/element__text.css";
+
+.element {
+    width: 282px;
+    height: 361px;
+}
+

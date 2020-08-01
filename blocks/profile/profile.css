@@ -1,0 +1,52 @@
+@import "../profile/__avatar/profile__avatar.css";
+@import "../profile/__image/profile__image.css";
+
+@import "../profile/__name/profile__name.css";
+@import "../profile/__subtitle/profile__subtitle.css";
+
+@import "./__info/profile__info.css";
+
+@import "../profile/__name-block/profile__name-block.css";
+@import "../profile/__edit-button/profile__edit-button.css";
+
+@import "../profile/__add-button/profile__add-button.css";
+
+
+.profile {
+    width: 822px;
+    height: max-content;
+
+    margin: 0 auto;
+    margin-bottom: 51px;
+
+    display: grid;
+    
+    grid-template-rows: 100%;
+    grid-template-columns: max-content max-content auto max-content;
+
+    grid-template-areas: 
+    "avatar name blank add-button";
+    
+    grid-column-gap: 30px;
+}
+
+@media screen and (max-width:881px){
+    .profile {
+        width:100%;
+    }
+}
+
+@media screen and (max-width:767px){
+    .profile {
+        width:282px;
+
+        grid-template-columns: 100%;
+        grid-template-rows:max-content max-content auto max-content;
+        
+        grid-template-areas: 
+        "avatar"
+        "name" 
+        "blank" 
+        "add-button";
+    }
+}

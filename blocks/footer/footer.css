@@ -1,0 +1,7 @@
+@import "./footer__copyright/footer-copyright.css";
+
+.footer {
+    max-width: 882px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+}
