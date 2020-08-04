@@ -4,3 +4,12 @@
     background-color:black;
 }
 
+.profile__edit-button:hover{
+    opacity:0.8;
+}
+
+@media screen and (max-width: 767px){
+    .profile__edit-button{
+        margin-left: 4px;
+    }
+}

@@ -1,110 +1,111 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="./pages/index.css" />
-        <title>MESTO Russia</title>
-    </head>
-
-    <body class="body">
-        <div class="page">
-            
-            <section class="header">
-                <div class="header__logo">
-                    <img src="./images/__vector/vector__logo.png" class="header__vector" alt="Лого">
-                </div>
-                <hr class="header__line">
-            </section>
-
-            <section class="profile">
-                
-                <div class="profile__avatar">
-                    <img src="./images/cousteau-profile-photo.jpg" class="profile__image" alt="Фото профиля">
-                </div>
-
-                <div class="profile__info">
-                    
-                    <div class="profile__name-block">
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <div class="profile__edit-button">
-                            <img src="./images/__vector/vector__edit-button.svg" class="profile__vector" alt="Изменить">
-                        </div>
-                    </div>
-                    <p class="profile__subtitle">Исследователь океана</p>
-                    
-                </div>
-
-                    <a href="http://htmlbook.ru/html/value/script" class="profile__add-button">
-                        <img src="./images/__vector/vector__add-button.png" class="profile__add-button_vector" alt="Добавить">
-                    </a>
-
-                    <!--onclick="youIdiot"-->
-
-            </section>
-
-            <section class="elements">
-                
-                <div class="element">
-                    <div class="element__rectangle">
-                        <img src="./images/__photo/images__photo_karelia.jpg" class="element__image" alt="Карелия">
-                        <p class="element__text">Карелия</p>
-                        <div class="element__group"></div>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <div class="element__rectangle">
-                        <img src="./images/__photo/images__photo_kolsky.jpg" class="element__image" alt="Кольский">
-                        <p class="element__text">Кольский полуостров</p>
-                        <div class="element__group"></div>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <div class="element__rectangle">
-                        <img src="./images/__photo/images__photo_kosa.jpg" class="element__image" alt="Куршская коса">
-                        <p class="element__text">Куршская коса</p>
-                        <div class="element__group"></div>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <div class="element__rectangle">
-                        <img src="./images/__photo/images__photo_elbrus.png" class="element__image" alt="Эльбрус">
-                        <p class="element__text">Гора Эльбрус</p>
-                        <div class="element__group"></div>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <div class="element__rectangle">
-                        <img src="./images/__photo/images__photo_dombay.png" class="element__image" alt="Домбай">
-                        <p class="element__text">Домбай</p>
-                        <div class="element__group"></div>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <div class="element__rectangle">
-                        <img src="./images/__photo/images__photo_karachay.jpg" class="element__image" alt="Карачаевск">
-                        <p class="element__text">Карачаево-Черкесия</p>
-                        <div class="element__group"></div>
-                    </div>
-                </div>
-
-            </section>
-
-            <section class="footer">
-            
-                <p class="footer__copyright">&copy; 2020 Ефим Романенко</p>
-                
-            </section>
-        
-        </div>
-
-        <script type ="text/javascript" src="./scripts/script.js"></script>
-
-    </body>
-
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" type="text/css" href="./pages/index.css" />
+      <title>MESTO Russia</title>
+   </head>
+   <body class="body">
+      <div class="page">
+         <section class="header">
+            <div class="header__logo">
+               <img src="./images/__vector/vector__logo.png" class="header__vector" alt="Лого">
+            </div>
+            <hr class="header__line">
+         </section>
+         <section class="profile">
+            <div class="profile__avatar">
+               <img src="./images/cousteau-profile-photo.jpg" class="profile__image" alt="Фото профиля">
+            </div>
+            <div class="profile__info">
+               <div class="profile__name-block">
+                  <h1 class="profile__name">Жак-Ив Кусто</h1>
+                  <a href="#" class="profile__edit-button">
+                  <img src="./images/__vector/vector__edit-button.svg" class="profile__vector" alt="Изменить">
+                  </a>
+               </div>
+               <p class="profile__job">Исследователь океана</p>
+            </div>
+            <a href="#" class="profile__add-button">
+            <img src="./images/__vector/vector__add-button.png" class="profile__add-button_vector" alt="Добавить">
+            </a>
+         </section>
+         <section class="elements">
+            <div class="element">
+               <div class="element__rectangle">
+                  <img src="./images/__photo/images__photo_karelia.jpg" class="element__image" alt="Карелия">
+                  <div class="element__title">
+                     <p class="element__text">Карелия</p>
+                     <img src="./images/__vector/vector__group-like.png" class="element__group" alt="Лайк">
+                  </div>
+               </div>
+            </div>
+            <div class="element">
+               <div class="element__rectangle">
+                  <img src="./images/__photo/images__photo_kolsky.jpg" class="element__image" alt="Кольский">
+                  <div class="element__title">
+                     <p class="element__text">Кольский полуостров</p>
+                     <img src="./images/__vector/vector__group-like.png" class="element__group" alt="Лайк">
+                  </div>
+               </div>
+            </div>
+            <div class="element">
+               <div class="element__rectangle">
+                  <img src="./images/__photo/images__photo_kosa.jpg" class="element__image" alt="Куршская коса">
+                  <div class="element__title">
+                     <p class="element__text">Куршская коса</p>
+                     <img src="./images/__vector/vector__group-like.png" class="element__group" alt="Лайк">
+                  </div>
+               </div>
+            </div>
+            <div class="element">
+               <div class="element__rectangle">
+                  <img src="./images/__photo/images__photo_elbrus.png" class="element__image" alt="Эльбрус">
+                  <div class="element__title">
+                     <p class="element__text">Гора Эльбрус</p>
+                     <img src="./images/__vector/vector__group-like.png" class="element__group" alt="Лайк">
+                  </div>
+               </div>
+            </div>
+            <div class="element">
+               <div class="element__rectangle">
+                  <img src="./images/__photo/images__photo_dombay.png" class="element__image" alt="Домбай">
+                  <div class="element__title">
+                     <p class="element__text">Домбай</p>
+                     <img src="./images/__vector/vector__group-like.png" class="element__group" alt="Лайк">
+                  </div>
+               </div>
+            </div>
+            <div class="element">
+               <div class="element__rectangle">
+                  <img src="./images/__photo/images__photo_karachay.jpg" class="element__image" alt="Карачаевск">
+                  <div class="element__title">
+                     <p class="element__text">Карачаево-Черкесия</p>
+                     <img src="./images/__vector/vector__group-like.png" class="element__group" alt="Лайк">
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section class="footer">
+            <p class="footer__copyright">&copy; 2020 Ефим Романенко</p>
+         </section>
+      </div>
+      <section class="popup">
+         <div class="popup__overlay">
+            <div class="popup__container">
+               <a href=# class="popup__form-button-close"><img src="./images/__vector/vector__add-button.png" class="popup__close-image" alt="Закрыть"></a>
+               <div class="popup__form-block">
+                  <h4 class="popup__form-title">Редактировать профиль</h4>
+                  <form class="popup__form-content">
+                     <input value="Жак-Ив Кусто" class="popup__form-field popup__form-field-name" type="text">
+                     <input value="Исследователь океана" class="popup__form-field popup__form-field-job" type="text">
+                     <button class="popup__form-button-save" type="submit">Сохранить</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+      <script src="./scripts/script.js"></script>
+   </body>
 </html>

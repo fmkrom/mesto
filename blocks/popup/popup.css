@@ -1,0 +1,24 @@
+@import "./__container/popup__container.css";
+
+@import "./__form-button-close/popup__form-button-close.css";
+
+@import "./__form-button-save/popup__form-button-save.css";
+
+@import "./__form-field/popup__form-field.css";
+
+@import "./__form-block/popup__form-block.css";
+
+@import "./__overlay/popup__overlay.css";
+
+@import "./__title/popup__form-title.css";
+
+@import "./__form-content/popup__form-content.css";
+
+@import "./_opened/popup_opened.css";
+
+.popup {
+    display:none;
+}
+
+
+

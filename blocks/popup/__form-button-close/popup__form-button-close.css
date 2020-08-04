@@ -1,0 +1,11 @@
+.popup__form-button-close {
+    width: max-content;
+    height: max-content;
+    justify-self: end;
+
+    transform: rotate(45deg);
+}
+
+.popup__form-button-close:hover {
+    opacity:0.5;
+}

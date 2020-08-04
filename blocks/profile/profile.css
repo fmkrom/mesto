@@ -2,7 +2,7 @@
 @import "../profile/__image/profile__image.css";
 
 @import "../profile/__name/profile__name.css";
-@import "../profile/__subtitle/profile__subtitle.css";
+@import "../profile/__job/profile__job.css";
 
 @import "./__info/profile__info.css";
 
@@ -30,9 +30,9 @@
     grid-column-gap: 30px;
 }
 
-@media screen and (max-width:881px){
+@media screen and (max-width:895px){
     .profile {
-        width:100%;
+        width:90%;
     }
 }
 
