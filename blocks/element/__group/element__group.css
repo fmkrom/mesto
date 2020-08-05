@@ -3,3 +3,7 @@
     height: 18.13px;
     margin-top: 6px;
 }
+
+.element__group:hover{
+    opacity:0.3;
+}
