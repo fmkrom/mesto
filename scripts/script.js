@@ -1,61 +1,94 @@
-//1. Переменные для функции открытия и закрытия всплывающего окна
+// I. Для начала объявляем все переменные
 
-let editProfile = document.querySelector('.profile__edit-button');
-let closePopup = document.querySelector('.popup__form-button-close');
+//1. Всплывающее окно:
+let elementPopUp = document.querySelector('.popup');
 
-let popUp = document.querySelector('.popup');
+//2. Форма (т.е. сами поля формы) всплывающего окна:
+let elementPopUpForm = document.querySelector('.popup__form-content');
 
-let formElement = document.querySelector('.popup__form-content');
 
-//2. Переменные для функции сохранения данных во всплывающем окне
+/*3. Поля формы во всплывающем окне*/
 
-let nameInput = document.querySelector('.popup__form-field-name'); 
-let jobInput = document.querySelector('.popup__form-field-job'); 
+//3.1. Поле "Имя" в форме всплывающего окна
+let formFieldName = document.querySelector('.popup__form-field-name');
 
-function popUpOpen(){
-    popUp.classList.remove('popup');
-    popUp.classList.add('popup_opened');
+//3.2. Поле "Род занятий" в форме всплывающего окна
+let formFieldJob = document.querySelector('.popup__form-field-job'); 
 
-    console.log('Function open works!');
+
+/*4. Данные в профиле в шапке сайта*/
+
+//4.1. Поле "Имя" в разделе "Профиль" сайта
+let pageProfileName = document.querySelector('.profile__name'); 
+
+//4.1.1. Промежуточная перменная - текстовое содержание поля "Имя" в разделе "Профиль" сайта 
+let formNameDefault = pageProfileName.textContent;
+
+//4.2. Поле "Род занятий" в разделе "Профиль" сайта
+let pageProfileJob = document.querySelector('.profile__job');
+
+//4.1.1. Промежуточная перменная - текстовое содержание поля "Имя" в разделе "Профиль" сайта 
+let formJobDefault = pageProfileJob.textContent;
+
+
+//3. Кнопка "редактировать профиль" (карандаш)
+let buttonEditProfile = document.querySelector('.profile__edit-button');
+
+//4. Кнопка "Сохранить" во всплывающем окне
+let buttonSaveChanges = document.querySelector('.popup__form-button-save');
+
+//5. Кнопка "закрыть окно редактирования и не сохранять изменения" во всплывающем окне
+let buttonClosePopupDismissChanges = document.querySelector('.popup__form-button-close');
+
+/*II. Функции с переменными, определенными выше*/
+
+//А. Функция "Открыть всплывающее окно"
+
+function functionPopUpOpen(){
+    elementPopUp.classList.remove('popup');
+    elementPopUp.classList.add('popup_opened');
+
+    formFieldName.value = (formNameDefault);
+    formFieldJob.value = (formJobDefault);
+
+    console.log('Function open Popup works!');
 }
 
-editProfile.addEventListener ('click', popUpOpen);
+buttonEditProfile.addEventListener('click', functionPopUpOpen);
 
-function popUpClose(){
-    popUp.classList.remove('popup_opened');
-    popUp.classList.add('popup');
+//Б. Функция "Внести изменения, сохранить и закрыть окно"
 
-    console.log('Function close works!');
-}
-
-closePopup.addEventListener ('click', popUpClose);
-
-
-//Далее - функция сохранения данных
-
-function formSubmitHandler (evt) {
-    evt.preventDefault(); 
-
-    /*
-    ВАЖНО! С момента переноса этих переменных:
-    let name = nameInput.value;
-    let job = jobInput.value;
+function editProfileAndSaveChanges(evt){
+    evt.preventDefault();
     
-    за пределы функции - функция работает, но данные перестают сохраняться!
-    */
+    pageProfileName.textContent = (formFieldName.value);
+    pageProfileJob.textContent = (formFieldJob.value);
 
-    let name = nameInput.value;
-    let job = jobInput.value;
-
-    let nameProfile = document.querySelector('.profile__name'); 
-    let jobProfile = document.querySelector('.profile__job');
+    formNameDefault = (formFieldName.value);
+    formJobDefault = (formFieldJob.value);
     
-    nameProfile.textContent = (name);
-    jobProfile.textContent = (job);
+    elementPopUp.classList.remove('popup_opened');
+    elementPopUp.classList.add('popup');
 
-    console.log('Function save data works!');
+    console.log('Function close Popup and Save Changes Works!');
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
-formElement.addEventListener('submit', popUpClose);
+elementPopUpForm.addEventListener('submit', editProfileAndSaveChanges);
 
+//В. Функция "Отменить изменения и закрыть окно"
+
+function dismissChangesAndClosePopup(){
+    
+    formFieldName.textContent = (pageProfileName);
+    formFieldJob.textContent = (pageProfileJob);
+
+    elementPopUp.classList.remove('popup_opened');
+    elementPopUp.classList.add('popup');
+
+    console.log(formFieldName.value);
+    console.log(formFieldJob.value);
+
+    console.log('Function close Popup and dismiss changes Works!');
+}
+
+buttonClosePopupDismissChanges.addEventListener ('click', dismissChangesAndClosePopup);
