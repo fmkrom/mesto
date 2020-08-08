@@ -13,4 +13,5 @@
 
 .element__group:hover{
     opacity:0.3;
+    transition: 0.3s;
 }
