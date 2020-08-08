@@ -12,6 +12,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-image: url('../../../images/__graphics/graphics__add-button.png');
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-position: center;
     
 }
 
