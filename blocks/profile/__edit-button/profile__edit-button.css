@@ -1,9 +1,13 @@
 .profile__edit-button{
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
     background-color:black;
 
     border:0;
+
+    background-image: url('../../../images/__graphics/graphics__edit-button.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .profile__edit-button:hover{

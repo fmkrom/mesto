@@ -3,7 +3,17 @@
     height: max-content;
     justify-self: end;
 
+    width: 20.35px;
+    height: 20.35px;
+
     transform: rotate(45deg);
+    background-image: url('../../../images/__graphics/graphics__add-button.png');
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    border: none;
+    background-color: transparent;
 }
 
 .popup__form-button-close:hover {
