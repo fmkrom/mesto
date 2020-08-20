@@ -30,60 +30,19 @@
             <button class="profile__add-button" type="button"></button>
          </section>
          <section class="elements">
-            <div class="element">
-               <div class="element__rectangle">
-                  <img src="./images/__photo/images__photo_karelia.jpg" class="element__image" alt="Карелия">
-                  <div class="element__title">
-                     <h2 class="element__text">Карелия</h2>
-                     <button class="element__group"></button>
+            
+            <template class="card__template">
+               <div class="element">
+                  <div class="element__rectangle">
+                     <img src="" class="element__image" alt="">
+                     <div class="element__title">
+                        <h2 class="element__text"></h2>
+                        <button class="element__group"></button>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="element">
-               <div class="element__rectangle">
-                  <img src="./images/__photo/images__photo_kolsky.jpg" class="element__image" alt="Кольский">
-                  <div class="element__title">
-                     <h2 class="element__text">Кольский полуостров</h2>
-                     <button class="element__group"></button>
-                  </div>
-               </div>
-            </div>
-            <div class="element">
-               <div class="element__rectangle">
-                  <img src="./images/__photo/images__photo_kosa.jpg" class="element__image" alt="Куршская коса">
-                  <div class="element__title">
-                     <h2 class="element__text">Куршская коса</h2>
-                     <button class="element__group"></button>
-                  </div>
-               </div>
-            </div>
-            <div class="element">
-               <div class="element__rectangle">
-                  <img src="./images/__photo/images__photo_elbrus.png" class="element__image" alt="Эльбрус">
-                  <div class="element__title">
-                     <h2 class="element__text">Гора Эльбрус</h2>
-                     <button class="element__group"></button>
-                  </div>
-               </div>
-            </div>
-            <div class="element">
-               <div class="element__rectangle">
-                  <img src="./images/__photo/images__photo_dombay.png" class="element__image" alt="Домбай">
-                  <div class="element__title">
-                     <h2 class="element__text">Домбай</h2>
-                     <button class="element__group"></button>
-                  </div>
-               </div>
-            </div>
-            <div class="element">
-               <div class="element__rectangle">
-                  <img src="./images/__photo/images__photo_karachay.jpg" class="element__image" alt="Карачаевск">
-                  <div class="element__title">
-                     <h2 class="element__text">Карачаево-Черкесия</h2>
-                     <button class="element__group"></button>
-                  </div>
-               </div>
-            </div>
+            </template>
+                       
          </section>
 
       </main>
@@ -92,7 +51,9 @@
             <p class="footer__copyright">&copy; 2020 Ефим Романенко</p>
          </section>
       </div>
-      <section class="popup">
+      
+      <!--Попап №1 - редактирование профиля-->
+      <section class="popup popup_edit-profile">
          <div class="popup__overlay">
             <div class="popup__container">
                <button class="popup__form-button-close"></button>
@@ -107,6 +68,25 @@
             </div>
          </div>
       </section>
+
+      <!--Попап №2 - добавить фото-->
+      <section class="popup popup_add-place">
+         <div class="popup__overlay">
+            <div class="popup__container">
+               <button class="popup__form-button-close"></button>
+               <div class="popup__form-block">
+                  <h3 class="popup__form-title">Новое место</h3>
+                  <form class="popup__form-content">
+                     <input name="name" placeholder="Имя" value="" class="popup__form-field popup__form-field-name" type="text">
+                     <input name="job" placeholder="Род занятий" value="" class="popup__form-field popup__form-field-job" type="text">
+                     <button class="popup__form-button-save" type="submit">Сохранить</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+
+
       <script src="./scripts/script.js"></script>
    </body>
 </html>
