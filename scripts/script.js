@@ -123,7 +123,21 @@ let elementImageAlt = elementTemplate.querySelector('.element__image').alt;
 //3.1.3. Переменная для заголовка карточки (для последующей ее перезаписи при помощи textContent)
 let elementImageText = elementTemplate.querySelector('.element__text');
 
-//ПЕРЕМЕННЫЕ ДЛЯ ДОБАВЛЕНИЯ ЭЛЕМЕНТОВ В МАССИВ ФОТО
+//3.1.3.A. ПЕРЕМЕННЫЕ ДЛЯ ДОБАВЛЕНИЯ ЭЛЕМЕНТОВ В МАССИВ ФОТО
+
+//3.1.3.A.1. Добавление места: попробуем сначала добавить с готовой ссылкой
+initialCards.unshift({name:'Трасса 66, США', link:'https://images.unsplash.com/photo-1558980664-3a031cf67ea8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'});
+
+//Добавление прошло успешно
+
+//3.1.3.Б.1. Переменная для value формы добавления фото: название фото
+let formAddPlaceName = document.querySelector('.popup__form-field-place-name');
+
+//3.1.3.Б.2. Переменная для value формы добавления фото: ссылка на страницу
+let formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
+
+//3.1.3.Б.3. Переменная для кнопки "сохранить место"
+let popupFormButtonSavePlace = document.querySelector('.popup__form-button-save-place');
 
 
 
@@ -215,8 +229,40 @@ function dismissChangesAndClosePopupAddPlace(){
 buttonCloseAddPlacePopupDismissChanges.addEventListener ('click', dismissChangesAndClosePopupAddPlace);
 
 
+//5.2.3. Функция добавления места (карточки)
+/*function addPlaceAndSaveChanges(evt){
+    evt.preventDefault();
+*/
+
+//ВАЖНО! Итог 20.08.2020: функция работает, но карточка не добавляется
+
+function addPlaceAndSaveChanges(){
+    //evt.preventDefault();
+
+    initialCards.unshift({name:'Аризона', link:'https://images.unsplash.com/photo-1597892631157-20766c84e045?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'});    
+    initialCards.unshift({name:(formAddPlaceName.value), link:(formAddPlaceUrl.value)},);
+
+    console.log(initialCards[0].name);
+    console.log(initialCards[0].link);
+    console.log('Photo 0 added!');
+
+    console.log(initialCards[1].name);
+    console.log(initialCards[1].link);
+    console.log('Photo 1 added!');
+
+    elementPopUpAddPlace.classList.add('popup');
+    elementPopUpAddPlace.classList.remove('popup_opened');
+}
+
+elementPopUpFormAddPlace.addEventListener('submit', addPlaceAndSaveChanges);
+popupFormButtonSavePlace.addEventListener('click', addPlaceAndSaveChanges);
 
 
+/*
+//3.1.3.Б.1. Переменная для value формы добавления фото: название фото
+let formAddPlaceName = document.querySelector('.popup__form-field-place-name');
 
+//3.1.3.Б.2. Переменная для value формы добавления фото: ссылка на страницу
+let formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
 
-
+*/
