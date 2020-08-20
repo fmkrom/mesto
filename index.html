@@ -56,13 +56,13 @@
       <section class="popup popup_edit-profile">
          <div class="popup__overlay">
             <div class="popup__container">
-               <button class="popup__form-button-close"></button>
+               <button class="popup__form-button-close popup__form-button-close-edit-profile"></button>
                <div class="popup__form-block">
                   <h3 class="popup__form-title">Редактировать профиль</h3>
-                  <form class="popup__form-content">
+                  <form class="popup__form-content popup__form-content-profile">
                      <input name="name" placeholder="Имя" value="" class="popup__form-field popup__form-field-name" type="text">
                      <input name="job" placeholder="Род занятий" value="" class="popup__form-field popup__form-field-job" type="text">
-                     <button class="popup__form-button-save" type="submit">Сохранить</button>
+                     <button class="popup__form-button-save popup__form-button-save-profile" type="submit">Сохранить</button>
                   </form>
                </div>
             </div>
@@ -73,19 +73,18 @@
       <section class="popup popup_add-place">
          <div class="popup__overlay">
             <div class="popup__container">
-               <button class="popup__form-button-close"></button>
+               <button class="popup__form-button-close popup__form-button-close-add-place"></button>
                <div class="popup__form-block">
                   <h3 class="popup__form-title">Новое место</h3>
-                  <form class="popup__form-content">
-                     <input name="name" placeholder="Имя" value="" class="popup__form-field popup__form-field-name" type="text">
-                     <input name="job" placeholder="Род занятий" value="" class="popup__form-field popup__form-field-job" type="text">
-                     <button class="popup__form-button-save" type="submit">Сохранить</button>
+                  <form class="popup__form-content popup__form-content-add-place">
+                     <input name="place" placeholder="Название" value="" class="popup__form-field popup__form-field-place-name" type="text">
+                     <input name="url" placeholder="Ссылка на картинку" value="" class="popup__form-field popup__form-field-photo-url" type="url">
+                     <button class="popup__form-button-save popup__form-button-save-place" type="submit">Создать</button>
                   </form>
                </div>
             </div>
          </div>
       </section>
-
 
       <script src="./scripts/script.js"></script>
    </body>
