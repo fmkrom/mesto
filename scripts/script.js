@@ -40,6 +40,24 @@ const initialCards = [
 
 ];
 
+/*
+Попутно вопрос: как мне тогда 
+
+Суть проблемы: 
+
+не понимаю, как мне применять в функциях отдельные значения ключей. 
+
+
+
+*/
+
+
+
+
+
+
+
+
 //2.1. Объявление основных переменных для функция открытия и закрытия всплывающего окна
 
 //А. Форма редактирования профиля
@@ -88,8 +106,8 @@ let buttonEditProfile = document.querySelector('.profile__edit-button');
 //2.3.2.1. Кнопка "сохранить изменения" профиля
 let buttonSaveProfileChanges = document.querySelector('.popup__form-button-save-profile');
 
-//2.3.2.2. Кнопка "создать и сохранить" для окна места
-let buttonCreatePlace = document.querySelector('.popup__form-button-save-place');
+//2.3.2.2. Кнопка "создать и сохранить" для окна места - это можно удалить
+//let buttonCreatePlace = document.querySelector('.popup__form-button-save-place');
 
 
 //2.3.2.2.1. Поле формы окна "Добавить место" - название места 
@@ -126,9 +144,28 @@ let elementImageText = elementTemplate.querySelector('.element__text');
 //3.1.3.A. ПЕРЕМЕННЫЕ ДЛЯ ДОБАВЛЕНИЯ ЭЛЕМЕНТОВ В МАССИВ ФОТО
 
 //3.1.3.A.1. Добавление места: попробуем сначала добавить с готовой ссылкой
-initialCards.unshift({name:'Трасса 66, США', link:'https://images.unsplash.com/photo-1558980664-3a031cf67ea8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'});
+initialCards.unshift({name:'Маиями', link:'https://images.unsplash.com/photo-1597688626913-a663bf4ea574?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'},);
 
-//Добавление прошло успешно
+//ФУНКЦИИ
+
+//3.2. Функция, добавляющая базовые карточки из массива на страницу
+
+initialCards.forEach(addCard);
+
+function addCard(element){
+    
+    //3.2.1. Переменная, клонирующая темплату: попробовать вынести ее за пределы функции
+    let clonedTemplate = elementTemplate.cloneNode(true);
+
+    //3.2.2. Наполнение темплаты содежимым
+    clonedTemplate.querySelector('.element__image').src=(element.link);
+    clonedTemplate.querySelector('.element__text').textContent=(element.name);
+    
+    sectionElements.prepend(clonedTemplate);
+};
+
+
+
 
 //3.1.3.Б.1. Переменная для value формы добавления фото: название фото
 let formAddPlaceName = document.querySelector('.popup__form-field-place-name');
@@ -139,23 +176,36 @@ let formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
 //3.1.3.Б.3. Переменная для кнопки "сохранить место"
 let popupFormButtonSavePlace = document.querySelector('.popup__form-button-save-place');
 
-
-
-//ФУНКЦИИ
-
-//3.2. Функция, добавляющая базовые карточки из массива на страницу
-
-initialCards.forEach(function (element){
+//Функция добавить и сохранить место
+function addPlaceAndSaveChanges(evt){
+    evt.preventDefault()
     
-    //3.2.1. Переменная, клонирующая темплату: попробовать вынести ее за пределы функции
-    let clonedTemplate = elementTemplate.cloneNode(true);
+    initialCards.unshift(
+    {
+        name:(formAddPlaceName.value), 
+        link:(formAddPlaceUrl.value)
+    },
+    );
+
+    elementPopUpAddPlace.classList.add('popup');
+    elementPopUpAddPlace.classList.remove('popup_opened');
     
-    //3.2.2. Наполнение темплаты содежимым
-    clonedTemplate.querySelector('.element__image').src=(element.link);
-    clonedTemplate.querySelector('.element__text').textContent=(element.name);
+    console.log('function works!');
+    console.log(initialCards[0].name);
+    console.log(initialCards[0].link);
     
-    sectionElements.append(clonedTemplate);
-});
+    addCard({
+        name:(formAddPlaceName.value), 
+        link:(formAddPlaceUrl.value)
+    },);
+}
+
+
+
+
+
+elementPopUpFormAddPlace.addEventListener('submit', addPlaceAndSaveChanges);
+
 
 
 //5. Функции всплывающих окон
@@ -202,7 +252,6 @@ function dismissChangesAndClosePopup(){
 
     elementPopUpEditProfile.classList.remove('popup_opened');
     elementPopUpEditProfile.classList.add('popup');
-   
 }
 
 buttonCloseEditProfilePopupDismissChanges.addEventListener ('click', dismissChangesAndClosePopup);
@@ -227,42 +276,3 @@ function dismissChangesAndClosePopupAddPlace(){
 
 //5.2.2. Привязываем эту функцию к кнопке "закрыть" в окне добавления карточки
 buttonCloseAddPlacePopupDismissChanges.addEventListener ('click', dismissChangesAndClosePopupAddPlace);
-
-
-//5.2.3. Функция добавления места (карточки)
-/*function addPlaceAndSaveChanges(evt){
-    evt.preventDefault();
-*/
-
-//ВАЖНО! Итог 20.08.2020: функция работает, но карточка не добавляется
-
-function addPlaceAndSaveChanges(){
-    //evt.preventDefault();
-
-    initialCards.unshift({name:'Аризона', link:'https://images.unsplash.com/photo-1597892631157-20766c84e045?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'});    
-    initialCards.unshift({name:(formAddPlaceName.value), link:(formAddPlaceUrl.value)},);
-
-    console.log(initialCards[0].name);
-    console.log(initialCards[0].link);
-    console.log('Photo 0 added!');
-
-    console.log(initialCards[1].name);
-    console.log(initialCards[1].link);
-    console.log('Photo 1 added!');
-
-    elementPopUpAddPlace.classList.add('popup');
-    elementPopUpAddPlace.classList.remove('popup_opened');
-}
-
-elementPopUpFormAddPlace.addEventListener('submit', addPlaceAndSaveChanges);
-popupFormButtonSavePlace.addEventListener('click', addPlaceAndSaveChanges);
-
-
-/*
-//3.1.3.Б.1. Переменная для value формы добавления фото: название фото
-let formAddPlaceName = document.querySelector('.popup__form-field-place-name');
-
-//3.1.3.Б.2. Переменная для value формы добавления фото: ссылка на страницу
-let formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
-
-*/
