@@ -5,11 +5,12 @@ const initialCards = [
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
-
+    /*
     {
         name: 'Челябинская область',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
     },
+    
     {
         name: 'Иваново',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
@@ -37,25 +38,8 @@ const initialCards = [
         name: 'Москва',
         link: 'https://images.unsplash.com/photo-1559890133-39d1c3021d9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=940&q=80'
     },
-
-];
-
-/*
-Попутно вопрос: как мне тогда 
-
-Суть проблемы: 
-
-не понимаю, как мне применять в функциях отдельные значения ключей. 
-
-
-
 */
-
-
-
-
-
-
+];
 
 
 //2.1. Объявление основных переменных для функция открытия и закрытия всплывающего окна
@@ -142,9 +126,6 @@ let elementImageAlt = elementTemplate.querySelector('.element__image').alt;
 let elementImageText = elementTemplate.querySelector('.element__text');
 
 //3.1.3.A. ПЕРЕМЕННЫЕ ДЛЯ ДОБАВЛЕНИЯ ЭЛЕМЕНТОВ В МАССИВ ФОТО
-
-//3.1.3.A.1. Добавление места: попробуем сначала добавить с готовой ссылкой
-initialCards.unshift({name:'Маиями', link:'https://images.unsplash.com/photo-1597688626913-a663bf4ea574?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'},);
 
 //ФУНКЦИИ
 
