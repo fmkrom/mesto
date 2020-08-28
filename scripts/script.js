@@ -68,7 +68,6 @@ const buttonAddPlace = document.querySelector('.profile__add-button');
 let elementPopUpFormAddPlace = document.querySelector('.popup__form-content-add-place');
 
 
-
 //2.2. Основные переменные для данных на странице
 
 //2.2.1. Имя пользователя на странице
@@ -124,7 +123,59 @@ let elementImageAlt = elementTemplate.querySelector('.element__image').alt;
 //3.1.3. Переменная для заголовка карточки (для последующей ее перезаписи при помощи textContent)
 let elementImageText = elementTemplate.querySelector('.element__text');
 
+
 //3.1.3.A. ПЕРЕМЕННЫЕ ДЛЯ ДОБАВЛЕНИЯ ЭЛЕМЕНТОВ В МАССИВ ФОТО
+
+//3.1.3.Б.1. Переменная для value формы добавления фото: название фото
+let formAddPlaceName = document.querySelector('.popup__form-field-place-name');
+
+//3.1.3.Б.2. Переменная для value формы добавления фото: ссылка на страницу
+let formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
+
+//3.1.3.Б.3. Переменная для кнопки "сохранить место"
+let popupFormButtonSavePlace = document.querySelector('.popup__form-button-save-place');
+
+
+//7. Переменные для открытия окна полномасштабного изображения: 
+
+//Само всплывающее окно
+imagePopupWindow = document.querySelector('.image__popup');
+
+//Картинка во всплывающем окне
+let imagePopupFullSize = document.querySelector('.image__popup-full-size');
+
+//Заголовок всплывающего окна
+let imagePopupTitle = document.querySelector('.image__popup-title');
+
+
+
+//ФУНКЦИЯ УДАЛЕНИЯ КАРТОЧКИ
+/*
+function removeCard(event){
+    const templateDeleteButton = clonedTemplate.querySelector('.element__delete-button');
+    
+    const removeCardEventTarget = event.target;
+    
+    let cardToRemove = templateDeleteButton.closest('.card__template');
+    
+    removeCardEventTarget = remove.cardToRemove;
+    console.log('card removed!');
+};*/
+
+
+
+/*-------------------------------------------------------------------------------*/
+
+//ФУНКЦИЯ ЛАЙКАНЬЯ ФОТО
+
+function likeCard(event){
+    const eventTarget = event.target;
+    eventTarget.classList.remove('element__group');
+    eventTarget.classList.add('element__group-like-active');
+};
+//Вызываем ее далее - в теле функции добавления карточки
+
+
 
 //ФУНКЦИИ
 
@@ -140,21 +191,42 @@ function addCard(element){
     //3.2.2. Наполнение темплаты содежимым
     clonedTemplate.querySelector('.element__image').src=(element.link);
     clonedTemplate.querySelector('.element__text').textContent=(element.name);
+
+    //Функция щелчка по кнопке удаления - прописывается внутри функции добавления темплаты
+    let templateDeleteButton = clonedTemplate.querySelector('.element__delete-button');
+        
+    //Добавляем к кнопке удаления слушатель события
+    templateDeleteButton.addEventListener('click', function(){
+        const removeCardEventTarget = event.target;
+        let cardToRemove = templateDeleteButton.closest(clonedTemplate);
+        console.log(cardToRemove);
     
+        removeCardEventTarget.cardToRemove.remove();
+        console.log('card removed!');
+    });
+    
+    //Функция щелчка по картинке для открытия полноэкранного изображения
+    let templateImageFullSize = clonedTemplate.querySelector('.element__image-open-full-size');
+
+    //добавляем к ней слушатель события
+    templateImageFullSize.addEventListener('click', function(){
+        console.log('image clicked!');
+    });
+    
+    //ЛАЙКНУТЬ ФОТО:
+
+    //Переменная для лайканья фото:
+    let templateLikeButton = clonedTemplate.querySelector('.element__group');
+
+    //Добавляем к переменной слушатель события:
+    templateLikeButton.addEventListener('click', likeCard);
+
+    //ФИНАЛЬНАЯ СТАДИЯ:
+    //Финальная стадия: добавление клонированной темплаты в конец блока elements
     sectionElements.prepend(clonedTemplate);
 };
 
 
-
-
-//3.1.3.Б.1. Переменная для value формы добавления фото: название фото
-let formAddPlaceName = document.querySelector('.popup__form-field-place-name');
-
-//3.1.3.Б.2. Переменная для value формы добавления фото: ссылка на страницу
-let formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
-
-//3.1.3.Б.3. Переменная для кнопки "сохранить место"
-let popupFormButtonSavePlace = document.querySelector('.popup__form-button-save-place');
 
 //Функция добавить и сохранить место
 function addPlaceAndSaveChanges(evt){
@@ -170,19 +242,11 @@ function addPlaceAndSaveChanges(evt){
     elementPopUpAddPlace.classList.add('popup');
     elementPopUpAddPlace.classList.remove('popup_opened');
     
-    console.log('function works!');
-    console.log(initialCards[0].name);
-    console.log(initialCards[0].link);
-    
     addCard({
         name:(formAddPlaceName.value), 
         link:(formAddPlaceUrl.value)
     },);
 }
-
-
-
-
 
 elementPopUpFormAddPlace.addEventListener('submit', addPlaceAndSaveChanges);
 
@@ -256,3 +320,4 @@ function dismissChangesAndClosePopupAddPlace(){
 
 //5.2.2. Привязываем эту функцию к кнопке "закрыть" в окне добавления карточки
 buttonCloseAddPlacePopupDismissChanges.addEventListener ('click', dismissChangesAndClosePopupAddPlace);
+

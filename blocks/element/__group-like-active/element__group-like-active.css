@@ -1,17 +1,13 @@
-.element__group{
+.element__group-like-active{
     width:20.76px;
     height: 18.13px;
     margin-top: 6px;
-
+    
     background-color: white;
-    background-image: url('../../../images/__graphics/graphics__group-like.png');
+    background-image: url('../../../images/__graphics/graphics__group-like-active.svg');
     background-size: contain;
     background-repeat: no-repeat;
-
+    
     border:0;
-}
-
-.element__group:hover{
-    opacity:0.3;
-    transition: 0.3s;
+   
 }
