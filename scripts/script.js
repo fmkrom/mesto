@@ -147,21 +147,7 @@ let imagePopupFullSize = document.querySelector('.image__popup-full-size');
 //Заголовок всплывающего окна
 let imagePopupTitle = document.querySelector('.image__popup-title');
 
-
-
-//ФУНКЦИЯ УДАЛЕНИЯ КАРТОЧКИ
-/*
-function removeCard(event){
-    const templateDeleteButton = clonedTemplate.querySelector('.element__delete-button');
-    
-    const removeCardEventTarget = event.target;
-    
-    let cardToRemove = templateDeleteButton.closest('.card__template');
-    
-    removeCardEventTarget = remove.cardToRemove;
-    console.log('card removed!');
-};*/
-
+let closeImagePopupWindow = document.querySelector('.popup__form-button-close-full-size');
 
 
 /*-------------------------------------------------------------------------------*/
@@ -174,6 +160,33 @@ function likeCard(event){
     eventTarget.classList.add('element__group-like-active');
 };
 //Вызываем ее далее - в теле функции добавления карточки
+
+
+//Функция: открыть попап с полномасштабным фото
+// Для начала пропишем открытие самого попапа
+
+//Функция: открыть попап
+function openFullSizeImage(event){
+    imagePopupWindow.classList.add('popup_opened');
+    imagePopupWindow.classList.remove('popup');
+
+    let eventTarget = event.target;
+    console.log(eventTarget);
+
+    let fullSizeImage = eventTarget.src;
+    console.log(fullSizeImage);
+
+    imagePopupFullSize.setAttribute('src', fullSizeImage);
+};
+
+//Функция: закрыть попап
+function closeFullSizeImage(){
+    imagePopupWindow.classList.remove('popup_opened');
+    imagePopupWindow.classList.add('popup');
+};
+
+//Привязываем функцию к кнопке "Закрыть" в самом попапе
+closeImagePopupWindow.addEventListener('click', closeFullSizeImage);
 
 
 
@@ -194,25 +207,25 @@ function addCard(element){
 
     //Функция щелчка по кнопке удаления - прописывается внутри функции добавления темплаты
     let templateDeleteButton = clonedTemplate.querySelector('.element__delete-button');
-        
+
     //Добавляем к кнопке удаления слушатель события
-    templateDeleteButton.addEventListener('click', function(){
-        const removeCardEventTarget = event.target;
-        let cardToRemove = templateDeleteButton.closest(clonedTemplate);
-        console.log(cardToRemove);
-    
-        removeCardEventTarget.cardToRemove.remove();
-        console.log('card removed!');
+    templateDeleteButton.addEventListener('click', function(event){
+        //Прописываем event.target: целью события становится кнопка удаления в конкретной карточке
+        const eventTarget = event.target;
+        
+        //Выбираем ближайшую к цели события карточку 
+        const templateCardToRemove = eventTarget.closest('.element');
+        
+        //Удаляем эту карточку
+        templateCardToRemove.remove();
     });
     
     //Функция щелчка по картинке для открытия полноэкранного изображения
     let templateImageFullSize = clonedTemplate.querySelector('.element__image-open-full-size');
 
     //добавляем к ней слушатель события
-    templateImageFullSize.addEventListener('click', function(){
-        console.log('image clicked!');
-    });
-    
+    templateImageFullSize.addEventListener('click', openFullSizeImage);
+        
     //ЛАЙКНУТЬ ФОТО:
 
     //Переменная для лайканья фото:
