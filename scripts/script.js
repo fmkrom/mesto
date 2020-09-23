@@ -165,19 +165,42 @@ function likeCard(event){
 //Функция: открыть попап с полномасштабным фото
 // Для начала пропишем открытие самого попапа
 
-//Функция: открыть попап
+/*Функция: открыть попап с полномасштабным изображением*/
+
 function openFullSizeImage(event){
     imagePopupWindow.classList.add('popup_opened');
     imagePopupWindow.classList.remove('popup');
 
+    /*Добавляем указатель события*/
     let eventTarget = event.target;
-    console.log(eventTarget);
-
+    
     let fullSizeImage = eventTarget.src;
-    console.log(fullSizeImage);
-
+    
     imagePopupFullSize.setAttribute('src', fullSizeImage);
+
+    /*Вторая часть функии: добавляет к полноэкранному изображению название карточки*/
+
+    //Выбираем ближайшую к цели события карточку
+    let cardElement = eventTarget.closest('.element__rectangle');
+
+    //В пределах этой карточки выбираем класс с названием карточки
+    let cardElementTitle = cardElement.querySelector('.element__text').textContent;
+
+    //Ставим ее текст в соотв. поле высплывающего окна
+    imagePopupTitle.textContent = (cardElementTitle);
+
+    /*Фнукция полностью рабочая!*/
 };
+
+/*
+    templateImageFullSize.addEventListener('click', function(event){
+        let myTargetElement = event.target.closest('.element__rectangle');
+        let myChild = myTargetElement.lastElementChild;
+        let myChildTitle = myChild.querySelector('.element__text').textContent;
+
+        console.log(myChildTitle);
+    });*/
+
 
 //Функция: закрыть попап
 function closeFullSizeImage(){
@@ -187,7 +210,6 @@ function closeFullSizeImage(){
 
 //Привязываем функцию к кнопке "Закрыть" в самом попапе
 closeImagePopupWindow.addEventListener('click', closeFullSizeImage);
-
 
 
 //ФУНКЦИИ
@@ -225,6 +247,8 @@ function addCard(element){
 
     //добавляем к ней слушатель события
     templateImageFullSize.addEventListener('click', openFullSizeImage);
+
+      
         
     //ЛАЙКНУТЬ ФОТО:
 
