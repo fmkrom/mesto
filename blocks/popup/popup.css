@@ -16,6 +16,8 @@
 
 @import "./_opened/popup_opened.css";
 
+@import "./__image-open-full-size/popup__image-open-full-size.css";
+
 .popup {
     display:none;
 }
