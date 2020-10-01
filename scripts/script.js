@@ -156,8 +156,7 @@ let closeImagePopupWindow = document.querySelector('.popup__form-button-close-fu
 
 function likeCard(event){
     const eventTarget = event.target;
-    eventTarget.classList.remove('element__group');
-    eventTarget.classList.add('element__group-like-active');
+    eventTarget.classList.toggle('element__group-like-active');
 };
 //Вызываем ее далее - в теле функции добавления карточки
 

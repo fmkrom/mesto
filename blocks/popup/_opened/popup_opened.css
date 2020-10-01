@@ -1,3 +1,5 @@
 .popup_opened{
     display:block;
+    /*z-index:3;
+    position:fixed;*/
 }
