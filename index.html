@@ -57,7 +57,7 @@
       
       <!--Попап №1 - редактирование профиля-->
       <section class="popup popup_edit-profile">
-         <div class="popup__overlay">
+         <div class="popup__overlay popup__overlay_light">
             <div class="popup__container">
                <button class="popup__form-button-close popup__form-button-close-edit-profile"></button>
                <div class="popup__form-block">
@@ -74,7 +74,7 @@
 
       <!--Попап №2 - добавить фото-->
       <section class="popup popup_add-place">
-         <div class="popup__overlay">
+         <div class="popup__overlay popup__overlay_light">
             <div class="popup__container">
                <button class="popup__form-button-close popup__form-button-close-add-place"></button>
                <div class="popup__form-block">
@@ -92,11 +92,13 @@
       <!--Попап №3 - Полномасштабное изображение-->
 
       <section class="popup image__popup">
-         <div class="popup__overlay">
+         <div class="popup__overlay popup__overlay_dark">
             <div class="popup__container">
                <button class="popup__form-button-close popup__form-button-close-full-size"></button>
-               <img scr="" class="image__popup-full-size" alt="">
-               <h4 class="image__popup-title"></h4>
+               <div class="popup__container-inner">
+                  <img scr="" class="image__popup-full-size" alt="">
+                  <h4 class="image__popup-title"></h4>
+               </div>
             </div>
          </div>
       </section>

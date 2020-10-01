@@ -18,6 +18,8 @@
 
 @import "./__image-open-full-size/popup__image-open-full-size.css";
 
+@import "./__container-inner/popup__container-inner.css";
+
 .popup {
     display:none;
 }
