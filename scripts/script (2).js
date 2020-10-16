@@ -214,8 +214,6 @@ const templateImageFullSize = clonedTemplate.querySelector('.element__image-open
 
 //3.2. Функция, добавляющая базовые карточки из массива на страницу
 
-function getCard(arrayItem){
-
     //Клонируюем темплату
     const clonedTemplate = elementTemplate.cloneNode(true);
 
@@ -227,6 +225,8 @@ function getCard(arrayItem){
 
     //Внутри темплаты: переменная для открытия полноэкранного изображения
     const templateImageFullSize = clonedTemplate.querySelector('.element__image-open-full-size');
+
+function getCard(arrayItem){
 
     //Наполнение темплаты содежимым
     clonedTemplate.querySelector('.element__image').src=(arrayItem.link);
@@ -246,16 +246,67 @@ function getCard(arrayItem){
     return clonedTemplate;
 };
 
-//Функция-рендерер
-/*ВАЖНО! В ней arrayItem - переменная элементов массива, связывающая воедино две этих функции*/
-
-function renderCards(arrayItem){
+initialCards.forEach(function(arrayItem){
     sectionElements.prepend(getCard(arrayItem));
+});
+    
+
+
+
+
+
+
+//const arrayDefined = getCard(initialCards);
+
+//console.log(arrayDefined);
+
+
+
+/* ПОЧТИ ПРАВИЛЬНОЕ РЕШЕНИЕ:
+function renderCards(clonedTemplate){
+    sectionElements.prepend(clonedTemplate);
 };
 
-//Вызываем функцию-рендерер и применяем к массиву карточек
-initialCards.forEach(renderCards);
+initialCards.forEach(renderCards(getCard(clonedTemplate)));
 
+ВЫВОДИТ КАРТОЧКУ, НО БЕЗ СОДЕРЖАНИЯ!
+*/
+
+
+
+
+
+
+
+
+//const readdyTemplates = initialCards.forEach(renderCards);
+
+
+
+//sectionElements.prepend(readdyTemplates);
+
+/*
+const templateToDeploy = initialCards.forEach(renderCards);
+
+function fillPage(templateToDeploy){
+    sectionElements.prepend(templateToDeploy);
+    console.log(templateToDeploy);
+};
+
+console.log(sectionElements);
+
+initialCards.forEach(fillPage);*/
+
+
+
+//renderCards(filledTemplate);
+
+//initialCards.forEach(renderCards);
+
+
+
+
+/*-------------------------------------------------------------------------*/
 
 //Функция: удаление карточки
 function deleteCard(event){
@@ -267,6 +318,92 @@ function likeCard(event){
     const eventTarget = event.target;
     eventTarget.classList.toggle('element__group-like-active');
 };
+
+//Функция: 
+
+
+
+
+
+
+
+
+ /*
+function renderCards(){
+    getCardElement();
+    sectionElements.prepend(clonedTemplate);
+};
+
+initialCards.forEach(renderCards);*/
+
+//sectionElements.append(clonedTemplate);
+
+
+
+
+
+
+
+
+
+
+
+//console.log(getCard);
+
+/*
+function addCard(element){
+    //3.2.1. Переменная, клонирующая темплату: попробовать вынести ее за пределы функции
+    const clonedTemplate = elementTemplate.cloneNode(true);
+
+    //3.2.2. Наполнение темплаты содежимым
+    clonedTemplate.querySelector('.element__image').src=(element.link);
+    clonedTemplate.querySelector('.element__text').textContent=(element.name);
+    clonedTemplate.querySelector('.element__image').alt=(element.name);
+
+    //Функция щелчка по кнопке удаления - прописывается внутри функции добавления темплаты
+    const templateDeleteButton = clonedTemplate.querySelector('.element__delete-button');
+
+    //Функция удаления карточки. Привязываем ее к кнопке
+    templateDeleteButton.addEventListener('click', function(event){
+        event.target.closest('.element').remove();
+    });
+   
+     //Функция щелчка по картинке для открытия полноэкранного изображения
+    const templateImageFullSize = clonedTemplate.querySelector('.element__image-open-full-size');
+
+    //добавляем к ней слушатель события
+    templateImageFullSize.addEventListener('click', openFullSizeImage);
+            
+    //ЛАЙКНУТЬ ФОТО:
+    //Переменная для лайканья фото:
+    const templateLikeButton = clonedTemplate.querySelector('.element__group');
+
+    //Добавляем к переменной слушатель события:
+    templateLikeButton.addEventListener('click', likeCard);
+
+    //ФИНАЛЬНАЯ СТАДИЯ:
+    //Финальная стадия: добавление клонированной темплаты в конец блока elements
+    sectionElements.prepend(clonedTemplate);
+};
+
+initialCards.forEach(addCard);*/
+
+
+//Функция добавить и сохранить место
+/*function addPlace(evt){
+    evt.preventDefault()
+        
+    elementPopUpAddPlace.classList.add('popup');
+    elementPopUpAddPlace.classList.remove('popup_opened');
+    
+    addCard({
+        name:(formAddPlaceName.value), 
+        link:(formAddPlaceUrl.value)
+    },);
+}*/
+
+//elementPopUpFormAddPlace.addEventListener('submit', addPlace);
+
 
 //5. Функции всплывающих окон
 
