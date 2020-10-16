@@ -189,31 +189,7 @@ closeImagePopupWindow.addEventListener('click', closeFullSizeImage);
 
 //ФУНКЦИИ
 
-//Функция удаления карточки:
-//1. Кнопка удаления 
- 
- //Функция удаления карточки. Привязываем ее к кнопке
- //templateDeleteButton.addEventListener('click', deleteCard);
-
-
-//3.2. Функция, добавляющая базовые карточки из массива на страницу
-
-/*
-//Клонируюем темплату
-const clonedTemplate = elementTemplate.cloneNode(true);
-
-//Внутри темплаты: кнопка удаления карточки:
-const templateDeleteButton = clonedTemplate.querySelector('.element__delete-button');
-
-//Внутри темплаты: кнопка лайка карточки
-const templateLikeButton = clonedTemplate.querySelector('.element__group');
-
-//Внутри темплаты: переменная для открытия полноэкранного изображения
-const templateImageFullSize = clonedTemplate.querySelector('.element__image-open-full-size');
-*/
-
-//3.2. Функция, добавляющая базовые карточки из массива на страницу
-
+//Функция добавления базовых карточек
 function getCard(arrayItem){
 
     //Клонируюем темплату
@@ -248,14 +224,12 @@ function getCard(arrayItem){
 
 //Функция-рендерер
 /*ВАЖНО! В ней arrayItem - переменная элементов массива, связывающая воедино две этих функции*/
-
 function renderCards(arrayItem){
     sectionElements.prepend(getCard(arrayItem));
 };
 
 //Вызываем функцию-рендерер и применяем к массиву карточек
 initialCards.forEach(renderCards);
-
 
 //Функция: удаление карточки
 function deleteCard(event){
@@ -267,6 +241,23 @@ function likeCard(event){
     const eventTarget = event.target;
     eventTarget.classList.toggle('element__group-like-active');
 };
+
+//Функция добавить и сохранить место
+function addPlace(evt){
+    evt.preventDefault()
+        
+    elementPopUpAddPlace.classList.add('popup');
+    elementPopUpAddPlace.classList.remove('popup_opened');
+    
+    renderCards({
+        name:(formAddPlaceName.value), 
+        link:(formAddPlaceUrl.value),
+        alt:(formAddPlaceName.value) 
+    },);
+};
+
+elementPopUpFormAddPlace.addEventListener('submit', addPlace);
+
 
 //5. Функции всплывающих окон
 
