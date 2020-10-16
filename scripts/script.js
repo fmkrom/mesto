@@ -45,10 +45,10 @@ const initialCards = [
 //А. Форма редактирования профиля
 
 //2.1.1. Переменная с кодом всплывающего окна
-const elementPopUpEditProfile = document.querySelector('.popup_edit-profile');
+const popupEditProfile = document.querySelector('.popup_edit-profile');
 
 //2.1.2.Переменная с контентом всплывающего окна (для submit) - в окне редактирования профиля
-const elementPopUpFormEditProfile = document.querySelector('.popup__form-content-profile');
+const formEditProfile = document.querySelector('.popup__form-content-profile');
 
 //2.1.3. Поле формы: имя пользователя
 const formFieldName = document.querySelector('.popup__form-field-name');
@@ -57,14 +57,14 @@ const formFieldName = document.querySelector('.popup__form-field-name');
 const formFieldJob = document.querySelector('.popup__form-field-job'); 
 
 
-//Б. Форма добавления фото
-const elementPopUpAddPlace = document.querySelector('.popup_add-place');
+//Б. Попап (всплывающее окно) добавления фото
+const popupAddPlace = document.querySelector('.popup_add-place');
 
 //2.1.5. Кнопка "Добавить место"
 const buttonAddPlace = document.querySelector('.profile__add-button');
 
 //2.1.6.Переменная с контентом ФОРМЫ всплывающего окна (для submit) - в окне добавления места
-const elementPopUpFormAddPlace = document.querySelector('.popup__form-content-add-place');
+const popupFormAddPlace = document.querySelector('.popup__form-content-add-place');
 
 
 //2.2. Основные переменные для данных на странице
@@ -94,10 +94,10 @@ const formAddPlaceFieldName = document.querySelector('.popup__form-field-place-n
 const formAddPlaceFieldUrl = document.querySelector('.popup__form-field-photo-url');
 
 //2.3.4. Кнопка "Закрыть профиль без сохранения изменений"
-const buttonCloseEditProfilePopupDismissChanges = document.querySelector('.popup__form-button-close-edit-profile');
+const buttonCloseEditProfile = document.querySelector('.popup__form-button-close-edit-profile');
 
 //2.3.5. Кнопка "Закрыть без сохранения изменений" окно добавления фото
-const buttonCloseAddPlacePopupDismissChanges = document.querySelector('.popup__form-button-close-add-place');
+const buttonCloseAddPlace = document.querySelector('.popup__form-button-close-add-place');
 
 //ПЕРЕМЕННЫЕ ДЛЯ МАССИВА КАРТОЧЕК
 
@@ -152,9 +152,8 @@ const closeImagePopupWindow = document.querySelector('.popup__form-button-close-
 /*Функция: открыть попап с полномасштабным изображением*/
 
 function openFullSizeImage(event){
-    imagePopupWindow.classList.add('popup_opened');
-    imagePopupWindow.classList.remove('popup');
-
+    openPopup(imagePopupWindow);
+    
     /*Добавляем указатель события*/
     const eventTarget = event.target;
     
@@ -178,16 +177,32 @@ function openFullSizeImage(event){
 
 };
 
-//Функция: закрыть попап
+//Функция: закрыть попап c полномасштабным изображением
 function closeFullSizeImage(){
-    imagePopupWindow.classList.remove('popup_opened');
-    imagePopupWindow.classList.add('popup');
+    closePopup(imagePopupWindow);
 };
 
 //Привязываем функцию к кнопке "Закрыть" в самом попапе
 closeImagePopupWindow.addEventListener('click', closeFullSizeImage);
 
 //ФУНКЦИИ
+
+/*Функции открытия и закрытия всплывающих окон: прописываем их отдельно в соотв. с пожеланиями ревьюэра*/
+
+//Функция открытия попапа
+function openPopup(popupName){
+    //popupName - здесь будет переменная того попапа, который нужно закрыть
+    (popupName).classList.add('popup_opened');
+    (popupName).classList.remove('popup');
+};
+
+//Функция закрытия попапа
+function closePopup(popupName){
+    //popupName - здесь будет переменная того попапа, который нужно закрыть
+    (popupName).classList.remove('popup_opened');
+    (popupName).classList.add('popup');
+};
+
 
 //Функция добавления базовых карточек
 function getCard(arrayItem){
@@ -246,18 +261,16 @@ function likeCard(event){
 function addPlace(evt){
     evt.preventDefault()
         
-    elementPopUpAddPlace.classList.add('popup');
-    elementPopUpAddPlace.classList.remove('popup_opened');
-    
     renderCards({
         name:(formAddPlaceName.value), 
         link:(formAddPlaceUrl.value),
         alt:(formAddPlaceName.value) 
     },);
+
+    closePopup(popupAddPlace);
 };
 
-elementPopUpFormAddPlace.addEventListener('submit', addPlace);
-
+popupFormAddPlace.addEventListener('submit', addPlace);
 
 //5. Функции всплывающих окон
 
@@ -266,19 +279,17 @@ elementPopUpFormAddPlace.addEventListener('submit', addPlace);
 //5.1. Функция: открыть окно редактирования профиля
 
 function editProfile(){
-    elementPopUpEditProfile.classList.remove('popup');
-    elementPopUpEditProfile.classList.add('popup_opened');
-
+    openPopup(popupEditProfile);
+    
     formFieldName.value = (formNameDefault);
     formFieldJob.value = (formJobDefault);
-
-}
+};
 
 buttonEditProfile.addEventListener('click', editProfile);
 
 //5.2. Функция: редактировать профиль, сохранить изменения и закрыть окно
 
-function editProfileAndSaveChanges(evt){
+function saveProfileChanges(evt){
     evt.preventDefault();
     
     pageProfileName.textContent = (formFieldName.value);
@@ -287,44 +298,39 @@ function editProfileAndSaveChanges(evt){
     formNameDefault = (formFieldName.value);
     formJobDefault = (formFieldJob.value);
     
-    elementPopUpEditProfile.classList.remove('popup_opened');
-    elementPopUpEditProfile.classList.add('popup');
-    
-}
+    closePopup(popupEditProfile);
+};
 
-elementPopUpFormEditProfile.addEventListener('submit', editProfileAndSaveChanges);
+formEditProfile.addEventListener('submit', saveProfileChanges);
 
 //5.3. Функция: закрыть окно редактирования профиля и не сохранять изменения
 
-function dismissChangesAndClosePopup(){
+function dismissProfileChanges(){
     
     formFieldName.textContent = (pageProfileName);
     formFieldJob.textContent = (pageProfileJob);
 
-    elementPopUpEditProfile.classList.remove('popup_opened');
-    elementPopUpEditProfile.classList.add('popup');
+    closePopup(popupEditProfile);
 }
 
-buttonCloseEditProfilePopupDismissChanges.addEventListener ('click', dismissChangesAndClosePopup);
+buttonCloseEditProfile.addEventListener ('click', dismissProfileChanges);
 
 //Б. Функции окна "Добавить новую карточку"
 
 //5.1.1. Функция: открыть окно добавления карточки
-function functionPopUpOpenAddPlace(){
-    elementPopUpAddPlace.classList.remove('popup');
-    elementPopUpAddPlace.classList.add('popup_opened');
+function openPopupAddCard(){
+    openPopup(popupAddPlace);
 };
 
 //5.1.2. Привязываем эту функцию к кнопке "добавить" в окне добавления карточки
-buttonAddPlace.addEventListener('click', functionPopUpOpenAddPlace);
+buttonAddPlace.addEventListener('click', openPopupAddCard);
 
 //5.2.1. Функция - закрыть окно добавления карточки
-function dismissChangesAndClosePopupAddPlace(){
-    
-    elementPopUpAddPlace.classList.add('popup');
-    elementPopUpAddPlace.classList.remove('popup_opened');
+function closePopupAddCard(){
+    //Функция: закрыть окно добавления карточки и не сохранять изменения
+    closePopup(popupAddPlace);
 }
 
 //5.2.2. Привязываем эту функцию к кнопке "закрыть" в окне добавления карточки
-buttonCloseAddPlacePopupDismissChanges.addEventListener ('click', dismissChangesAndClosePopupAddPlace);
+buttonCloseAddPlace.addEventListener ('click', closePopupAddCard);
 
