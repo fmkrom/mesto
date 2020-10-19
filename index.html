@@ -35,7 +35,7 @@
             <template class="template">
                <div class="card">
                   <div class="card__rectangle">
-                     <button class="card__delete-button"></button>
+                     <button class="card__delete-button" type="button"></button>
                         <a href="#" class="card__open-fullsize-image">
                            <img src="" class="card__image" alt="">
                         </a>
@@ -68,8 +68,8 @@
                   
                   <!--Отдельный блок внутри попапа: форма для заполнения-->
                      <form class="form form_edit-profile">
-                        <input class="form__field form-field_input_name" name="name" placeholder="Имя" value=""  type="text">
-                        <input class="form__field form-field_input_job" name="job" placeholder="Род занятий" value="" type="text">
+                        <input required class="form__field form-field_input_name" name="name" placeholder="Имя" value=""  type="text">
+                        <input required class="form__field form-field_input_job" name="job" placeholder="Род занятий" value="" type="text">
                         <button class="form__button-save" type="submit">Сохранить</button>
                      </form>
                   <!--Конец формы-->
@@ -90,8 +90,8 @@
                   
                   <!--Отдельный блок внутри попапа: форма для заполнения-->
                         <form class="form form_add-place">
-                           <input class="form__field form-field_input_place-name" name="place" placeholder="Название" value=""  type="text">
-                           <input class="form__field form-field_input_image-url" name="url" placeholder="Ссылка на картинку" value=""  type="url">
+                           <input required class="form__field form-field_input_place-name" name="place" placeholder="Название" value=""  type="text">
+                           <input required class="form__field form-field_input_image-url" name="url" placeholder="Ссылка на картинку" value=""  type="url">
                            <button class="form__button-save" type="submit">Создать</button>
                         </form>
                   <!--Конец формы-->
