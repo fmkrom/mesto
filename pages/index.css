@@ -8,20 +8,19 @@
 
 @import "../blocks/header/header.css";
 
-@import "../blocks/elements/elements.css";
+@import "../blocks/cards/cards.css";
 
-@import "../blocks/element/element.css";
+@import "../blocks/card/card.css";
 
 @import "../blocks/profile/profile.css";
 
 @import "../blocks/popup/popup.css";
 
+@import "../blocks/form/form.css";
+
 @import "../blocks/footer/footer.css";
 
-@import "../blocks/image/image.css";
-
 /*@import "./layout.css";*/
-
 
 
 

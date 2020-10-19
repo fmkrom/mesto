@@ -40,31 +40,36 @@ const initialCards = [
 
 ];
 
-//2.1. Объявление основных переменных для функция открытия и закрытия всплывающего окна
+//ПЕРЕМЕННЫЕ
 
-//А. Форма редактирования профиля
+/*--------------------------------------------------------------------------------------------*/
+//А. Переменные для функции редактирования профиля
 
-//2.1.1. Переменная с кодом всплывающего окна
-const popupEditProfile = document.querySelector('.popup_edit-profile');
+//1. Всплывающее окно редактирования профиля
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 
 //2.1.2.Переменная с контентом всплывающего окна (для submit) - в окне редактирования профиля
-const formEditProfile = document.querySelector('.popup__form-content-profile');
+const formEditProfile = document.querySelector('.form_edit-profile');
 
 //2.1.3. Поле формы: имя пользователя
-const formFieldName = document.querySelector('.popup__form-field-name');
+const formFieldName = formEditProfile.querySelector('.form-field_input_name');
 
 //2.1.4. Поле формы: профессия
-const formFieldJob = document.querySelector('.popup__form-field-job'); 
+const formFieldJob = formEditProfile.querySelector('.form-field_input_job');
 
+//2.3.2.1. Кнопка "Cохранить изменения профиля"
+const buttonSaveProfile = formEditProfile.querySelector('.form__button-save');
+
+/*--------------------------------------------------------------------------------------------*/
 
 //Б. Попап (всплывающее окно) добавления фото
-const popupAddPlace = document.querySelector('.popup_add-place');
+const popupAddCard = document.querySelector('.popup_type_add-card');
 
-//2.1.5. Кнопка "Добавить место"
-const buttonAddPlace = document.querySelector('.profile__add-button');
+//2.1.5. Кнопка "Добавить место" на главной странице
+const buttonAddCard = document.querySelector('.profile__add-button');
 
 //2.1.6.Переменная с контентом ФОРМЫ всплывающего окна (для submit) - в окне добавления места
-const popupFormAddPlace = document.querySelector('.popup__form-content-add-place');
+const popupFormAddPlace = popupAddCard.querySelector('.form_add-place');
 
 
 //2.2. Основные переменные для данных на странице
@@ -84,40 +89,38 @@ let formJobDefault = pageProfileJob.textContent;
 //2.3.1. Кнопка "редактировать профиль"
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 
-//2.3.2.1. Кнопка "сохранить изменения" профиля
-const buttonSaveProfileChanges = document.querySelector('.popup__form-button-save-profile');
-
 //2.3.2.2.1. Поле формы окна "Добавить место" - название места 
-const formAddPlaceFieldName = document.querySelector('.popup__form-field-place-name');
+const formAddPlaceFieldName = document.querySelector('.form-field_input_place-name');
 
 //2.3.2.2.2. Поле формы окна "Добавить место" - ссылка на фото места
-const formAddPlaceFieldUrl = document.querySelector('.popup__form-field-photo-url');
+const formAddPlaceFieldUrl = document.querySelector('.form-field_input_image-url');
+
+//Попап редуктирования профиля
 
 //2.3.4. Кнопка "Закрыть профиль без сохранения изменений"
-const buttonCloseEditProfile = document.querySelector('.popup__form-button-close-edit-profile');
+const buttonCloseEditProfile = popupEditProfile.querySelector('.popup__button-close');
 
 //2.3.5. Кнопка "Закрыть без сохранения изменений" окно добавления фото
-const buttonCloseAddPlace = document.querySelector('.popup__form-button-close-add-place');
+const buttonCloseAddCard = popupAddCard.querySelector('.popup__button-close');
 
 //ПЕРЕМЕННЫЕ ДЛЯ МАССИВА КАРТОЧЕК
 
 //3.1. Переменные для обращения к массиву карточек и фото
 
 //3.1.1. Секция elements, в котором будут располагаться темплаты
-const sectionElements = document.querySelector('.elements');
+const cardsNode = document.querySelector('.cards');
 
 //3.2.1. Темплата элемента. Обращаемся к ее содержанию
-const elementTemplate = document.querySelector('.card__template').content;
+const cardTemplate = document.querySelector('.template').content;
 
 //3.1.1. Изображение внутри карточки
-const elementImage = elementTemplate.querySelector('.element__image');
+const cardImage = cardTemplate.querySelector('.card__image');
 
 //3.1.2. Аттрибут "Alt" фотографии на странице
-const elementImageAlt = elementTemplate.querySelector('.element__image').alt;
+const cardImageAlt = cardTemplate.querySelector('.card__image').alt;
 
 //3.1.3. Переменная для заголовка карточки (для последующей ее перезаписи при помощи textContent)
-const elementImageText = elementTemplate.querySelector('.element__text');
-
+const cardTitle = cardTemplate.querySelector('.card__title');
 
 //3.1.3.A. ПЕРЕМЕННЫЕ ДЛЯ ДОБАВЛЕНИЯ ЭЛЕМЕНТОВ В МАССИВ ФОТО
 
@@ -129,7 +132,6 @@ const formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
 
 //3.1.3.Б.3. Переменная для кнопки "сохранить место"
 const popupFormButtonSavePlace = document.querySelector('.popup__form-button-save-place');
-
 
 //7. Переменные для открытия окна полномасштабного изображения: 
 
@@ -143,6 +145,21 @@ const imagePopupFullSize = document.querySelector('.image__popup-full-size');
 const imagePopupTitle = document.querySelector('.image__popup-title');
 
 const closeImagePopupWindow = document.querySelector('.popup__form-button-close-full-size');
+
+/*-------------------------------------------------------------------------------*/
+//Базовая функция открытия и закрытия окон:
+
+function openPopup(popupName){
+    //popupName - здесь будет переменная того попапа, который нужно закрыть
+    (popupName).classList.remove('popup_mode_closed');
+    (popupName).classList.add('popup_mode_opened');
+};
+
+function closePopup(popupName){
+    //popupName - здесь будет переменная того попапа, который нужно закрыть
+    (popupName).classList.remove('popup_mode_opened');
+    (popupName).classList.add('popup_mode_closed');
+};
 
 /*-------------------------------------------------------------------------------*/
 
@@ -183,46 +200,28 @@ function closeFullSizeImage(){
 };
 
 //Привязываем функцию к кнопке "Закрыть" в самом попапе
-closeImagePopupWindow.addEventListener('click', closeFullSizeImage);
-
-//ФУНКЦИИ
-
-/*Функции открытия и закрытия всплывающих окон: прописываем их отдельно в соотв. с пожеланиями ревьюэра*/
-
-//Функция открытия попапа
-function openPopup(popupName){
-    //popupName - здесь будет переменная того попапа, который нужно закрыть
-    (popupName).classList.add('popup_opened');
-    (popupName).classList.remove('popup');
-};
-
-//Функция закрытия попапа
-function closePopup(popupName){
-    //popupName - здесь будет переменная того попапа, который нужно закрыть
-    (popupName).classList.remove('popup_opened');
-    (popupName).classList.add('popup');
-};
+//closeImagePopupWindow.addEventListener('click', closeFullSizeImage);
 
 
 //Функция добавления базовых карточек
 function getCard(arrayItem){
 
     //Клонируюем темплату
-    const clonedTemplate = elementTemplate.cloneNode(true);
-
+    const clonedTemplate = cardTemplate.cloneNode(true);
+    
     //Внутри темплаты: кнопка удаления карточки:
-    const templateDeleteButton = clonedTemplate.querySelector('.element__delete-button');
+    const templateDeleteButton = clonedTemplate.querySelector('.card__delete-button');
 
     //Внутри темплаты: кнопка лайка карточки
-    const templateLikeButton = clonedTemplate.querySelector('.element__group');
+    const templateLikeButton = clonedTemplate.querySelector('.card__like-button');
 
     //Внутри темплаты: переменная для открытия полноэкранного изображения
-    const templateImageFullSize = clonedTemplate.querySelector('.element__image-open-full-size');
+    const templateImageFullSize = clonedTemplate.querySelector('.card__open-fullsize-image');
 
     //Наполнение темплаты содежимым
-    clonedTemplate.querySelector('.element__image').src=(arrayItem.link);
-    clonedTemplate.querySelector('.element__text').textContent=(arrayItem.name);
-    clonedTemplate.querySelector('.element__image').alt=(arrayItem.name);
+    clonedTemplate.querySelector('.card__image').src=(arrayItem.link);
+    clonedTemplate.querySelector('.card__title').textContent=(arrayItem.name);
+    clonedTemplate.querySelector('.card__image').alt=(arrayItem.name);
 
      //Привязываем ее к кнопке "Удалить" функцию удаления карточки
     templateDeleteButton.addEventListener('click', deleteCard);
@@ -240,7 +239,7 @@ function getCard(arrayItem){
 //Функция-рендерер
 /*ВАЖНО! В ней arrayItem - переменная элементов массива, связывающая воедино две этих функции*/
 function renderCards(arrayItem){
-    sectionElements.prepend(getCard(arrayItem));
+    cardsNode.prepend(getCard(arrayItem));
 };
 
 //Вызываем функцию-рендерер и применяем к массиву карточек
@@ -248,13 +247,14 @@ initialCards.forEach(renderCards);
 
 //Функция: удаление карточки
 function deleteCard(event){
-    event.target.closest('.element').remove();
+    event.target.closest('.card').remove();
 };
 
 //Функция: лайкнуть фото
 function likeCard(event){
     const eventTarget = event.target;
-    eventTarget.classList.toggle('element__group-like-active');
+    eventTarget.classList.toggle('card__like-button');
+    eventTarget.classList.toggle('card__like-button_active');
 };
 
 //Функция добавить и сохранить место
@@ -262,15 +262,16 @@ function addPlace(evt){
     evt.preventDefault()
         
     renderCards({
-        name:(formAddPlaceName.value), 
-        link:(formAddPlaceUrl.value),
-        alt:(formAddPlaceName.value) 
+        name:(formAddPlaceFieldName.value), 
+        link:(formAddPlaceFieldUrl.value),
+        alt:(formAddPlaceFieldName.value) 
     },);
 
-    closePopup(popupAddPlace);
+    closePopup(popupAddCard);
 };
 
 popupFormAddPlace.addEventListener('submit', addPlace);
+
 
 //5. Функции всплывающих окон
 
@@ -319,18 +320,18 @@ buttonCloseEditProfile.addEventListener ('click', dismissProfileChanges);
 
 //5.1.1. Функция: открыть окно добавления карточки
 function openPopupAddCard(){
-    openPopup(popupAddPlace);
+    openPopup(popupAddCard);
 };
 
 //5.1.2. Привязываем эту функцию к кнопке "добавить" в окне добавления карточки
-buttonAddPlace.addEventListener('click', openPopupAddCard);
+buttonAddCard.addEventListener('click', openPopupAddCard);
 
 //5.2.1. Функция - закрыть окно добавления карточки
 function closePopupAddCard(){
     //Функция: закрыть окно добавления карточки и не сохранять изменения
-    closePopup(popupAddPlace);
+    closePopup(popupAddCard);
 }
 
 //5.2.2. Привязываем эту функцию к кнопке "закрыть" в окне добавления карточки
-buttonCloseAddPlace.addEventListener ('click', closePopupAddCard);
+buttonCloseAddCard.addEventListener ('click', closePopupAddCard);
 

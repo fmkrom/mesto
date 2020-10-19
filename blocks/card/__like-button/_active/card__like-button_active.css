@@ -1,0 +1,13 @@
+.card__like-button_active{
+    width:20.76px;
+    height: 18.13px;
+    margin-top: 6px;
+    
+    background-color: white;
+    background-image: url('../../../../images/__graphics/graphics__like-button_active.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    border:0;
+   
+}

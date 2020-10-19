@@ -1,0 +1,15 @@
+@import "./___image/card__image.css";
+@import "./__delete-button/card__delete-button.css";
+@import "./__like-button/card__like-button.css";
+@import "./__rectangle/card__rectangle.css";
+@import "./__title-block/card__title-block.css";
+@import "./__title/card__title.css";
+
+.card{
+    width: 282px;
+    height: 361px;
+
+    padding:0;
+
+}
+

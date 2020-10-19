@@ -30,18 +30,18 @@
             <button class="profile__add-button" type="button"></button>
          </section>
          
-         <section class="elements">
+         <section class="cards">
             
-            <template class="card__template">
-               <div class="element">
-                  <div class="element__rectangle">
-                     <button class="element__delete-button"></button>
-                        <a href="#" class="element__image-open-full-size">
-                           <img src="" class="element__image" alt="">
+            <template class="template">
+               <div class="card">
+                  <div class="card__rectangle">
+                     <button class="card__delete-button"></button>
+                        <a href="#" class="card__open-fullsize-image">
+                           <img src="" class="card__image" alt="">
                         </a>
-                     <div class="element__title">
-                        <h2 class="element__text"></h2>
-                        <button class="element__group"></button>
+                     <div class="card__title-block">
+                        <h2 class="card__title"></h2>
+                        <button class="card__like-button"></button>
                      </div>
                   </div>
                </div>
@@ -57,34 +57,45 @@
       </div>
       
       <!--Попап №1 - редактирование профиля-->
-      <section class="popup popup_edit-profile">
+      <section class="popup popup_mode_closed popup_type_edit-profile">
          <div class="popup__overlay popup__overlay_light">
-            <div class="popup__container">
-               <button class="popup__form-button-close popup__form-button-close-edit-profile"></button>
-               <div class="popup__form-block">
-                  <h3 class="popup__form-title">Редактировать профиль</h3>
-                  <form class="popup__form-content popup__form-content-profile">
-                     <input name="name" placeholder="Имя" value="" class="popup__form-field popup__form-field-name" type="text">
-                     <input name="job" placeholder="Род занятий" value="" class="popup__form-field popup__form-field-job" type="text">
-                     <button class="popup__form-button-save popup__form-button-save-profile" type="submit">Сохранить</button>
-                  </form>
+            <div class="popup__content-block">
+               
+               <button class="popup__button-close"></button>
+               
+               <div class="popup__form-container">
+                  <h3 class="popup__title">Редактировать профиль</h3>
+                  
+                  <!--Отдельный блок внутри попапа: форма для заполнения-->
+                     <form class="form form_edit-profile">
+                        <input class="form__field form-field_input_name" name="name" placeholder="Имя" value=""  type="text">
+                        <input class="form__field form-field_input_job" name="job" placeholder="Род занятий" value="" type="text">
+                        <button class="form__button-save" type="submit">Сохранить</button>
+                     </form>
+                  <!--Конец формы-->
                </div>
+               
             </div>
          </div>
       </section>
 
       <!--Попап №2 - добавить фото-->
-      <section class="popup popup_add-place">
+      <section class="popup popup_mode_closed popup_type_add-card">
          <div class="popup__overlay popup__overlay_light">
-            <div class="popup__container">
-               <button class="popup__form-button-close popup__form-button-close-add-place"></button>
-               <div class="popup__form-block">
-                  <h3 class="popup__form-title">Новое место</h3>
-                  <form class="popup__form-content popup__form-content-add-place">
-                     <input name="place" placeholder="Название" value="" class="popup__form-field popup__form-field-place-name" type="text">
-                     <input name="url" placeholder="Ссылка на картинку" value="" class="popup__form-field popup__form-field-photo-url" type="url">
-                     <button class="popup__form-button-save popup__form-button-save-place" type="submit">Создать</button>
-                  </form>
+            <div class="popup__content-block">
+               
+               <button class="popup__button-close"></button>
+               <div class="popup__form-container">
+                  <h3 class="popup__title">Новое место</h3>
+                  
+                  <!--Отдельный блок внутри попапа: форма для заполнения-->
+                        <form class="form form_add-place">
+                           <input class="form__field form-field_input_place-name" name="place" placeholder="Название" value=""  type="text">
+                           <input class="form__field form-field_input_image-url" name="url" placeholder="Ссылка на картинку" value=""  type="url">
+                           <button class="form__button-save" type="submit">Создать</button>
+                        </form>
+                  <!--Конец формы-->
+
                </div>
             </div>
          </div>
@@ -92,14 +103,17 @@
 
       <!--Попап №3 - Полномасштабное изображение-->
 
-      <section class="popup image__popup">
+      <section class="popup popup_mode_closed popup_type_fullsize-image">
          <div class="popup__overlay popup__overlay_dark">
-            <div class="popup__container">
-               <button class="popup__form-button-close popup__form-button-close-full-size"></button>
-               <div class="popup__container-inner">
-                  <img scr="" class="image__popup-full-size" alt="">
-                  <h4 class="image__popup-title"></h4>
-               </div>
+            <div class="popup__content-block">
+                              
+               <button class="popup__button-close"></button>
+                  <!--Блок с изображением-->   
+                     <div class="fullsize-image__image-block">
+                        <img scr="" class="fullsize-image__image" alt="">
+                        <h4 class="fullsize-image__title"></h4>
+                     </div>
+                  <!--Конец блока с изображением-->
             </div>
          </div>
       </section>

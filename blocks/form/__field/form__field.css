@@ -1,0 +1,22 @@
+.form__field {
+    width: 358px;
+    height: 27.26px;
+    margin: 0 auto;
+
+    margin-bottom: 29.74px;
+
+    border-top:0;
+    border-left:0;
+    border-right:0;
+       
+}
+
+.form__field:last-of-type {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 450px){
+    .form__field{
+        width:90%;
+    }
+}

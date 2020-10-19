@@ -1,31 +1,7 @@
-@import "./__container/popup__container.css";
-
-@import "./__form-button-close/popup__form-button-close.css";
-
-@import "./__form-button-save/popup__form-button-save.css";
-
-@import "./__form-field/popup__form-field.css";
-
-@import "./__form-block/popup__form-block.css";
-
+@import "./_mode/popup_mode.css";
 @import "./__overlay/popup__overlay.css";
-
-@import "./__title/popup__form-title.css";
-
-@import "./__form-content/popup__form-content.css";
-
-@import "./_opened/popup_opened.css";
-
-@import "./__image-open-full-size/popup__image-open-full-size.css";
-
-@import "./__container-inner/popup__container-inner.css";
-
-.popup {
-    /*display:none;*/
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 3s, opacity 0.7s linear;
-}
-
-
+@import "./__form-container/popup__form-container.css";
+@import "./__title/popup__title.css";
+@import "./__content-block/popup__content-block.css";
+@import "./__button-close/popup__button-close.css";
 
