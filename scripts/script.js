@@ -136,15 +136,15 @@ const popupFormButtonSavePlace = document.querySelector('.popup__form-button-sav
 //7. Переменные для открытия окна полномасштабного изображения: 
 
 //Само всплывающее окно
-const imagePopupWindow = document.querySelector('.image__popup');
+const popupFullsizeImage = document.querySelector('.popup_type_fullsize-image');
 
 //Картинка во всплывающем окне
-const imagePopupFullSize = document.querySelector('.image__popup-full-size');
+const fullsizeImage = document.querySelector('.fullsize-image__image');
 
 //Заголовок всплывающего окна
-const imagePopupTitle = document.querySelector('.image__popup-title');
+const fullsizeImageTitle = document.querySelector('.fullsize-image__title');
 
-const closeImagePopupWindow = document.querySelector('.popup__form-button-close-full-size');
+const buttonCloseFullsizeImage = popupFullsizeImage.querySelector('.popup__button-close');
 
 /*-------------------------------------------------------------------------------*/
 //Базовая функция открытия и закрытия окон:
@@ -169,39 +169,37 @@ function closePopup(popupName){
 /*Функция: открыть попап с полномасштабным изображением*/
 
 function openFullSizeImage(event){
-    openPopup(imagePopupWindow);
+    openPopup(popupFullsizeImage);
     
     /*Добавляем указатель события*/
     const eventTarget = event.target;
     
-    const fullSizeImage = eventTarget.src;
+    const OpenedFullsizeImage = eventTarget.src;
     
-    imagePopupFullSize.setAttribute('src', fullSizeImage);
+    fullsizeImage.setAttribute('src', OpenedFullsizeImage);
 
     /*Вторая часть функии: добавляет к полноэкранному изображению название карточки*/
 
     //Выбираем ближайшую к цели события карточку
-    const cardElement = eventTarget.closest('.element__rectangle');
+    const cardElement = eventTarget.closest('.card__rectangle');
 
     //В пределах этой карточки выбираем класс с названием карточки
-    const cardElementTitle = cardElement.querySelector('.element__text').textContent;
+    const OpenedFullsizeImageTitle = cardElement.querySelector('.card__title').textContent;
 
     //Ставим ее текст в соотв. поле высплывающего окна
-    imagePopupTitle.textContent = (cardElementTitle);
+    fullsizeImageTitle.textContent = (OpenedFullsizeImageTitle);
 
     //Добавляем картинке "alt": он дублирует название карточки
-    imagePopupTitle.setAttribute('alt', cardElementTitle);
+    fullsizeImageTitle.setAttribute('alt', OpenedFullsizeImageTitle);
 
 };
 
 //Функция: закрыть попап c полномасштабным изображением
 function closeFullSizeImage(){
-    closePopup(imagePopupWindow);
+    closePopup(popupFullsizeImage);
 };
 
-//Привязываем функцию к кнопке "Закрыть" в самом попапе
-//closeImagePopupWindow.addEventListener('click', closeFullSizeImage);
-
+buttonCloseFullsizeImage.addEventListener('click', closeFullSizeImage);
 
 //Функция добавления базовых карточек
 function getCard(arrayItem){

@@ -1,3 +1,4 @@
-@import "./__popup-title/image__popup-title.css";
-@import "./__popup-full-size/image__popup-full-size.css";
+@import "./__image-block/fullsize-image__image-block.css";
+@import "./__image/fullsize-image__image.css";
+@import "./__title/fullsize-image__title.css";
 
