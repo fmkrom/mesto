@@ -78,13 +78,13 @@ const popupFormAddPlace = popupAddCard.querySelector('.form_add-place');
 const pageProfileName = document.querySelector('.profile__name'); 
 
 //2.2.2. Имя пользователя по умолчанию
-let formNameDefault = pageProfileName.textContent;
+const formNameDefault = pageProfileName.textContent;
 
 //2.2.3. Профессия на странице
 const pageProfileJob = document.querySelector('.profile__job');
 
 //2.2.4. Профессия по умолчанию
-let formJobDefault = pageProfileJob.textContent;
+const formJobDefault = pageProfileJob.textContent;
 
 //2.3.1. Кнопка "редактировать профиль"
 const buttonEditProfile = document.querySelector('.profile__edit-button');
@@ -151,14 +151,14 @@ const buttonCloseFullsizeImage = popupFullsizeImage.querySelector('.popup__butto
 
 function openPopup(popupName){
     //popupName - здесь будет переменная того попапа, который нужно закрыть
-    (popupName).classList.remove('popup_mode_closed');
-    (popupName).classList.add('popup_mode_opened');
+    popupName.classList.remove('popup_mode_closed');
+    popupName.classList.add('popup_mode_opened');
 };
 
 function closePopup(popupName){
     //popupName - здесь будет переменная того попапа, который нужно закрыть
-    (popupName).classList.remove('popup_mode_opened');
-    (popupName).classList.add('popup_mode_closed');
+    popupName.classList.remove('popup_mode_opened');
+    popupName.classList.add('popup_mode_closed');
 };
 
 /*-------------------------------------------------------------------------------*/
@@ -174,9 +174,9 @@ function openFullSizeImage(event){
     /*Добавляем указатель события*/
     const eventTarget = event.target;
     
-    const OpenedFullsizeImage = eventTarget.src;
+    const openedFullsizeImage = eventTarget.src;
     
-    fullsizeImage.setAttribute('src', OpenedFullsizeImage);
+    fullsizeImage.setAttribute('src', openedFullsizeImage);
 
     /*Вторая часть функии: добавляет к полноэкранному изображению название карточки*/
 
@@ -184,13 +184,13 @@ function openFullSizeImage(event){
     const cardElement = eventTarget.closest('.card__rectangle');
 
     //В пределах этой карточки выбираем класс с названием карточки
-    const OpenedFullsizeImageTitle = cardElement.querySelector('.card__title').textContent;
+    const openedFullsizeImageTitle = cardElement.querySelector('.card__title').textContent;
 
     //Ставим ее текст в соотв. поле высплывающего окна
-    fullsizeImageTitle.textContent = (OpenedFullsizeImageTitle);
+    fullsizeImageTitle.textContent = (openedFullsizeImageTitle);
 
     //Добавляем картинке "alt": он дублирует название карточки
-    fullsizeImageTitle.setAttribute('alt', OpenedFullsizeImageTitle);
+    fullsizeImageTitle.setAttribute('alt', openedFullsizeImageTitle);
 
 };
 
@@ -216,10 +216,12 @@ function getCard(arrayItem){
     //Внутри темплаты: переменная для открытия полноэкранного изображения
     const templateImageFullSize = clonedTemplate.querySelector('.card__open-fullsize-image');
 
+    const templateImage = clonedTemplate.querySelector('.card__image');
+
     //Наполнение темплаты содежимым
-    clonedTemplate.querySelector('.card__image').src=(arrayItem.link);
-    clonedTemplate.querySelector('.card__title').textContent=(arrayItem.name);
-    clonedTemplate.querySelector('.card__image').alt=(arrayItem.name);
+    templateImage.src=arrayItem.link;
+    clonedTemplate.querySelector('.card__title').textContent=arrayItem.name;
+    templateImage.alt=arrayItem.name;
 
      //Привязываем ее к кнопке "Удалить" функцию удаления карточки
     templateDeleteButton.addEventListener('click', deleteCard);
@@ -260,9 +262,9 @@ function addPlace(evt){
     evt.preventDefault()
         
     renderCards({
-        name:(formAddPlaceFieldName.value), 
-        link:(formAddPlaceFieldUrl.value),
-        alt:(formAddPlaceFieldName.value) 
+        name:formAddPlaceFieldName.value, 
+        link:formAddPlaceFieldUrl.value,
+        alt:formAddPlaceFieldName.value 
     },);
 
     closePopup(popupAddCard);
@@ -280,8 +282,8 @@ popupFormAddPlace.addEventListener('submit', addPlace);
 function editProfile(){
     openPopup(popupEditProfile);
     
-    formFieldName.value = (formNameDefault);
-    formFieldJob.value = (formJobDefault);
+    formFieldName.value = formNameDefault;
+    formFieldJob.value = formJobDefault;
 };
 
 buttonEditProfile.addEventListener('click', editProfile);
@@ -291,11 +293,11 @@ buttonEditProfile.addEventListener('click', editProfile);
 function saveProfileChanges(evt){
     evt.preventDefault();
     
-    pageProfileName.textContent = (formFieldName.value);
-    pageProfileJob.textContent = (formFieldJob.value);
+    pageProfileName.textContent = formFieldName.value;
+    pageProfileJob.textContent = formFieldJob.value;
 
-    formNameDefault = (formFieldName.value);
-    formJobDefault = (formFieldJob.value);
+    formNameDefault = formFieldName.value;
+    formJobDefault = formFieldJob.value;
     
     closePopup(popupEditProfile);
 };
@@ -306,8 +308,8 @@ formEditProfile.addEventListener('submit', saveProfileChanges);
 
 function dismissProfileChanges(){
     
-    formFieldName.textContent = (pageProfileName);
-    formFieldJob.textContent = (pageProfileJob);
+    formFieldName.textContent = pageProfileName;
+    formFieldJob.textContent = pageProfileJob;
 
     closePopup(popupEditProfile);
 }
