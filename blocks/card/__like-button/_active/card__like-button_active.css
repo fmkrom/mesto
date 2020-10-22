@@ -11,3 +11,7 @@
     border:0;
    
 }
+
+.card__like-button_active:hover{
+    cursor:pointer;
+}

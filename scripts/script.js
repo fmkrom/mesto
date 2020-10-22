@@ -78,13 +78,13 @@ const popupFormAddPlace = popupAddCard.querySelector('.form_add-place');
 const pageProfileName = document.querySelector('.profile__name'); 
 
 //2.2.2. Имя пользователя по умолчанию
-const formNameDefault = pageProfileName.textContent;
+let formNameDefault = pageProfileName.textContent;
 
 //2.2.3. Профессия на странице
 const pageProfileJob = document.querySelector('.profile__job');
 
 //2.2.4. Профессия по умолчанию
-const formJobDefault = pageProfileJob.textContent;
+let formJobDefault = pageProfileJob.textContent;
 
 //2.3.1. Кнопка "редактировать профиль"
 const buttonEditProfile = document.querySelector('.profile__edit-button');
@@ -307,10 +307,6 @@ formEditProfile.addEventListener('submit', saveProfileChanges);
 //5.3. Функция: закрыть окно редактирования профиля и не сохранять изменения
 
 function dismissProfileChanges(){
-    
-    formFieldName.textContent = pageProfileName;
-    formFieldJob.textContent = pageProfileJob;
-
     closePopup(popupEditProfile);
 }
 
