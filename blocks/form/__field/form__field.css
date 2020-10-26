@@ -1,3 +1,6 @@
+@import "./_invalid/form__field_invalid.css";
+@import "./_valid/form__field_valid.css";
+
 .form__field {
     width: 358px;
     height: 27px;
@@ -8,7 +11,6 @@
     border-top:0;
     border-left:0;
     border-right:0;
-       
 }
 
 .form__field:last-of-type {

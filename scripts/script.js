@@ -1,44 +1,4 @@
-//1. Массив фотографий и названий для карточек
-
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Мальта',
-        link: 'https://images.unsplash.com/photo-1591101955413-2dbb0a4da6df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    
-    {
-        name: 'Юта',
-        link: 'https://images.unsplash.com/photo-1575408264798-b50b252663e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=949&q=80'
-    },
-
-    {
-        name: 'Ливерпуль',
-        link: 'https://images.unsplash.com/photo-1557925179-4e693c2a484b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1055&q=80'
-    },
-
-    {
-        name: 'Москва',
-        link: 'https://images.unsplash.com/photo-1559890133-39d1c3021d9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=940&q=80'
-    },
-
-];
+//Переменные и функции валидации форм
 
 //ПЕРЕМЕННЫЕ
 
@@ -49,13 +9,13 @@ const initialCards = [
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 
 //2.1.2.Переменная с контентом всплывающего окна (для submit) - в окне редактирования профиля
-const formEditProfile = document.querySelector('.form_edit-profile');
+const formEditProfile = document.forms.editProfile;
 
 //2.1.3. Поле формы: имя пользователя
-const formFieldName = formEditProfile.querySelector('.form-field_input_name');
+const formFieldName = formEditProfile.editProfileName;
 
 //2.1.4. Поле формы: профессия
-const formFieldJob = formEditProfile.querySelector('.form-field_input_job');
+const formFieldJob = formEditProfile.editProfileJob;
 
 //2.3.2.1. Кнопка "Cохранить изменения профиля"
 const buttonSaveProfile = formEditProfile.querySelector('.form__button-save');
@@ -69,8 +29,8 @@ const popupAddCard = document.querySelector('.popup_type_add-card');
 const buttonAddCard = document.querySelector('.profile__add-button');
 
 //2.1.6.Переменная с контентом ФОРМЫ всплывающего окна (для submit) - в окне добавления места
-const popupFormAddPlace = popupAddCard.querySelector('.form_add-place');
-
+//Новая константа:
+const popupFormAddPlace = document.forms.addPlace;
 
 //2.2. Основные переменные для данных на странице
 
@@ -90,10 +50,10 @@ let formJobDefault = pageProfileJob.textContent;
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 
 //2.3.2.2.1. Поле формы окна "Добавить место" - название места 
-const formAddPlaceFieldName = document.querySelector('.form-field_input_place-name');
+const formAddPlaceFieldName = popupFormAddPlace.addPlaceName;
 
 //2.3.2.2.2. Поле формы окна "Добавить место" - ссылка на фото места
-const formAddPlaceFieldUrl = document.querySelector('.form-field_input_image-url');
+const formAddPlaceFieldUrl = popupFormAddPlace.addPlaceUrl;
 
 //Попап редуктирования профиля
 
@@ -102,6 +62,8 @@ const buttonCloseEditProfile = popupEditProfile.querySelector('.popup__button-cl
 
 //2.3.5. Кнопка "Закрыть без сохранения изменений" окно добавления фото
 const buttonCloseAddCard = popupAddCard.querySelector('.popup__button-close');
+
+/*==============================================================*/
 
 //ПЕРЕМЕННЫЕ ДЛЯ МАССИВА КАРТОЧЕК
 
@@ -125,9 +87,11 @@ const cardTitle = cardTemplate.querySelector('.card__title');
 //3.1.3.A. ПЕРЕМЕННЫЕ ДЛЯ ДОБАВЛЕНИЯ ЭЛЕМЕНТОВ В МАССИВ ФОТО
 
 //3.1.3.Б.1. Переменная для value формы добавления фото: название фото
+//ВАЖНО! Возможно - переделать ссылки этих констант!
 const formAddPlaceName = document.querySelector('.popup__form-field-place-name');
 
 //3.1.3.Б.2. Переменная для value формы добавления фото: ссылка на страницу
+//ВАЖНО! Возможно - переделать ссылки этих констант!
 const formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
 
 //3.1.3.Б.3. Переменная для кнопки "сохранить место"
@@ -331,3 +295,155 @@ function closePopupAddCard(){
 //5.2.2. Привязываем эту функцию к кнопке "закрыть" в окне добавления карточки
 buttonCloseAddCard.addEventListener ('click', closePopupAddCard);
 
+/*============================================================================*/
+
+//Оверлеи - для закрытия попапов щелчком мыши и ESC
+
+//Оверлей попапа добавления карточки
+const overlayPopupAddCard = popupAddCard.querySelector('.popup__overlay');
+
+//Оверлей попапа редактирования профиля
+const overlayPopupEditProfile = popupEditProfile.querySelector('.popup__overlay');
+
+//Оверлей попапа полномасштабного изображения
+const overlayPopupFullsizeImage = popupFullsizeImage.querySelector('.popup__overlay');
+
+/*-------------------------------------------------------------*/
+//ФУНКЦИИ ЗАКРЫТИЯ ПОПАПОВ ПО ЩЕЛЧКУ И ПО ESCAPE
+
+/*ВАЖНО! Здесь проблема: окно редактирования - дочерний элемент попапа.
+Если и по нему кликнуть - попап закрывается!
+*/
+
+//Функция закрытия попапа добавления карточки по щелчку мыши
+overlayPopupAddCard.addEventListener('click', function(event){
+    if (event.target.classList.contains('popup__overlay')){
+        closePopup(popupAddCard);
+    }
+});
+
+//Функция закрытия попапа редактирования профиля
+overlayPopupEditProfile.addEventListener('click', function(event){
+    if (event.target.classList.contains('popup__overlay')){
+        closePopup(popupEditProfile);
+    }
+});
+
+//Функция закрытия попапа полноэкранного изображения по щелчку мыши
+    overlayPopupFullsizeImage.addEventListener('click', function(event){
+    if (event.target.classList.contains('popup__overlay')){
+        closePopup(popupFullsizeImage);
+    }
+});
+
+
+
+//Функция закрытия попапа редактирования профиля по щелчку мыши
+
+//Функция закрытия попапа редактирования профиля по щелчку мыши
+
+/*-------------------------------------------------------------*/
+//Функция закрытия попапа добавления карточки по ESC
+
+//Функция закрытия попапа редактирования профиля по ESC
+
+//Функция закрытия полномасштабного изображения профиля по ESC
+
+
+function escapeClose(evt){
+    if (evt.key === 'Escape'){
+        closePopup(popupAddCard);
+        closePopup(popupEditProfile);
+        closePopup(popupFullsizeImage);
+    }
+};
+
+document.addEventListener('keydown', escapeClose);
+
+
+
+
+
+/*=====================================================================================*/
+//ФУНКЦИИ ВАЛИДАЦИИ ФОРМ
+/*=====================================================================================*/
+//Форма добавления места:
+//const popupFormAddPlace = document.forms.addPlace;
+
+//2.3.2.2.1. Поле формы окна "Добавить место" - название места 
+//const formAddPlaceFieldName = popupFormAddPlace.addPlaceName;
+
+//2.3.2.2.2. Поле формы окна "Добавить место" - ссылка на фото места
+//const formAddPlaceFieldUrl = popupFormAddPlace.addPlaceUrl;
+
+/*==============================================================================*/
+
+//Форма редактирования профиля
+//const formEditProfile = document.forms.editProfile;
+
+//2.1.3. Поле формы: имя пользователя
+//const formFieldName = formEditProfile.editProfileName;
+
+//2.1.4. Поле формы: профессия
+//const formFieldJob = formEditProfile.editProfileJob;
+
+/*===============================================================================*/
+//КОНСТАНТЫ ОШИБОК
+
+const inputAddPlaceNameErrorName = popupFormAddPlace.querySelector(`#${formAddPlaceFieldName.id}-error-name`);
+
+const inputAddPlaceNameErrorRequired = popupFormAddPlace.querySelector(`#${formAddPlaceFieldName.id}-error-required`);
+
+
+
+/*===============================================================================*/
+
+//const formAddPlaceFieldName = popupFormAddPlace.addPlaceName;
+
+// Вынесем все необходимые элементы формы в константы
+
+// Функция подчеркивания невалидного поля
+const showUnderlineInputError = (element) => {
+    element.classList.add('form__field_invalid');
+    element.classList.remove('form__field_valid');
+  };
+  
+  // Функция, которая удаляет класс с ошибкой
+  const hideUnderlineInputError = (element) => {
+    element.classList.remove('form__field_invalid');
+    element.classList.add('form__field_valid');
+  };
+  
+  function preventEvtDefault(form){
+    form.addEventListener('submit', function (evt){
+        // Отменим стандартное поведение по сабмиту
+        evt.preventDefault();
+      });    
+  };
+
+  preventEvtDefault(popupFormAddPlace);
+  preventEvtDefault(formEditProfile);
+
+   // Функция, которая проверяет валидность поля
+   function validateForm(){
+    if (!formAddPlaceFieldName.validity.valid){
+      showUnderlineInputError(formAddPlaceFieldName);
+      
+    } else {
+      hideUnderlineInputError(formAddPlaceFieldName);
+    }
+  };
+
+  function validateForm(){
+    if (!formAddPlaceFieldUrl.validity.valid){
+      showUnderlineInputError(formAddPlaceFieldUrl);
+      //inputAddPlaceNameErrorUrl.classList.add('form-error_active');
+    } else {
+      hideUnderlineInputError(formAddPlaceFieldUrl);
+    }
+  };
+
+  //applyValidationRules(formFieldName);
+  //applyValidationRules(formFieldJob);
+  validateForm(formAddPlaceFieldName);
+  validateForm(formAddPlaceFieldUrl);
