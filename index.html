@@ -69,13 +69,13 @@
                   <!--Отдельный блок внутри попапа: форма для заполнения-->
                      <form class="form form_edit-profile" name="editProfile" novalidate>
                         
-                        <input required class="form__field form__field_valid form-field_input_name" name="editProfileName" placeholder="Имя" value=""  type="text" minlength="2" maxlenght="40">
-                           <span class="form-error form-error_hidden" id="form-error-profile-name">Введите название длиной от 2 до 40 символов</span>
-                           <span class="form-error form-error_hidden" id="form-error-profile-required">Пожалуйста, заполните оба поля</span>
+                        <input required class="form__field form__field_valid form-field_input_name" id="input-editprofile-name" name="editProfileName" placeholder="Имя" value=""  type="text" minlength="2" maxlenght="40">
+                           <span class="form-error form-error_hidden" id="input-editprofile-name-error"></span>
+                           <!--<span class="form-error form-error_hidden" id="input-editprofile-name-error-required"></span>-->
                         
-                        <input required class="form__field form__field_valid form-field_input_job" name="editProfileJob" placeholder="Род занятий" value="" type="text" minlength="2" maxlenght="200">
-                           <span class="form-error form-error_hidden" id="form-error-profile-job">Введите название длиной от 2 до 200 символов</span>
-                           <span class="form-error form-error_hidden" id="form-error-profile-required">Пожалуйста, заполните оба поля</span>
+                        <input required class="form__field form__field_valid form-field_input_job" id="input-editprofile-job" name="editProfileJob" placeholder="Род занятий" value="" type="text" minlength="2" maxlenght="200">
+                           <span class="form-error form-error_hidden" id="input-editprofile-job-error"></span>
+                           <!--<span class="form-error form-error_hidden" id="input-editprofile-job-error-required"></span>-->
                         
                         <button class="form__button-save" type="submit">Сохранить</button>
                      </form>

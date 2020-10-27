@@ -369,7 +369,7 @@ document.addEventListener('keydown', escapeClose);
 /*=====================================================================================*/
 /*===============================================================================*/
 //КОНСТАНТЫ ОШИБОК
-/*
+
 //Ошибки форм
 
 //А. Ошибки формы добавления карточки:
@@ -386,6 +386,8 @@ const inputAddPlaceUrlErrorUrl = popupFormAddPlace.querySelector(`#${formAddPlac
 //Ошибка ФДК-ссылка: Заполните оба поля
 const inputAddPlaceUrlErrorRequired = popupFormAddPlace.querySelector(`#${formAddPlaceFieldUrl.id}-error-required`);
 
+/*------------------------------------------------------------------------------------*/
+
 //А. Ошибки формы редактирования профиля:
 
 //Ошибка поля ФРП имя: имя неверное
@@ -400,7 +402,6 @@ const inputEditProfileJobErrorJob = formEditProfile.querySelector(`#${formFieldJ
 //Ошибка поля ФРП профессия: заполните оба поля
 const inputEditProfileJobErrorRequired = formEditProfile.querySelector(`#${formFieldJob.id}-error-required`);
 
-*/
 
 /*===============================================================================*/
 
@@ -408,89 +409,54 @@ const inputEditProfileJobErrorRequired = formEditProfile.querySelector(`#${formF
 
 // Вынесем все необходимые элементы формы в константы
 
-// Функция свечивания невалидного поля
-function showInputError(formElement, inputElement, errorMessage){
-    
-    //Находим DOM-элемент с ошибкой по идентификатору:
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-
-    //Добавляем подчеркивание:
-    inputElement.classList.remove('form__field_valid');
-    inputElement.classList.add('form__field_invalid');
-    
-    //Ставим текст: им будет validationMessage поля
-    errorElement.textContent = errorMessage;
-
-    //Добавляем это поле в DOM:
-    errorElement.classList.remove('form__field_hidden');
-    errorElement.classList.add('form-error_shown');
+// Функция подчеркивания невалидного поля
+const showUnderlineInputError = (element) => {
+    element.classList.add('form__field_invalid');
+    element.classList.remove('form__field_valid');
+};
+  
+// Функция, которая удаляет подчеркивание с невалидного поля:
+const hideUnderlineInputError = (element) => {
+    element.classList.remove('form__field_invalid');
+    element.classList.add('form__field_valid');
 };
 
-const hideInputError = (formElement, inputElement) => {
-    // Находим элемент ошибки
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    
-    // Удаляем подчеркивание:
-    inputElement.classList.remove('form__field_invalid');
-    inputElement.classList.add('form__field_valid');
-    
-    //Удаляем этот элемент из DOM
-    errorElement.classList.remove('form-error_shown');
-    errorElement.classList.add('form__field_hidden');
-    
-    //Делаем его текст пустым:
-    errorElement.textContent = '';
-}; 
+//Функция: высветить ошибку невалидного поля при заполнении
 
-/*=====================================================================================*/
-//САМА ФУНКЦИЯ ВАЛИДАЦИИ
+function showInputErrorText(element){
+    element.classlist.remove('form-error_hidden');
+    element.classlist.add('form-error_shown');
+};
 
-function validateForm(formElement, inputElement){
-    if (!inputElement.validity.valid){
-        showInputError(formElement, inputElement, inputElement.validationMessage);
-    }else {
-        hideInputError(formElement, inputElement);
+function preventEvtDefault(form){
+    form.addEventListener('submit', function (evt){
+        // Отменим стандартное поведение по сабмиту
+         evt.preventDefault();
+    });    
+  };
+
+  preventEvtDefault(popupFormAddPlace);
+  preventEvtDefault(formEditProfile);
+
+   // Функция, которая проверяет валидность поля
+   function validateForm(){
+    if (!formAddPlaceFieldName.validity.valid){
+      showUnderlineInputError(formAddPlaceFieldName);
+      console.log(formAddPlaceFieldName.validationMessage);
+    } else {
+      hideUnderlineInputError(formAddPlaceFieldName);
     }
-};
+  };
 
-/*===================================================================================*/
-/*ФУНКЦИЯ: добавляем слушатели событий*/
+  function validateForm(){
+    if (!formAddPlaceFieldUrl.validity.valid){
+      showUnderlineInputError(formAddPlaceFieldUrl);
+      } else {
+      hideUnderlineInputError(formAddPlaceFieldUrl);
+    }
+  };
 
-function setEventListeners(formElement){
-    
-    //Делаем массив их всех элементов полей форм:
-    const inputList = Array.from(formElement.querySelectorAll('.form__field'));
-    
-    inputList.forEach(function(inputElement){
-        
-        //Каждому элементу массива полей добавляем обработчик события:
-    
-        inputElement.addEventListener('input', () => {
-          // Внутри колбэка вызовем isValid,
-          // передав ей форму и проверяемый элемент
-          validateForm(formElement, inputElement)
-        });
-    
-    });
-};
-
-/*ФУНКЦИЯ: обеспечить валидацию форм*/
-
-function enableValidation(){
-
-    const formList = Array.from(document.querySelectorAll('.form'));
-
-    // Переберём полученную коллекцию - каждому элементу в ней отменим поведение по умолчанию:
-    formList.forEach(function(formElement){
-        
-        formElement.addEventListener('submit', function(evt){
-            evt.preventDefault();
-        });
-
-        // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
-        setEventListeners(formElement);
-    });
-};
-
-enableValidation();
-
+  validateForm(formFieldName);
+  validateForm(formFieldJob);
+  validateForm(formAddPlaceFieldName);
+  validateForm(formAddPlaceFieldUrl);

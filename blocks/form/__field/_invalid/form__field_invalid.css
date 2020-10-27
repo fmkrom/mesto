@@ -1,5 +1,5 @@
 .form__field_invalid{
     border-bottom: 3px solid red;
-    background-color: tomato;
+    background-color:lightgray;
     
 }
