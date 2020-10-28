@@ -1,4 +1,4 @@
-//Функции валидации форм
+//ФУНКЦИИ ВАЛИДАЦИИ ФОРМ
 
 //Функция: высветить невалидное поле - работает
 
@@ -17,8 +17,7 @@ function showInputError(formElement, inputElement, errorMessage){
   //Добавляем это поле в DOM:
   errorElement.classList.remove('form__field_hidden');
   errorElement.classList.add('form-error_shown');
-
-  //console.log('function showInputError works');
+  
 };
 
 //Функция: убрать подсветку невалидного поля: работает
@@ -37,16 +36,13 @@ function hideInputError(formElement, inputElement){
   
   //Делаем его текст пустым:
   errorElement.textContent = '';
-
-  //console.log('function hideInputError works');
+ 
 }; 
 
 //Функция: вернуть при невалидности!
 function returnInvalidInput(inputList){
   
   return inputList.some(function(inputElement){
-  // Если поле не валидно, колбэк вернёт true обход массива прекратится и вся фунцкция hasInvalidInput вернёт true
-  //console.log('function returnInvalidInput says: form is invalid!');
   return !inputElement.validity.valid;
   });
 
@@ -58,28 +54,23 @@ function toggleButtonState(inputList, buttonElement){
   if (returnInvalidInput(inputList)){
     buttonElement.classList.add('form__button-save_inactive');
     buttonElement.disabled = true;
-    //console.log('function toggleButtonState: button is disabled');
 
   } else {
     buttonElement.classList.remove('form__button-save_inactive');
     buttonElement.classList.add('form__button-save_active');
     buttonElement.disabled = false;
-    //console.log('function toggleButtonState: button is enabled');
   }
 }; 
 
+//Функция: проверка валидности полей
 
-
-//Функция: проверка валидности полей - работает (проверено через консоль!)
 function isValid(formElement, inputElement){
   
   if (!inputElement.validity.valid){
       showInputError(formElement, inputElement, inputElement.validationMessage);
-      //console.log('function isValid: field invalid!');
-  } else {
+    } else {
       hideInputError(formElement, inputElement);
-      //console.log('function isValid: field valid!');
-  }
+    }
 };
 
 //Функция: добавляем слушатели событий
@@ -102,8 +93,6 @@ function setEventListeners(formElement){
         toggleButtonState(inputListArray, buttonToToggle);
       });
   });
-
-  //console.log('function setEventListeners works!');
 };
 
 function enableValidation(){
@@ -111,7 +100,7 @@ function enableValidation(){
   const formList = Array.from(document.querySelectorAll('.form'));
 
   // Переберём полученную коллекцию - каждому элементу в ней отменим поведение по умолчанию:
-  formList.forEach(function(formElement){
+    formList.forEach(function(formElement){
       
       formElement.addEventListener('submit', function(evt){
           evt.preventDefault();
@@ -119,20 +108,11 @@ function enableValidation(){
 
       // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
       setEventListeners(formElement);
-      
-      //console.log('Enable Validation - function works!');
-  });
+    });
 };
 
 enableValidation({
-  //В настройках: это - элементы
   formElement: '.form',
   inputElement: '.form__field',
   buttonElement: '.form__button-save',
-  
-  //В настройках: это - добавляемые классы
-  //disabledButtonClass: 'form__button-save_inactive',
-  //enabledButtonClass: 'form__button-save_active',
-  //inputErrorClass: 'form-error',
-  //errorClass: 'form-error_shown'
 });
