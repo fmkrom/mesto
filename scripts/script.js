@@ -101,14 +101,18 @@ const popupFormButtonSavePlace = document.querySelector('.popup__form-button-sav
 
 //Само всплывающее окно
 const popupFullsizeImage = document.querySelector('.popup_type_fullsize-image');
+//console.log(popupFullsizeImage);
 
 //Картинка во всплывающем окне
 const fullsizeImage = document.querySelector('.fullsize-image__image');
+//console.log(fullsizeImage);
 
 //Заголовок всплывающего окна
 const fullsizeImageTitle = document.querySelector('.fullsize-image__title');
+//console.log(fullsizeImageTitle);
 
 const buttonCloseFullsizeImage = popupFullsizeImage.querySelector('.popup__button-close');
+//console.log(buttonCloseFullsizeImage);
 
 /*-------------------------------------------------------------------------------*/
 //Базовая функция открытия и закрытия окон:
@@ -135,12 +139,16 @@ function closePopup(popupName){
 function openFullSizeImage(event){
     openPopup(popupFullsizeImage);
     
+    console.log('popup opened!');
+    
     /*Добавляем указатель события*/
     const eventTarget = event.target;
     
     const openedFullsizeImage = eventTarget.src;
+    console.log(openedFullsizeImage);
     
     fullsizeImage.setAttribute('src', openedFullsizeImage);
+    console.log(fullsizeImage.src);
 
     /*Вторая часть функии: добавляет к полноэкранному изображению название карточки*/
 
@@ -149,14 +157,20 @@ function openFullSizeImage(event){
 
     //В пределах этой карточки выбираем класс с названием карточки
     const openedFullsizeImageTitle = cardElement.querySelector('.card__title').textContent;
+    console.log(openedFullsizeImageTitle);
 
     //Ставим ее текст в соотв. поле высплывающего окна
     fullsizeImageTitle.textContent = (openedFullsizeImageTitle);
+    console.log(fullsizeImageTitle);
 
     //Добавляем картинке "alt": он дублирует название карточки
     fullsizeImageTitle.setAttribute('alt', openedFullsizeImageTitle);
-
+    
+    console.log(document);
+    console.log(popupFullsizeImage);
 };
+
+
 
 //Функция: закрыть попап c полномасштабным изображением
 function closeFullSizeImage(){
@@ -164,6 +178,8 @@ function closeFullSizeImage(){
 };
 
 buttonCloseFullsizeImage.addEventListener('click', closeFullSizeImage);
+
+/*=================================================================*/
 
 //Функция добавления базовых карточек
 function getCard(arrayItem){
@@ -330,26 +346,13 @@ overlayPopupEditProfile.addEventListener('click', function(event){
 });
 
 //Функция закрытия попапа полноэкранного изображения по щелчку мыши
-    overlayPopupFullsizeImage.addEventListener('click', function(event){
+overlayPopupFullsizeImage.addEventListener('click', function(event){
     if (event.target.classList.contains('popup__overlay')){
         closePopup(popupFullsizeImage);
     }
 });
 
-
-
-//Функция закрытия попапа редактирования профиля по щелчку мыши
-
-//Функция закрытия попапа редактирования профиля по щелчку мыши
-
-/*-------------------------------------------------------------*/
-//Функция закрытия попапа добавления карточки по ESC
-
-//Функция закрытия попапа редактирования профиля по ESC
-
-//Функция закрытия полномасштабного изображения профиля по ESC
-
-
+//Функция закрытия попапа по ESC
 function escapeClose(evt){
     if (evt.key === 'Escape'){
         closePopup(popupAddCard);

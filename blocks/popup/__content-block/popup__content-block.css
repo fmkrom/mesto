@@ -1,6 +1,8 @@
 .popup__content-block{
     width: max-content;
     height: max-content;
+
+    /*z-index:2;*/
     
     margin:0 auto;
     display:grid;
