@@ -6,15 +6,15 @@
     height: 27px;
     margin: 0 auto;
 
-    margin-bottom: 29px;
+    margin-top: 29px;
 
     border-top:0;
     border-left:0;
     border-right:0;
 }
 
-.form__field:last-of-type {
-    margin-bottom: 0;
+.form__field:first-of-type{
+    margin-top: 0;
 }
 
 @media screen and (max-width: 450px){
