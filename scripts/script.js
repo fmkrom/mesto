@@ -6,7 +6,7 @@
 //А. Переменные для функции редактирования профиля
 
 //1. Всплывающее окно редактирования профиля
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const popupEditProfile = document.querySelector('.popup_type-edit-profile');
 
 //2.1.2.Переменная с контентом всплывающего окна (для submit) - в окне редактирования профиля
 const formEditProfile = document.forms.editProfile;
@@ -23,7 +23,9 @@ const buttonSaveProfile = formEditProfile.querySelector('.form__button-save');
 /*--------------------------------------------------------------------------------------------*/
 
 //Б. Попап (всплывающее окно) добавления фото
-const popupAddCard = document.querySelector('.popup_type_add-card');
+const popupAddCard = document.querySelector('.popup_type-add-card');
+
+//const popupModeOpened = document.querySelector('.popup_mode-opened');
 
 //2.1.5. Кнопка "Добавить место" на главной странице
 const buttonAddCard = document.querySelector('.profile__add-button');
@@ -37,14 +39,8 @@ const popupFormAddPlace = document.forms.addPlace;
 //2.2.1. Имя пользователя на странице
 const pageProfileName = document.querySelector('.profile__name'); 
 
-//2.2.2. Имя пользователя по умолчанию
-let formNameDefault = pageProfileName.textContent;
-
 //2.2.3. Профессия на странице
 const pageProfileJob = document.querySelector('.profile__job');
-
-//2.2.4. Профессия по умолчанию
-let formJobDefault = pageProfileJob.textContent;
 
 //2.3.1. Кнопка "редактировать профиль"
 const buttonEditProfile = document.querySelector('.profile__edit-button');
@@ -100,33 +96,47 @@ const popupFormButtonSavePlace = document.querySelector('.popup__form-button-sav
 //7. Переменные для открытия окна полномасштабного изображения: 
 
 //Само всплывающее окно
-const popupFullsizeImage = document.querySelector('.popup_type_fullsize-image');
-//console.log(popupFullsizeImage);
+const popupFullsizeImage = document.querySelector('.popup_type-fullsize-image');
 
 //Картинка во всплывающем окне
 const fullsizeImage = document.querySelector('.fullsize-image__image');
-//console.log(fullsizeImage);
 
 //Заголовок всплывающего окна
 const fullsizeImageTitle = document.querySelector('.fullsize-image__title');
-//console.log(fullsizeImageTitle);
 
 const buttonCloseFullsizeImage = popupFullsizeImage.querySelector('.popup__button-close');
-//console.log(buttonCloseFullsizeImage);
 
 /*-------------------------------------------------------------------------------*/
 //Базовая функция открытия и закрытия окон:
 
 function openPopup(popupName){
     //popupName - здесь будет переменная того попапа, который нужно закрыть
-    popupName.classList.remove('popup_mode_closed');
+
     popupName.classList.add('popup_mode_opened');
+    popupName.classList.remove('popup_mode_closed');
+
+    //Нерабочее открытие:
+    //popupName.classList.add('popup_mode-opened');
 };
 
 function closePopup(popupName){
     //popupName - здесь будет переменная того попапа, который нужно закрыть
     popupName.classList.remove('popup_mode_opened');
     popupName.classList.add('popup_mode_closed');
+
+    //Нерабочее закрытие:
+    //popupName.classList.add('popup_mode-opened');
+    
+    document.addEventListener('keydown', function(evt){
+        if(evt.key === 'Escape'){        
+            popupName.classList.remove('popup_mode_opened');
+            popupName.classList.add('popup_mode_closed');
+            
+            console.log('Esc works!');
+        }
+    });
+
+    console.log('Function close works!');
 };
 
 /*-------------------------------------------------------------------------------*/
@@ -139,17 +149,13 @@ function closePopup(popupName){
 function openFullSizeImage(event){
     openPopup(popupFullsizeImage);
     
-    console.log('popup opened!');
-    
     /*Добавляем указатель события*/
     const eventTarget = event.target;
     
     const openedFullsizeImage = eventTarget.src;
-    console.log(openedFullsizeImage);
-    
+        
     fullsizeImage.setAttribute('src', openedFullsizeImage);
-    console.log(fullsizeImage.src);
-
+    
     /*Вторая часть функии: добавляет к полноэкранному изображению название карточки*/
 
     //Выбираем ближайшую к цели события карточку
@@ -157,17 +163,13 @@ function openFullSizeImage(event){
 
     //В пределах этой карточки выбираем класс с названием карточки
     const openedFullsizeImageTitle = cardElement.querySelector('.card__title').textContent;
-    console.log(openedFullsizeImageTitle);
-
+    
     //Ставим ее текст в соотв. поле высплывающего окна
     fullsizeImageTitle.textContent = (openedFullsizeImageTitle);
-    console.log(fullsizeImageTitle);
-
+    
     //Добавляем картинке "alt": он дублирует название карточки
     fullsizeImageTitle.setAttribute('alt', openedFullsizeImageTitle);
     
-    console.log(document);
-    console.log(popupFullsizeImage);
 };
 
 
@@ -244,7 +246,6 @@ function addPlace(evt){
     renderCards({
         name:formAddPlaceFieldName.value, 
         link:formAddPlaceFieldUrl.value,
-        alt:formAddPlaceFieldName.value 
     },);
 
     closePopup(popupAddCard);
@@ -252,8 +253,11 @@ function addPlace(evt){
 
 popupFormAddPlace.addEventListener('submit', addPlace);
 
+//Функция: открыть окно добавления карточки
 
-//5. Функции всплывающих окон
+buttonAddCard.addEventListener ('click', function(){
+    openPopup(popupAddCard);
+});
 
 //А. Функции окна "Редактировать профиль"
 
@@ -262,8 +266,8 @@ popupFormAddPlace.addEventListener('submit', addPlace);
 function editProfile(){
     openPopup(popupEditProfile);
     
-    formFieldName.value = formNameDefault;
-    formFieldJob.value = formJobDefault;
+    formFieldName.value = pageProfileName.textContent;
+    formFieldJob.value = pageProfileJob.textContent;
 };
 
 buttonEditProfile.addEventListener('click', editProfile);
@@ -284,81 +288,37 @@ function saveProfileChanges(evt){
 
 formEditProfile.addEventListener('submit', saveProfileChanges);
 
-//5.3. Функция: закрыть окно редактирования профиля и не сохранять изменения
+/*=====*/
 
-function dismissProfileChanges(){
-    closePopup(popupEditProfile);
-}
+//ФУНКЦИИ ЗАКРЫТИЯ МОДАЛЬНЫХ ОКОН
 
-buttonCloseEditProfile.addEventListener ('click', dismissProfileChanges);
+//Закрытие по щелчку на попап
 
-//Б. Функции окна "Добавить новую карточку"
-
-//5.1.1. Функция: открыть окно добавления карточки
-function openPopupAddCard(){
-    openPopup(popupAddCard);
+function closePopupWithOverlayClick(popup){
+    
+    popup.addEventListener('click', function(event){
+        if (event.target.classList.contains('popup__overlay') || event.target.classList.contains('popup__button-close')){
+        closePopup(popup);
+        }
+    }); 
 };
 
-//5.1.2. Привязываем эту функцию к кнопке "добавить" в окне добавления карточки
-buttonAddCard.addEventListener('click', openPopupAddCard);
+closePopupWithOverlayClick(popupAddCard); 
+closePopupWithOverlayClick(popupEditProfile);
+closePopupWithOverlayClick(popupFullsizeImage);
 
-//5.2.1. Функция - закрыть окно добавления карточки
-function closePopupAddCard(){
-    //Функция: закрыть окно добавления карточки и не сохранять изменения
-    closePopup(popupAddCard);
-}
-
-//5.2.2. Привязываем эту функцию к кнопке "закрыть" в окне добавления карточки
-buttonCloseAddCard.addEventListener ('click', closePopupAddCard);
-
-/*============================================================================*/
-
-//Оверлеи - для закрытия попапов щелчком мыши и ESC
-
-//Оверлей попапа добавления карточки
-const overlayPopupAddCard = popupAddCard.querySelector('.popup__overlay');
-
-//Оверлей попапа редактирования профиля
-const overlayPopupEditProfile = popupEditProfile.querySelector('.popup__overlay');
-
-//Оверлей попапа полномасштабного изображения
-const overlayPopupFullsizeImage = popupFullsizeImage.querySelector('.popup__overlay');
-
-/*-------------------------------------------------------------*/
-//ФУНКЦИИ ЗАКРЫТИЯ ПОПАПОВ ПО ЩЕЛЧКУ И ПО ESCAPE
-
-/*ВАЖНО! Здесь проблема: окно редактирования - дочерний элемент попапа.
-Если и по нему кликнуть - попап закрывается!
-*/
-
-//Функция закрытия попапа добавления карточки по щелчку мыши
-overlayPopupAddCard.addEventListener('click', function(event){
-    if (event.target.classList.contains('popup__overlay')){
-        closePopup(popupAddCard);
-    }
-});
-
-//Функция закрытия попапа редактирования профиля
-overlayPopupEditProfile.addEventListener('click', function(event){
-    if (event.target.classList.contains('popup__overlay')){
-        closePopup(popupEditProfile);
-    }
-});
-
-//Функция закрытия попапа полноэкранного изображения по щелчку мыши
-overlayPopupFullsizeImage.addEventListener('click', function(event){
-    if (event.target.classList.contains('popup__overlay')){
-        closePopup(popupFullsizeImage);
-    }
-});
 
 //Функция закрытия попапа по ESC
-function escapeClose(evt){
-    if (evt.key === 'Escape'){
-        closePopup(popupAddCard);
-        closePopup(popupEditProfile);
-        closePopup(popupFullsizeImage);
-    }
+/*
+function closePopupWifthEsc(popup){
+    const pressEsc = (evt) => {
+        if (evt.key === 'Escape'){
+            closePopup(popup)
+        };
+        pressEsc();
+    };
 };
 
-document.addEventListener('keydown', escapeClose);
+document.addEventListener('keydown', closePopupWifthEsc(popupAddCard));
+document.addEventListener('keydown', closePopupWifthEsc(popupEditProfile));
+document.addEventListener('keydown', closePopupWifthEsc(popupFullsizeImage));*/

@@ -1,7 +1,19 @@
 @import "./_mode/popup_mode.css";
+
 @import "./__overlay/popup__overlay.css";
 @import "./__form-container/popup__form-container.css";
 @import "./__title/popup__title.css";
 @import "./__content-block/popup__content-block.css";
 @import "./__button-close/popup__button-close.css";
+
+
+/*
+.popup{
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 3s, opacity 0.7s linear;
+}
+*/
+
+/*@import "./_mode-opened/popup_mode-opened.css";*/
 
