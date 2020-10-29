@@ -17,6 +17,8 @@ function showInputError(formElement, inputElement, errorMessage){
   //Добавляем это поле в DOM:
   errorElement.classList.remove('form__field_hidden');
   errorElement.classList.add('form-error_shown');
+
+  console.log('function showInputError works!');
   
 };
 
@@ -37,16 +39,18 @@ function hideInputError(formElement, inputElement){
   //Делаем его текст пустым:
   errorElement.textContent = '';
  
+  console.log('function hideInputError works!');
 }; 
 
 //Функция: вернуть при невалидности!
 function returnInvalidInput(inputList){
   
+  console.log('function returnInvalidInput works!');
+  
   return inputList.some(function(inputElement){
   return !inputElement.validity.valid;
   });
-
-}
+};
 
 //Переключение кнопки
 function toggleButtonState(inputList, buttonElement){
@@ -60,6 +64,8 @@ function toggleButtonState(inputList, buttonElement){
     buttonElement.classList.add('form__button-save_active');
     buttonElement.disabled = false;
   }
+
+  console.log('function toggleButtonState works!');
 }; 
 
 //Функция: проверка валидности полей
@@ -71,6 +77,8 @@ function isValid(formElement, inputElement){
     } else {
       hideInputError(formElement, inputElement);
     }
+
+    console.log('function isValid works!');
 };
 
 //Функция: добавляем слушатели событий
@@ -93,6 +101,8 @@ function setEventListeners(formElement){
         toggleButtonState(inputListArray, buttonToToggle);
       });
   });
+
+  console.log('function setEventListeners works!');  
 };
 
 function enableValidation(){
@@ -109,10 +119,16 @@ function enableValidation(){
       // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
       setEventListeners(formElement);
     });
+
+    console.log('function enableValidation works!');
 };
 
 enableValidation({
   formElement: '.form',
   inputElement: '.form__field',
   buttonElement: '.form__button-save',
+  
+  inactiveButtonClass: 'form__button-save_inactive',
+  invalidInputClass: 'form__field_invalid',
+  errorShownClass: 'form-error_shown'
 });

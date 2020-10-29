@@ -16,6 +16,8 @@
 
 @import "../blocks/popup/popup.css";
 
+@import "../blocks/popup/_open/popup_open.css";
+
 @import "../blocks/form/form.css";
 
 @import "../blocks/footer/footer.css";

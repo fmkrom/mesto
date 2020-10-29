@@ -111,26 +111,16 @@ const buttonCloseFullsizeImage = popupFullsizeImage.querySelector('.popup__butto
 
 function openPopup(popupName){
     //popupName - здесь будет переменная того попапа, который нужно закрыть
-
-    popupName.classList.add('popup_mode_opened');
-    popupName.classList.remove('popup_mode_closed');
-
-    //Нерабочее открытие:
-    //popupName.classList.add('popup_mode-opened');
+    popupName.classList.add('popup_open');
 };
 
 function closePopup(popupName){
-    //popupName - здесь будет переменная того попапа, который нужно закрыть
-    popupName.classList.remove('popup_mode_opened');
-    popupName.classList.add('popup_mode_closed');
-
-    //Нерабочее закрытие:
-    //popupName.classList.add('popup_mode-opened');
     
+    popupName.classList.remove('popup_open');
+        
     document.addEventListener('keydown', function(evt){
         if(evt.key === 'Escape'){        
-            popupName.classList.remove('popup_mode_opened');
-            popupName.classList.add('popup_mode_closed');
+            popupName.classList.remove('popup_open');
             
             console.log('Esc works!');
         }
