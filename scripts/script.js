@@ -115,9 +115,7 @@ function openPopup(popupName){
 };
 
 function closePopup(popupName){
-    
-    popupName.classList.remove('popup_open');
-        
+            
     document.addEventListener('keydown', function(evt){
         if(evt.key === 'Escape'){        
             popupName.classList.remove('popup_open');
@@ -125,6 +123,8 @@ function closePopup(popupName){
             console.log('Esc works!');
         }
     });
+
+    popupName.classList.remove('popup_open');
 
     console.log('Function close works!');
 };

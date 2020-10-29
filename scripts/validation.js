@@ -8,14 +8,12 @@ function showInputError(formElement, inputElement, errorMessage){
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
 
   //Добавляем подчеркивание:
-  inputElement.classList.remove('form__field_valid');
   inputElement.classList.add('form__field_invalid');
   
   //Ставим текст: им будет validationMessage поля
   errorElement.textContent = errorMessage;
 
   //Добавляем это поле в DOM:
-  errorElement.classList.remove('form__field_hidden');
   errorElement.classList.add('form-error_shown');
 
   console.log('function showInputError works!');
@@ -30,12 +28,10 @@ function hideInputError(formElement, inputElement){
   
   // Удаляем подчеркивание:
   inputElement.classList.remove('form__field_invalid');
-  inputElement.classList.add('form__field_valid');
-  
+    
   //Удаляем этот элемент из DOM
   errorElement.classList.remove('form-error_shown');
-  errorElement.classList.add('form__field_hidden');
-  
+    
   //Делаем его текст пустым:
   errorElement.textContent = '';
  
@@ -61,7 +57,6 @@ function toggleButtonState(inputList, buttonElement){
 
   } else {
     buttonElement.classList.remove('form__button-save_inactive');
-    buttonElement.classList.add('form__button-save_active');
     buttonElement.disabled = false;
   }
 

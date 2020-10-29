@@ -20,6 +20,10 @@
 
 @import "../blocks/form/form.css";
 
+@import "../blocks/form/__field/_invalid/form__field_invalid.css";
+
+@import "../blocks/form/__button-save/_inactive/form__button-save_inactive.css";
+
 @import "../blocks/footer/footer.css";
 
 @import "../blocks/fullsize-image/fullsize-image.css";
