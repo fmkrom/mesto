@@ -76,6 +76,7 @@ function isValid(formElement, inputElement){
     console.log('function isValid works!');
 };
 
+
 //Функция: добавляем слушатели событий
 function setEventListeners(formElement){
   
@@ -97,31 +98,31 @@ function setEventListeners(formElement){
       });
   });
 
-  console.log('function setEventListeners works!');  
+  console.log('function setEventListeners works!');
 };
 
-function enableValidation(){
+function enableValidation({formNodeElement}){
 
-  const formList = Array.from(document.querySelectorAll('.form'));
+  const formList = Array.from(document.querySelectorAll(formNodeElement));
 
   // Переберём полученную коллекцию - каждому элементу в ней отменим поведение по умолчанию:
-    formList.forEach(function(formElement){
+    formList.forEach(function(formNodeElement){
       
-      formElement.addEventListener('submit', function(evt){
+      formNodeElement.addEventListener('submit', function(evt){
           evt.preventDefault();
       });
 
       // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
-      setEventListeners(formElement);
+      setEventListeners(formNodeElement);
     });
 
     console.log('function enableValidation works!');
 };
 
 enableValidation({
-  formElement: '.form',
-  inputElement: '.form__field',
-  buttonElement: '.form__button-save',
+  formNodeElement: '.form',
+  inputNodeElement: '.form__field',
+  buttonNodeElement: '.form__button-save',
   
   inactiveButtonClass: 'form__button-save_inactive',
   invalidInputClass: 'form__field_invalid',
