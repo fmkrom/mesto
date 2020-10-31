@@ -1,4 +1,4 @@
-//ФУНКЦИИ ВАЛИДАЦИИ ФОРМ
+//Функции валидации форм
 
 //Функция: высветить невалидное поле - работает
 
@@ -60,7 +60,6 @@ function setEventListeners(form, parameters){
 };
 
 //Функция: включить валидацию
-
 function enableValidation(parameters){
   const formsList = Array.from(document.querySelectorAll(parameters.formNodeElement));
     
