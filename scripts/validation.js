@@ -49,7 +49,7 @@ function setEventListeners(form, parameters){
   
   inputListArray.forEach(function(input){
       input.addEventListener('input', function(){
-        isValid(form, input);
+        isValid(form, input, parameters);
         toggleButtonState(inputListArray, buttonToToggle, parameters);
       });
   });
