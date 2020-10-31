@@ -109,24 +109,23 @@ const buttonCloseFullsizeImage = popupFullsizeImage.querySelector('.popup__butto
 /*-------------------------------------------------------------------------------*/
 //Базовая функция открытия и закрытия окон:
 
+//Функция закрытия попапа по ESC
 function openPopup(popupName){
-    //popupName - здесь будет переменная того попапа, который нужно закрыть
     popupName.classList.add('popup_open');
+    document.addEventListener('keydown', closePopupByEsc);
 };
 
 function closePopup(popupName){
-            
-    document.addEventListener('keydown', function(evt){
-        if(evt.key === 'Escape'){        
-            popupName.classList.remove('popup_open');
-            
-            console.log('Esc works!');
-        }
-    });
-
     popupName.classList.remove('popup_open');
+    document.removeEventListener('keydown', closePopupByEsc);
+};
 
-    console.log('Function close works!');
+function closePopupByEsc(event){
+    if (event.key === 'Escape'){
+        closePopup(popupAddCard);
+        closePopup(popupEditProfile);
+        closePopup(popupFullsizeImage);
+    };
 };
 
 /*-------------------------------------------------------------------------------*/
@@ -269,10 +268,7 @@ function saveProfileChanges(evt){
     
     pageProfileName.textContent = formFieldName.value;
     pageProfileJob.textContent = formFieldJob.value;
-
-    formNameDefault = formFieldName.value;
-    formJobDefault = formFieldJob.value;
-    
+   
     closePopup(popupEditProfile);
 };
 
@@ -295,20 +291,4 @@ function closePopupWithOverlayClick(popup){
 
 closePopupWithOverlayClick(popupAddCard); 
 closePopupWithOverlayClick(popupEditProfile);
-closePopupWithOverlayClick(popupFullsizeImage);
-
-
-//Функция закрытия попапа по ESC
-/*
-function closePopupWifthEsc(popup){
-    const pressEsc = (evt) => {
-        if (evt.key === 'Escape'){
-            closePopup(popup)
-        };
-        pressEsc();
-    };
-};
-
-document.addEventListener('keydown', closePopupWifthEsc(popupAddCard));
-document.addEventListener('keydown', closePopupWifthEsc(popupEditProfile));
-document.addEventListener('keydown', closePopupWifthEsc(popupFullsizeImage));*/
+closePopupWithOverlayClick(popupFullsizeImage); 

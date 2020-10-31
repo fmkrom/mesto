@@ -7,6 +7,7 @@ function showInputError(form, input, parameters){
   input.classList.add(parameters.invalidInputClass);
   errorElement.textContent = input.validationMessage;
   errorElement.classList.add(parameters.errorShownClass);
+  
 };
 
 function hideInputError(form, input, parameters){
@@ -14,6 +15,7 @@ function hideInputError(form, input, parameters){
   input.classList.remove(parameters.invalidInputClass);
   errorElement.classList.remove(parameters.errorShownClass);
   errorElement.textContent = '';
+  
 }; 
 
 function isValid(form, input, parameters){
@@ -40,6 +42,7 @@ function toggleButtonState(inputsArray, button, parameters){
     button.classList.remove(parameters.inactiveButtonClass);
     button.disabled = false;
   }
+  
 }; 
 
 //Функция: добавляем слушатели событий
@@ -53,16 +56,28 @@ function setEventListeners(form, parameters){
         toggleButtonState(inputListArray, buttonToToggle, parameters);
       });
   });
+  
 };
 
-function enableValidation(form, parameters){
-  const formList = Array.from(document.querySelectorAll(form));
-    formList.forEach(function(form){
+//Функция: включить валидацию
+
+function enableValidation(parameters){
+  const formsList = Array.from(document.querySelectorAll(parameters.formNodeElement));
+    
+  formsList.forEach(function(form){
       form.addEventListener('submit', function(evt){
+        console.log(form);
           evt.preventDefault();
+
+          setEventListeners(form, parameters);
       });
+
+    formsList.forEach(function(form){
       setEventListeners(form, parameters);
     });
+
+  });
+
 };
 
 const validationParameters = {
@@ -75,4 +90,4 @@ const validationParameters = {
   errorShownClass: 'form-error_shown'
 };
 
-enableValidation(validationParameters.formNodeElement, validationParameters);
+enableValidation(validationParameters);
