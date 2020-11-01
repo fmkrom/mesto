@@ -120,13 +120,12 @@ function closePopup(popupName){
     document.removeEventListener('keydown', closePopupByEsc);
 };
 
-function closePopupByEsc(event){
-    if (event.key === 'Escape'){
-        closePopup(popupAddCard);
-        closePopup(popupEditProfile);
-        closePopup(popupFullsizeImage);
-    };
-};
+function closePopupByEsc(event){ 
+    const popupOpen = document.querySelector('.popup_open');
+    if (event.key === 'Escape'){ 
+        closePopup(popupOpen);
+    }; 
+}; 
 
 /*-------------------------------------------------------------------------------*/
 
