@@ -1,42 +1,36 @@
+//Импортируем класс карточки
 import Card from "./Card.js"
 
-const initialCards = [
-    {
-        name: 'New Zealand',
-        link: 'https://images.unsplash.com/photo-1604419688654-254f2a20ab40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80'
-    },
-    {
-        name: 'Ohio, USA',
-        link: 'https://images.unsplash.com/photo-1603153286455-11719e16c1c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-    },
-    
-    {
-        name: 'Marocco',
-        link: 'https://images.unsplash.com/photo-1603982626505-cf475dec1088?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-    },
-    
-    {
-        name: 'California, USA',
-        link: 'https://images.unsplash.com/photo-1563296200-4c0862cd8aa7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-    },
-    
-    {
-        name: 'Utah, USA',
-        link: 'https://images.unsplash.com/photo-1575408264798-b50b252663e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=949&q=80'
-    },
-    
-    {
-        name: 'Hokkaido, Japan',
-        link: 'https://images.unsplash.com/photo-1604215840662-1d68c64452dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80'
-    }
-   
-];
+//Импортируем массив данных для карточек
+import initialCards from "./initialCards.js"
 
+//Импортируем настройки валидации
+import validationSettings from "./validationSettings.js"
+
+//Импортируем валидатор форм
+import FormValidator from "./FormValidator.js"
+
+/*===*/
+
+//Функция создания классов карточек
 initialCards.forEach((item) => {
     const card = new Card(item.name, item.link);
     const cardElement = card.generateCard();
     document.querySelector('.cards').prepend(cardElement);
-}); 
+});
+
+/*===*/
+
+//Допустим, сделаем массив их всех форм документа:
+const formsList = Array.from(document.querySelectorAll('.form'));
+
+//Для каждого из элементов массива создаем наш FormValidator
+//Это рабочий вариант кода:
+formsList.forEach((item) =>{
+    const formForValidation = new FormValidator(validationSettings, item);
+    formForValidation.enableValidation();
+});
+
 
 
 
@@ -236,11 +230,10 @@ export {likeCard};
 //Функция добавить и сохранить место
 function addPlace(evt){
     evt.preventDefault()
-        
-    renderCards({
-        name:formAddPlaceFieldName.value, 
-        link:formAddPlaceFieldUrl.value,
-    },);
+    
+    const newCard = new Card(formAddPlaceFieldName.value, formAddPlaceFieldUrl.value);
+    const newCardElement = newCard.generateCard();
+    document.querySelector('.cards').prepend(newCardElement);
 
     closePopup(popupAddCard);
 };
