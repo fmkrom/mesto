@@ -1,3 +1,8 @@
+/*
+ИТОГ: Валидация включается только при 2-м вызове
+Второе поле формы не валидируется вообще!
+*/
+
 class FormValidator{
   constructor(settings, form){
     this._settings = settings;
@@ -13,9 +18,8 @@ class FormValidator{
     errorElement.textContent = this._input.validationMessage;
     errorElement.classList.add(this._settings.errorShownClass);
 
-    console.log(this._input.validationMessage);
+    //console.log(this._input.validationMessage);
     //console.log('_showInputError works!');
-    
   };
   
   _hideInputError(){
@@ -23,9 +27,8 @@ class FormValidator{
     this._input.classList.remove(this._settings.invalidInputClass);
     errorElement.classList.remove(this._settings.errorShownClass);
     errorElement.textContent = '';
-        
-    //console.log('_hideInputError works!');
     
+    //console.log('_hideInputError works!');
   };
 
   _validateInput(){
@@ -37,19 +40,17 @@ class FormValidator{
     //console.log('_validateInput works!');
   };
 
+  /*ВАЖНО! По _returnInvalidInput: вот это правильная комбинация кода - как в оригинале.
+  При такой комбинации формы валидируются и кнопка отключается, но на второй раз*/
+  
   _returnInvalidInput(){
-    //console.log('_returnInvalidInput works!');
-    const inputsArray = this._form.querySelectorAll(this._settings.inputElement);
-    
-    inputsArray.forEach((item) =>{
-      if (!item.validity.valid){
+      if (!this._input.validity.valid){
         //console.log('all fields are valid!');
         return true;
       } else {
         //console.log('not all fields are valid!');
         return false
       }
-    });
   };
 
   _toggleButtonState(){
@@ -66,29 +67,43 @@ class FormValidator{
 
   _setEventListeners(){
       const inputListArray = Array.from(this._form.querySelectorAll(this._settings.inputElement));
+      console.log(inputListArray);
       
       inputListArray.forEach((item)=>{
         item.addEventListener('input',() =>{
           this._validateInput();
           this._toggleButtonState();
         });
-        
     });
     //console.log('_setEventListeners works!');
   };
 
   enableValidation(){
-    const formsList = Array.from(document.querySelectorAll(this._settings.formElement));
-      formsList.forEach((item)=>{
-        item.addEventListener('submit', (evt)=>{
+    this._form.addEventListener('submit', (evt)=>{
           evt.preventDefault();
           this._setEventListeners();
-        });
-      });
-      
-      //console.log('enableValidation works!');
+    });
+    //console.log('enableValidation works!');
   };
-
+  
 };
 
 export default FormValidator;
+
+/*
+  _returnInvalidInput(){
+    //console.log('_returnInvalidInput works!');
+    //const inputsArray = Array.from(this._form.querySelectorAll(this._settings.inputElement));
+    //console.log(inputsArray);
+    //inputsArray.forEach((item) =>{
+      if (!item.validity.valid){
+        //console.log('all fields are valid!');
+        return true;
+      } else {
+        //console.log('not all fields are valid!');
+        return false
+      }
+    
+      //});
+  };
+*/
