@@ -61,7 +61,11 @@ class FormValidator{
     }
   };
 
-  _setEventListeners(form, settings){
+  enableValidation(form, settings){
+      form.addEventListener('submit', (evt)=>{
+        evt.preventDefault();
+      });
+    
       const inputListArray = Array.from(form.querySelectorAll(settings.inputElement));
       const buttonToToggle = form.querySelector(settings.buttonElement);
       
@@ -74,35 +78,6 @@ class FormValidator{
     //console.log('_setEventListeners works!');
   };
 
-  enableValidation(form, settings){
-    form.addEventListener('submit', (evt)=>{
-          evt.preventDefault();
-          //console.log(this._form);
-          this._setEventListeners(this._form, this._settings);
-    });
-    //console.log('enableValidation works!');
-  };
-  
 };
 
 export default FormValidator;
-
-
-
-/*
-  _returnInvalidInput(){
-    //console.log('_returnInvalidInput works!');
-    //const inputsArray = Array.from(this._form.querySelectorAll(this._settings.inputElement));
-    //console.log(inputsArray);
-    //inputsArray.forEach((item) =>{
-      if (!item.validity.valid){
-        //console.log('all fields are valid!');
-        return true;
-      } else {
-        //console.log('not all fields are valid!');
-        return false
-      }
-    
-      //});
-  };
-*/
