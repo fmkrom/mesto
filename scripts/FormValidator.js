@@ -12,30 +12,30 @@ class FormValidator{
     this._button = this._form.querySelector(this._settings.buttonElement);
   }
 
-  _showInputError(){
-    const errorElement = this._form.querySelector(`#${this._input.id}-error`);
-    this._input.classList.add(this._settings.invalidInputClass);
-    errorElement.textContent = this._input.validationMessage;
-    errorElement.classList.add(this._settings.errorShownClass);
+  _showInputError(form, input, settings){
+    const errorElement = form.querySelector(`#${input.id}-error`);
+    input.classList.add(settings.invalidInputClass);
+    errorElement.textContent = input.validationMessage;
+    errorElement.classList.add(settings.errorShownClass);
 
     //console.log(this._input.validationMessage);
     //console.log('_showInputError works!');
   };
   
-  _hideInputError(){
-    const errorElement = this._form.querySelector(`#${this._input.id}-error`);
-    this._input.classList.remove(this._settings.invalidInputClass);
-    errorElement.classList.remove(this._settings.errorShownClass);
+  _hideInputError(form, input, settings){
+    const errorElement = form.querySelector(`#${input.id}-error`);
+    input.classList.remove(settings.invalidInputClass);
+    errorElement.classList.remove(settings.errorShownClass);
     errorElement.textContent = '';
     
     //console.log('_hideInputError works!');
   };
 
-  _validateInput(){
-    if (!this._input.validity.valid){
-      this._showInputError();
+  _validateInput(form, input, settings){
+    if (!input.validity.valid){
+      this._showInputError(form, input, settings);
     } else {
-      this._hideInputError();
+      this._hideInputError(form, input, settings);
     }
     //console.log('_validateInput works!');
   };
@@ -43,45 +43,42 @@ class FormValidator{
   /*ВАЖНО! По _returnInvalidInput: вот это правильная комбинация кода - как в оригинале.
   При такой комбинации формы валидируются и кнопка отключается, но на второй раз*/
   
-  _returnInvalidInput(){
-      if (!this._input.validity.valid){
-        //console.log('all fields are valid!');
-        return true;
-      } else {
-        //console.log('not all fields are valid!');
-        return false
-      }
-  };
+    _returnInvalidInput(input){
+      return input.some((input)=>{
+      return !input.validity.valid;
+      });
+    };
 
-  _toggleButtonState(){
-    if (this._returnInvalidInput()){
-      this._button.classList.add(this._settings.inactiveButtonClass);
-      this._button.disabled = true;
+  _toggleButtonState(inputsArray, button, settings){
+    if (this._returnInvalidInput(inputsArray)){
+      button.classList.add(settings.inactiveButtonClass);
+      button.disabled = true;
       //console.log('_toggleButtonState works: button disabled!');  
     } else {
-      this._button.classList.remove(this._settings.inactiveButtonClass);
-      this._button.disabled = false;
+      button.classList.remove(settings.inactiveButtonClass);
+      button.disabled = false;
       //console.log('_toggleButtonState works: button enabled!');  
     }
   };
 
-  _setEventListeners(){
-      const inputListArray = Array.from(this._form.querySelectorAll(this._settings.inputElement));
-      console.log(inputListArray);
+  _setEventListeners(form, settings){
+      const inputListArray = Array.from(form.querySelectorAll(settings.inputElement));
+      const buttonToToggle = form.querySelector(settings.buttonElement);
       
-      inputListArray.forEach((item)=>{
-        item.addEventListener('input',() =>{
-          this._validateInput();
-          this._toggleButtonState();
+      inputListArray.forEach((currentInput)=>{
+        currentInput.addEventListener('input',() =>{
+          this._validateInput(form, currentInput, settings);
+          this._toggleButtonState(inputListArray, buttonToToggle, settings);
         });
     });
     //console.log('_setEventListeners works!');
   };
 
-  enableValidation(){
-    this._form.addEventListener('submit', (evt)=>{
+  enableValidation(form, settings){
+    form.addEventListener('submit', (evt)=>{
           evt.preventDefault();
-          this._setEventListeners();
+          //console.log(this._form);
+          this._setEventListeners(this._form, this._settings);
     });
     //console.log('enableValidation works!');
   };
@@ -89,6 +86,8 @@ class FormValidator{
 };
 
 export default FormValidator;
+
+
 
 /*
   _returnInvalidInput(){

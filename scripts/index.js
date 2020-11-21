@@ -28,7 +28,7 @@ const formsList = Array.from(document.querySelectorAll('.form'));
 //Это рабочий вариант кода:
 formsList.forEach((item) =>{
     const formForValidation = new FormValidator(validationSettings, item);
-    formForValidation.enableValidation();
+    formForValidation.enableValidation(item, validationSettings);
 });
 
 
