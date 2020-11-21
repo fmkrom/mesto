@@ -12,7 +12,7 @@ import FormValidator from "./FormValidator.js"
 
 /*===*/
 
-//Функция создания классов карточек
+//Функция создания класса Карточки (class Card)
 initialCards.forEach((item) => {
     const card = new Card(item.name, item.link);
     const cardElement = card.generateCard();
@@ -21,11 +21,10 @@ initialCards.forEach((item) => {
 
 /*===*/
 
-//Допустим, сделаем массив их всех форм документа:
+//Массив их всех форм документа:
 const formsList = Array.from(document.querySelectorAll('.form'));
 
-//Для каждого из элементов массива создаем наш FormValidator
-//Это рабочий вариант кода:
+//Для каждого из элементов массива создаем FormValidator
 formsList.forEach((item) =>{
     const formForValidation = new FormValidator(validationSettings, item);
     formForValidation.enableValidation(item, validationSettings);
@@ -52,7 +51,7 @@ const formFieldName = formEditProfile.editProfileName;
 const formFieldJob = formEditProfile.editProfileJob;
 
 //2.3.2.1. Кнопка "Cохранить изменения профиля"
-const buttonSaveProfile = formEditProfile.querySelector('.form__button-save');
+//const buttonSaveProfile = formEditProfile.querySelector('.form__button-save');
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -204,26 +203,6 @@ function closeFullSizeImage(){
 };
 
 buttonCloseFullsizeImage.addEventListener('click', closeFullSizeImage);
-
-/*===*/
-
-/*===*/
-
-//Функция: удаление карточки
-function deleteCard(event){
-    event.target.closest('.card').remove();
-};
-
-export {deleteCard};
-
-//Функция: лайкнуть фото
-function likeCard(event){
-    const eventTarget = event.target;
-    eventTarget.classList.toggle('card__like-button');
-    eventTarget.classList.toggle('card__like-button_active');
-};
-
-export {likeCard};
 
 /*===*/
 

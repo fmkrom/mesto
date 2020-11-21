@@ -1,5 +1,3 @@
-import {deleteCard} from "./index.js";
-import {likeCard} from "./index.js";
 import {openFullSizeImage} from "./index.js";
 
 class Card {
@@ -16,6 +14,16 @@ class Card {
         return clonedTemplate;
     }
 
+    _likeCard(event){
+        const eventTarget = event.target;
+        eventTarget.classList.toggle('card__like-button');
+        eventTarget.classList.toggle('card__like-button_active');
+    };
+
+    _deleteCard(event){
+        event.target.closest('.card').remove();
+    };
+    
     generateCard(){
 
         this._element = this._getCardTemplate();
@@ -25,8 +33,8 @@ class Card {
         this._element.querySelector('.card__title').textContent=this._name;
 
         //Слушатели событий функций:
-        this._element.querySelector('.card__delete-button').addEventListener('click', deleteCard);
-        this._element.querySelector('.card__like-button').addEventListener('click', likeCard);
+        this._element.querySelector('.card__delete-button').addEventListener('click', this._deleteCard);
+        this._element.querySelector('.card__like-button').addEventListener('click', this._likeCard);
         this._element.querySelector('.card__open-fullsize-image').addEventListener('click', openFullSizeImage);
 
         return this._element;
@@ -35,8 +43,3 @@ class Card {
 };
 
 export default Card;
-
-/*
-function renderCards(arrayItem){
-    cardsNode.prepend(getCard(arrayItem));
-*/

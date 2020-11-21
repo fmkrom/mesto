@@ -62,18 +62,20 @@ class FormValidator{
   };
 
   enableValidation(form, settings){
-      form.addEventListener('submit', (evt)=>{
-        evt.preventDefault();
-      });
-    
       const inputListArray = Array.from(form.querySelectorAll(settings.inputElement));
       const buttonToToggle = form.querySelector(settings.buttonElement);
       
+      this._toggleButtonState(inputListArray, buttonToToggle, settings);
+
       inputListArray.forEach((currentInput)=>{
         currentInput.addEventListener('input',() =>{
           this._validateInput(form, currentInput, settings);
           this._toggleButtonState(inputListArray, buttonToToggle, settings);
         });
+    });
+
+    form.addEventListener('submit', (evt)=>{
+      evt.preventDefault();
     });
     //console.log('_setEventListeners works!');
   };
