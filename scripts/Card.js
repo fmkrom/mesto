@@ -1,4 +1,4 @@
-import {openFullSizeImage} from "./index.js";
+import {openFullSizeImage} from "./utils.js";
 
 class Card {
     constructor(name, link){
@@ -14,10 +14,12 @@ class Card {
         return clonedTemplate;
     }
 
-    _likeCard(event){
-        const eventTarget = event.target;
-        eventTarget.classList.toggle('card__like-button');
-        eventTarget.classList.toggle('card__like-button_active');
+    _likeCard(){
+        this._element = this._getCardTemplate();
+        const likeButton = this._element.querySelector('.card__like-button');
+
+        likeButton.classList.toggle('card__like-button');
+        likeButton.classList.toggle('card__like-button_active');
     };
 
     _deleteCard(event){
@@ -25,11 +27,12 @@ class Card {
     };
     
     generateCard(){
-
+        
         this._element = this._getCardTemplate();
 
-        this._element.querySelector('.card__image').src=this._link;
-        this._element.querySelector('.card__image').alt=this._name;
+        const generatedCardImage = this._element.querySelector('.card__image');
+        generatedCardImage.src=this._link;
+        generatedCardImage.alt=this._name;
         this._element.querySelector('.card__title').textContent=this._name;
 
         //Слушатели событий функций:
