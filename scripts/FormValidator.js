@@ -1,91 +1,85 @@
-//Функции валидации форм
+/*
+ИТОГ: Валидация включается только при 2-м вызове
+Второе поле формы не валидируется вообще!
+*/
 
-//Функция: высветить невалидное поле - работает
+class FormValidator{
+  constructor(settings, form){
+    this._settings = settings;
+    this._form = form;
 
-function showInputError(form, input, parameters){
+    this._input = this._form.querySelector(this._settings.inputElement);
+    this._button = this._form.querySelector(this._settings.buttonElement);
+  }
+
+  _showInputError(form, input, settings){
     const errorElement = form.querySelector(`#${input.id}-error`);
-    input.classList.add(parameters.invalidInputClass);
+    input.classList.add(settings.invalidInputClass);
     errorElement.textContent = input.validationMessage;
-    errorElement.classList.add(parameters.errorShownClass);
-    
+    errorElement.classList.add(settings.errorShownClass);
+
+    //console.log(this._input.validationMessage);
+    //console.log('_showInputError works!');
   };
   
-  function hideInputError(form, input, parameters){
+  _hideInputError(form, input, settings){
     const errorElement = form.querySelector(`#${input.id}-error`);
-    input.classList.remove(parameters.invalidInputClass);
-    errorElement.classList.remove(parameters.errorShownClass);
+    input.classList.remove(settings.invalidInputClass);
+    errorElement.classList.remove(settings.errorShownClass);
     errorElement.textContent = '';
     
-  }; 
-  
-  function isValid(form, input, parameters){
-      if (!input.validity.valid){
-        showInputError(form, input, parameters);
-      } else {
-        hideInputError(form, input, parameters);
-      }
+    //console.log('_hideInputError works!');
   };
-  
-  //Функция: вернуть при невалидности
-  function returnInvalidInput(input){
-    return input.some(function(input){
-    return !input.validity.valid;
-    });
-  };
-  
-  //Переключение кнопки
-  function toggleButtonState(inputsArray, button, parameters){
-    if (returnInvalidInput(inputsArray)){
-      button.classList.add(parameters.inactiveButtonClass);
-      button.disabled = true;
+
+  _validateInput(form, input, settings){
+    if (!input.validity.valid){
+      this._showInputError(form, input, settings);
     } else {
-      button.classList.remove(parameters.inactiveButtonClass);
-      button.disabled = false;
+      this._hideInputError(form, input, settings);
     }
-    
-  }; 
-  
-  //Функция: добавляем слушатели событий
-  function setEventListeners(form, parameters){
-    const inputListArray = Array.from(form.querySelectorAll(parameters.inputNodeElement));
-    const buttonToToggle = form.querySelector(parameters.buttonNodeElement);
-    
-    inputListArray.forEach(function(input){
-        input.addEventListener('input', function(){
-          isValid(form, input, parameters);
-          toggleButtonState(inputListArray, buttonToToggle, parameters);
-        });
-    });
-    
+    //console.log('_validateInput works!');
   };
+
+  /*ВАЖНО! По _returnInvalidInput: вот это правильная комбинация кода - как в оригинале.
+  При такой комбинации формы валидируются и кнопка отключается, но на второй раз*/
   
-  //Функция: включить валидацию
-  function enableValidation(parameters){
-    const formsList = Array.from(document.querySelectorAll(parameters.formNodeElement));
-      
-    formsList.forEach(function(form){
-        form.addEventListener('submit', function(evt){
-          console.log(form);
-            evt.preventDefault();
-  
-            setEventListeners(form, parameters);
-        });
-  
-      formsList.forEach(function(form){
-        setEventListeners(form, parameters);
+    _returnInvalidInput(input){
+      return input.some((input)=>{
+      return !input.validity.valid;
       });
-  
+    };
+
+  _toggleButtonState(inputsArray, button, settings){
+    if (this._returnInvalidInput(inputsArray)){
+      button.classList.add(settings.inactiveButtonClass);
+      button.disabled = true;
+      //console.log('_toggleButtonState works: button disabled!');  
+    } else {
+      button.classList.remove(settings.inactiveButtonClass);
+      button.disabled = false;
+      //console.log('_toggleButtonState works: button enabled!');  
+    }
+  };
+
+  enableValidation(form, settings){
+      const inputListArray = Array.from(form.querySelectorAll(settings.inputElement));
+      const buttonToToggle = form.querySelector(settings.buttonElement);
+      
+      this._toggleButtonState(inputListArray, buttonToToggle, settings);
+
+      inputListArray.forEach((currentInput)=>{
+        currentInput.addEventListener('input',() =>{
+          this._validateInput(form, currentInput, settings);
+          this._toggleButtonState(inputListArray, buttonToToggle, settings);
+        });
     });
+
+    form.addEventListener('submit', (evt)=>{
+      evt.preventDefault();
+    });
+    //console.log('_setEventListeners works!');
   };
-    
-  const validationParameters = {
-    formNodeElement: '.form',
-    inputNodeElement: '.form__field',
-    buttonNodeElement: '.form__button-save',
-    
-    inactiveButtonClass: 'form__button-save_inactive',
-    invalidInputClass: 'form__field_invalid',
-    errorShownClass: 'form-error_shown'
-  };
-  
-  enableValidation(validationParameters);
+
+};
+
+export default FormValidator;

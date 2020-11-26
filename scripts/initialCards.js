@@ -30,4 +30,4 @@ const initialCards = [
    
 ];
 
-export{initialCards as cardsDataArray};
+export default initialCards;
