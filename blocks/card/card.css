@@ -4,6 +4,7 @@
 @import "./__rectangle/card__rectangle.css";
 @import "./__title-block/card__title-block.css";
 @import "./__title/card__title.css";
+@import "./__open-fullsize-image/card__open-fullsize-image.css";
 
 .card{
     width: 282px;
