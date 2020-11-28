@@ -1,6 +1,6 @@
-import {openFullSizeImage} from "./utils.js";
+import {openFullSizeImage} from "../utils/utils.js";
 
-class Card {
+export class Card {
     constructor(name, link){
         this._name = name;
         this._link = link;
@@ -24,13 +24,6 @@ class Card {
         cardElement.remove();
     };
 
-    _showCard(element){
-        console.log(element);
-        const cardName = element.querySelector('.card__title').textContent;
-        console.log(cardName);
-        //ВАЖНО! Это все до того, как генерится карточка! Поэтому все null!
-    };
-    
     generateCard(){
         
         this._element = this._getCardTemplate();
@@ -52,5 +45,3 @@ class Card {
     }
 
 };
-
-export default Card;

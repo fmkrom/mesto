@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
     {
         name: 'New Zealand',
         link: 'https://images.unsplash.com/photo-1604419688654-254f2a20ab40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80'
@@ -29,5 +29,3 @@ const initialCards = [
     }
    
 ];
-
-export default initialCards;
