@@ -1,5 +1,7 @@
 //Импортируем необходимые константы из файла констант:
-import {popupEditProfile,
+import {   
+    cardsNode,
+    popupEditProfile,
     formFieldName,
     formFieldJob,
     popupAddCard,
@@ -20,14 +22,11 @@ import {validationSettings
 //Импортируем класс Карточки:
 import {Card} from "../components/Card.js"
 
-//Импортируем класс Валидатора:
-import {FormValidator} from "../components/FormValidator.js"
-
 //Функция создания класса Карточки (class Card)
 function createNewCard(name, link){
     const card = new Card(name, link);
     const cardElement = card.generateCard();
-    document.querySelector('.cards').prepend(cardElement);
+    cardsNode.prepend(cardElement);
 };
 
 //Функция обработки карточек на основе функции создания новой карточки:
@@ -74,10 +73,6 @@ export function saveProfileChanges(evt){
 export function addPlace(evt){
     evt.preventDefault()
     createNewCard(formAddPlaceFieldName.value, formAddPlaceFieldUrl.value);
-
-    formAddPlaceFieldName.value = null;
-    formAddPlaceFieldUrl.value = null;
-    clearForm(popupFormButtonSavePlace, validationSettings);
     closePopup(popupAddCard);
 };
 

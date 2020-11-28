@@ -10,7 +10,10 @@ import {
         popupFormAddPlace,
         buttonEditProfile,
         popupFullsizeImage,
-        buttonCloseFullsizeImage
+        buttonCloseFullsizeImage,
+        popupFormButtonSavePlace,
+        formAddPlaceFieldName,
+        formAddPlaceFieldUrl
 } from "../utils/constants.js"
 
 //3. Импорт класса валидатора:
@@ -24,6 +27,7 @@ import {renderCards,
         saveProfileChanges,
         closePopupWithOverlayClick,
         addPlace,
+        clearForm
 } from "../utils/utils.js"
 
 //5. Импорт настроек валидации:
@@ -48,8 +52,14 @@ buttonCloseFullsizeImage.addEventListener('click', () => { closePopup(popupFulls
 //Привязываем к кнопке функцию: добавить каторчку места
 popupFormAddPlace.addEventListener('submit', addPlace);
 
-//Привязываем к кнопке функцию: открыть окно добавления карточки
-buttonAddCard.addEventListener ('click', function(){openPopup(popupAddCard)});
+//1) Привязываем к кнопке функцию: открыть окно добавления карточки и
+//2) В этой же функции прописываем очистку формы при открытии попапа:
+buttonAddCard.addEventListener ('click', function(){
+        openPopup(popupAddCard);
+        formAddPlaceFieldName.value = '';
+        formAddPlaceFieldUrl.value = '';
+        clearForm(popupFormButtonSavePlace, validationSettings);
+});
 
 //Привязываем к кнопкам функцию: открыть окно редактирования профиля
 buttonEditProfile.addEventListener('click', editProfile);
