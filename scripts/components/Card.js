@@ -39,7 +39,8 @@ export class Card {
         const deleteButton = this._element.querySelector('.card__delete-button');
         deleteButton.addEventListener('click', ()=> this._deleteCard(deleteButton));
                         
-        this._element.querySelector('.card__open-fullsize-image').addEventListener('click', openFullSizeImage);
+        const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
+        openFullsizeImageLink.addEventListener('click', ()=> {openFullSizeImage(this._name, this._link)});
 
         return this._element;
     }

@@ -77,16 +77,11 @@ export function addPlace(evt){
 };
 
 //Функция открытия полномасштабного изображения:
-export function openFullSizeImage(event){
+export function openFullSizeImage(name, link){
     openPopup(popupFullsizeImage);
-    const eventTarget = event.target;
-    const openedFullsizeImage = eventTarget.src;
-    fullsizeImage.setAttribute('src', openedFullsizeImage);
-
-    const cardElement = eventTarget.closest('.card__rectangle');
-    const openedFullsizeImageTitle = cardElement.querySelector('.card__title').textContent;
-    fullsizeImageTitle.textContent = (openedFullsizeImageTitle);
-    fullsizeImageTitle.setAttribute('alt', openedFullsizeImageTitle);
+    fullsizeImage.setAttribute('src', link);
+    fullsizeImageTitle.textContent = name;
+    fullsizeImageTitle.setAttribute('alt', name);
 };
 
 //Функция очистки формы после сабмита
