@@ -89,7 +89,7 @@ export const formAddPlaceName = document.querySelector('.popup__form-field-place
 export const formAddPlaceUrl = document.querySelector('.popup__form-field-photo-url');
 
 //3.1.3.Б.3. Переменная для кнопки "сохранить место"
-export const popupFormButtonSavePlace = document.querySelector('.popup__form-button-save-place');
+export const popupFormButtonSavePlace = document.forms.addPlace.querySelector('.form__button-save');
 
 //7. Переменные для открытия окна полномасштабного изображения: 
 

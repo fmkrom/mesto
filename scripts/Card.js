@@ -19,9 +19,10 @@ class Card {
         button.classList.toggle('card__like-button_active');
     };
 
-    /*_deleteCard=(card)=>{
-        card.remove();
-    };*/
+    _deleteCard=(button)=>{
+        const cardElement = button.closest('.card');
+        cardElement.remove();
+    };
 
     _showCard(element){
         console.log(element);
@@ -42,12 +43,9 @@ class Card {
         const likeButton = this._element.querySelector('.card__like-button');
         likeButton.addEventListener('click', ()=> this._likeCard(likeButton));
 
-        /*===*/
         const deleteButton = this._element.querySelector('.card__delete-button');
-        deleteButton.addEventListener('click', ()=>{
-            this._element.remove();
-        });
-        
+        deleteButton.addEventListener('click', ()=> this._deleteCard(deleteButton));
+                        
         this._element.querySelector('.card__open-fullsize-image').addEventListener('click', openFullSizeImage);
 
         return this._element;

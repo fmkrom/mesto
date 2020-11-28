@@ -41,6 +41,8 @@ import validationSettings from "./validationSettings.js"
 //Импортируем валидатор форм
 import FormValidator from "./FormValidator.js"
 
+import clearForm from "./utils.js";
+
 /*===*/
 
 //Функция создания класса Карточки (class Card)
@@ -110,6 +112,11 @@ function addPlace(evt){
 
     //Вызываем в ней функцию создания новой карточки:
     createNewCard(formAddPlaceFieldName.value, formAddPlaceFieldUrl.value);
+
+    formAddPlaceFieldName.value = null;
+    formAddPlaceFieldUrl.value = null;
+    clearForm(popupFormButtonSavePlace, validationSettings);
+    
     closePopup(popupAddCard);
 };
 

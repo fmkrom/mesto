@@ -28,3 +28,8 @@ function openFullSizeImage(event){
 };
 
 export {openFullSizeImage};
+
+export default function clearForm(button, settings){
+    button.classList.add(settings.inactiveButtonClass);
+    button.disabled = true;
+}

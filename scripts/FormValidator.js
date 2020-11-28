@@ -1,7 +1,3 @@
-/*
-ИТОГ: Валидация включается только при 2-м вызове
-Второе поле формы не валидируется вообще!
-*/
 
 class FormValidator{
   constructor(settings, form){
@@ -17,9 +13,6 @@ class FormValidator{
     input.classList.add(settings.invalidInputClass);
     errorElement.textContent = input.validationMessage;
     errorElement.classList.add(settings.errorShownClass);
-
-    //console.log(this._input.validationMessage);
-    //console.log('_showInputError works!');
   };
   
   _hideInputError(form, input, settings){
