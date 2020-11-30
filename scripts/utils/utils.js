@@ -22,21 +22,24 @@ import {validationSettings
 //Импортируем класс Карточки:
 import {Card} from "../components/Card.js"
 
+
 //Функция создания класса Карточки (class Card)
-function createNewCard(name, link){
+/*function createNewCard(name, link){
     const card = new Card(name, link);
     const cardElement = card.generateCard();
     cardsNode.prepend(cardElement);
-};
+};*/
 
 //Функция обработки карточек на основе функции создания новой карточки:
-export function renderCards(array){
+/*export function renderCards(array){
     array.forEach((item)=>{
         createNewCard(item.name, item.link);
     });
-};
+};*/
 
-//Функции открытия и закрытия попапов:
+
+
+/*
 export function openPopup(popupName){
     popupName.classList.add('popup_open');
     document.addEventListener('keydown', closePopupByEsc);
@@ -53,10 +56,11 @@ export function closePopupByEsc(event){
         closePopup(popupOpen);
     }; 
 }; 
+*/
 
 //Функция редактирования профиля:
 export function editProfile(){
-    openPopup(popupEditProfile);
+    //openPopup(popupEditProfile);
     formFieldName.value = pageProfileName.textContent;
     formFieldJob.value = pageProfileJob.textContent;
 };
@@ -66,19 +70,19 @@ export function saveProfileChanges(evt){
     evt.preventDefault();
     pageProfileName.textContent = formFieldName.value;
     pageProfileJob.textContent = formFieldJob.value;
-    closePopup(popupEditProfile);
+    //closePopup(popupEditProfile);
 };
 
 //Функция добавить и сохранить место
 export function addPlace(evt){
     evt.preventDefault()
     createNewCard(formAddPlaceFieldName.value, formAddPlaceFieldUrl.value);
-    closePopup(popupAddCard);
+    //closePopup(popupAddCard);
 };
 
 //Функция открытия полномасштабного изображения:
 export function openFullSizeImage(name, link){
-    openPopup(popupFullsizeImage);
+    //openPopup(popupFullsizeImage);
     fullsizeImage.setAttribute('src', link);
     fullsizeImageTitle.textContent = name;
     fullsizeImageTitle.setAttribute('alt', name);
@@ -91,11 +95,11 @@ export function clearForm(button, settings){
 }
 
 //Функция закрытия попапа по клику на оверлей
-export function closePopupWithOverlayClick(popup){
+/*export function closePopupWithOverlayClick(popup){
     popup.addEventListener('click', function(event){
         if (event.target.classList.contains('popup__overlay') 
         || event.target.classList.contains('popup__button-close')){
             closePopup(popup);
         }
     }); 
-};
+};*/

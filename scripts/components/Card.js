@@ -1,4 +1,4 @@
-import {openFullSizeImage} from "../utils/utils.js";
+//import {openFullSizeImage} from "../utils/utils.js";
 
 export class Card {
     constructor(name, link){
