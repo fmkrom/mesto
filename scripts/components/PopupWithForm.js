@@ -1,24 +1,18 @@
 import {Popup} from "./Popup.js";
 
-import {fullsizeImage,
-        fullsizeImageTitle
-    } from "../utils/constants.js";
-
-export class PopupWithFullSizeImage extends Popup {
-    constructor(popup){
+export class PopupWithForm extends Popup {
+    constructor(popup, formSubmitFuction){
         super(popup);
+        this._formSubmitFuction = formSubmitFuction;
     }
 
     openPopup(){
         super.openPopup();
     }
 
-    openFullSizeImage=(name, link)=>{
+    openPopupWithForm=()=>{
         this.openedPopup = this.openPopup();
-        //console.log('openFullSizeImage in PopupWithFullSizeImage works!');
-        fullsizeImage.setAttribute('src', link);
-        fullsizeImageTitle.textContent = name;
-        fullsizeImage.setAttribute('alt', name);
+
     }
 
     closePopup(){
