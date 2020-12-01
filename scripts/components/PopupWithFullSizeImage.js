@@ -5,28 +5,32 @@ import {fullsizeImage,
     } from "../utils/constants.js";
 
 export class PopupWithFullSizeImage extends Popup {
-    constructor(popup) {
-        //this._popup = popup;
+    constructor(popup){
         super(popup);
     }
 
-    openPopup(popupSelector){
-        super.openPopup(popupSelector);
-        fullsizeImage.setAttribute('src', link);
-        fullsizeImageTitle.textContent = name;
-        fullsizeImageTitle.setAttribute('alt', name);
+    openPopup(){
+        super.openPopup();
     }
 
-    closePopup(popupSelector){
-        super.closePopup(popupSelector);
+    openFullSizeImage=(name, link)=>{
+        this.openedPopup = this.openPopup();
+        console.log('openFullSizeImage in PopupWithFullSizeImage works!');
+        fullsizeImage.setAttribute('src', link);
+        fullsizeImageTitle.textContent = name;
+        fullsizeImage.setAttribute('alt', name);
+    }
+
+    closePopup(){
+        super.closePopup();
     }
     
     _closePopupWithEsc(event){
         super._closePopupWithEsc(event);
     }
 
-    _closePopupWithOverlayClick(popupSelector){
-        super._closePopupWithOverlayClick(popupSelector);
+    _closePopupWithOverlayClick(){
+        super._closePopupWithOverlayClick();
     }
 
     setEventListeners(openButton, closeButton){
@@ -34,13 +38,3 @@ export class PopupWithFullSizeImage extends Popup {
     }
 
 };
-
-
-
-/*
-Создайте класс PopupWithImage
-Создайте класс PopupWithImage, который наследует от Popup. 
-Этот класс должен перезаписывать родительский метод open. 
-В методе open класса PopupWithImage нужно вставлять в попап картинку 
-и атрибут src изображения и подпись к картинке.
-*/

@@ -86,7 +86,6 @@ cardsContainer.renderItems();
 
 
 
-
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
 formProfileValidator.enableValidation(formEditProfile, validationSettings);
@@ -103,7 +102,7 @@ popupAddCardClass.setEventListeners(buttonAddCard, buttonCloseAddCard);
 
 
 //Класс попапа с полномасштабным изображением:
-const popupWithFullSizeImageClass = new PopupWithFullSizeImage(popupFullsizeImage);
+//const popupWithFullSizeImageClass = new PopupWithFullSizeImage(popupFullsizeImage);
 
 
 //Привязываем к кнопке функцию: закрыть попап c полномасштабным изображением

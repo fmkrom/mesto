@@ -1,4 +1,5 @@
-//import {openFullSizeImage} from "../utils/utils.js";
+import {PopupWithFullSizeImage} from "../components/PopupWithFullSizeImage.js";
+import {popupFullsizeImage} from "../utils/constants.js";
 
 export class Card {
     constructor(name, link){
@@ -39,8 +40,12 @@ export class Card {
         deleteButton.addEventListener('click', ()=> this._deleteCard(this._element));
                         
         const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
-        openFullsizeImageLink.addEventListener('click', ()=> {openFullSizeImage(this._name, this._link)});
-
+        
+        openFullsizeImageLink.addEventListener('click', ()=>{
+            const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
+            openedPopupWithFullSizeImage.openFullSizeImage(this._name, this._link);
+        });
+        
         return this._element;
     }
 

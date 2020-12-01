@@ -1,3 +1,4 @@
 export const selectors = {
-    containerClass: '.cards'
+    containerClass: '.cards',
+    popupWithFullSizeImageClass: '.popup_type-fullsize-image'
 }
