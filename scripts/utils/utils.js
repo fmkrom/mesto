@@ -81,14 +81,14 @@ export function addPlace(evt){
 };
 
 //Функция открытия полномасштабного изображения:
-export function openFullSizeImage(name, link){
-    const openedPopupWithFullSizeImage = new PopupWithFullSizeImage; 
+//export function openFullSizeImage(name, link){
+    //const openedPopupWithFullSizeImage = new PopupWithFullSizeImage; 
     
     //openPopup(popupFullsizeImage);
     //fullsizeImage.setAttribute('src', link);
     //fullsizeImageTitle.textContent = name;
     //fullsizeImageTitle.setAttribute('alt', name);
-};
+//};
 
 //Функция очистки формы после сабмита
 export function clearForm(button, settings){

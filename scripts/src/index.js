@@ -5,6 +5,8 @@ import {initialCards} from "../data-arrays/initialCards.js"
 import {
         popupEditProfile,
         formEditProfile,
+        formFieldName,
+        formFieldJob,
         popupAddCard,
         buttonAddCard,
         popupFormAddPlace,
@@ -45,6 +47,7 @@ import {//renderCards,
 import {validationSettings} from "../settings/validationSettings.js";
 
 import {selectors} from "../settings/selectors.js";
+import { UserInfo } from "../components/UserInfo.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
@@ -60,32 +63,6 @@ const cardsContainer = new Section(
 
 cardsContainer.renderItems();
 
-//Функции страницы:
-
-//Обходим массив карточек функцией-рендерингом: 
-//renderCards(initialCards);
-
-
-
-//Функция создания класса Карточки (class Card)
-/*function createNewCard(name, link){
-    const card = new Card(name, link);
-    const cardElement = card.generateCard();
-    cardsNode.prepend(cardElement);
-};*/
-
-//Функция обработки карточек на основе функции создания новой карточки:
-/*export function renderCards(array){
-    array.forEach((item)=>{
-        createNewCard(item.name, item.link);
-    });
-};*/
-
-
-
-
-
-
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
 formProfileValidator.enableValidation(formEditProfile, validationSettings);
@@ -100,14 +77,6 @@ popupEditProfileClass.setEventListeners(buttonEditProfile, buttonCloseEditProfil
 const popupAddCardClass = new Popup(popupAddCard); 
 popupAddCardClass.setEventListeners(buttonAddCard, buttonCloseAddCard);
 
-
-//Класс попапа с полномасштабным изображением:
-//const popupWithFullSizeImageClass = new PopupWithFullSizeImage(popupFullsizeImage);
-
-
-//Привязываем к кнопке функцию: закрыть попап c полномасштабным изображением
-//buttonCloseFullsizeImage.addEventListener('click', () => { closePopup(popupFullsizeImage) });
-
 //Привязываем к кнопке функцию: добавить каторчку места
 popupFormAddPlace.addEventListener('submit', addPlace);
 
@@ -120,11 +89,15 @@ buttonAddCard.addEventListener ('click', function(){
         clearForm(popupFormButtonSavePlace, validationSettings);
 });
 
-//Привязываем к кнопкам функцию: открыть окно редактирования профиля
-buttonEditProfile.addEventListener('click', editProfile);
-formEditProfile.addEventListener('submit', saveProfileChanges);
+//Привязываем к кнопкам функцию-класс: открыть окно редактирования профиля
+buttonEditProfile.addEventListener('click', ()=>{
+   const editUserInfo = new UserInfo(formFieldName, formFieldJob);
+   editUserInfo.getUserInfo();
+});
 
-//Вызываем функции закрытия попапа кликом на оверлей и применяем их к соотв. формам:
-//closePopupWithOverlayClick(popupAddCard); 
-//closePopupWithOverlayClick(popupEditProfile);
-//closePopupWithOverlayClick(popupFullsizeImage); 
+//Привязываем к кнопкам функцию-класс: сохранить изменения профиля
+formEditProfile.addEventListener('submit', (evt)=>{
+    const editUserInfo = new UserInfo(formFieldName, formFieldJob);
+    editUserInfo.setUserInfo(evt);
+    popupEditProfileClass.closePopup();
+});
