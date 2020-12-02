@@ -18,7 +18,9 @@ import {
         formAddPlaceFieldUrl,
         buttonCloseAddCard,
         buttonCloseEditProfile,
-        cardsNode
+        cardsNode,
+        pageProfileName,
+        pageProfileJob
 } from "../utils/constants.js"
 
 import {Section} from "../components/Section.js"
@@ -69,17 +71,15 @@ const formCardValidator = new FormValidator(validationSettings, popupFormAddPlac
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
 //Классы попапов:
-/*const popupEditProfileClass = new PopupWithForm(
+const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
-        submitFormFunction:(form)=>{
-            form.querySelector
-
+        handleFormSubmit:(formData)=>{
+           const editUserInfo = new UserInfo(formData.editProfileName, formData.editProfileJob);
+           editUserInfo.setUserInfo();
+           popupEditProfileClass.closePopup();
         }
-
-
-
-        });
-popupEditProfileClass.setEventListeners(buttonEditProfile, buttonCloseEditProfile);*/
+});
+popupEditProfileClass.setEventListeners(buttonEditProfile, buttonCloseEditProfile);
 
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
@@ -99,22 +99,22 @@ popupAddCardClass.setEventListeners(buttonAddCard, buttonCloseAddCard);
 
 //1) Привязываем к кнопке функцию: открыть окно добавления карточки и
 //2) В этой же функции прописываем очистку формы при открытии попапа:
-buttonAddCard.addEventListener ('click', function(){
+/*buttonAddCard.addEventListener ('click', function(){
         //openPopup(popupAddCard);
         formAddPlaceFieldName.value = '';
         formAddPlaceFieldUrl.value = '';
         clearForm(popupFormButtonSavePlace, validationSettings);
-});
+});*/
 
-//Привязываем к кнопкам функцию-класс: открыть окно редактирования профиля
+/*Привязываем к кнопкам функцию-класс: открыть окно редактирования профиля
 buttonEditProfile.addEventListener('click', ()=>{
    const editUserInfo = new UserInfo(formFieldName, formFieldJob);
    editUserInfo.getUserInfo();
 });
 
-//Привязываем к кнопкам функцию-класс: сохранить изменения профиля
+/Привязываем к кнопкам функцию-класс: сохранить изменения профиля
 formEditProfile.addEventListener('submit', (evt)=>{
     const editUserInfo = new UserInfo(formFieldName, formFieldJob);
     editUserInfo.setUserInfo(evt);
     popupEditProfileClass.closePopup();
-});
+});*/
