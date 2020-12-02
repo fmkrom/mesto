@@ -31,15 +31,13 @@ import {FormValidator} from "../components/FormValidator.js";
 //3.2. Импорт класса попапа
 import {Popup} from "../components/Popup.js";
 import {PopupWithFullSizeImage} from "../components/PopupWithFullSizeImage.js";
+import {PopupWithForm} from "../components/PopupWithForm.js"
 
 //4. Импорт функций:
-import {//renderCards,
-        //openPopup, 
-        //closePopup,
+import {
         editProfile,
         saveProfileChanges,
-        //closePopupWithOverlayClick,
-        addPlace,
+        
         clearForm,
  } from "../utils/utils.js"
 
@@ -71,14 +69,33 @@ const formCardValidator = new FormValidator(validationSettings, popupFormAddPlac
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
 //Классы попапов:
-const popupEditProfileClass = new Popup(popupEditProfile);
-popupEditProfileClass.setEventListeners(buttonEditProfile, buttonCloseEditProfile);
+/*const popupEditProfileClass = new PopupWithForm(
+        {popup: popupEditProfile,
+        submitFormFunction:(form)=>{
+            form.querySelector
 
-const popupAddCardClass = new Popup(popupAddCard); 
+        }
+
+
+
+        });
+popupEditProfileClass.setEventListeners(buttonEditProfile, buttonCloseEditProfile);*/
+
+//Класс: создаем новый попап с формой для попапа добавления карточки
+const popupAddCardClass = new PopupWithForm({
+        popup: popupAddCard,
+        handleFormSubmit:(formData) =>{
+            const card = new Card(formData.addPlaceName, formData.addPlaceUrl);
+            const cardElement = card.generateCard();
+            cardsContainer.addItem(cardElement);
+            popupAddCardClass.closePopup();
+        }
+});
+
 popupAddCardClass.setEventListeners(buttonAddCard, buttonCloseAddCard);
 
 //Привязываем к кнопке функцию: добавить каторчку места
-popupFormAddPlace.addEventListener('submit', addPlace);
+//popupFormAddPlace.addEventListener('submit', addPlace);
 
 //1) Привязываем к кнопке функцию: открыть окно добавления карточки и
 //2) В этой же функции прописываем очистку формы при открытии попапа:

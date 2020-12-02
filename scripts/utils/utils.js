@@ -74,11 +74,11 @@ export function saveProfileChanges(evt){
 };
 
 //Функция добавить и сохранить место
-export function addPlace(evt){
+/*export function addPlace(evt){
     evt.preventDefault()
     createNewCard(formAddPlaceFieldName.value, formAddPlaceFieldUrl.value);
     //closePopup(popupAddCard);
-};
+};*/
 
 //Функция открытия полномасштабного изображения:
 //export function openFullSizeImage(name, link){
