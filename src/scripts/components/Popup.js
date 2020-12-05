@@ -5,14 +5,12 @@ export class Popup {
 
     openPopup(){
         this._popup.classList.add('popup_open');
-        //document.addEventListener('keydown', this._closePopupWithEsc);
         this._closePopupWithOverlayClick();
         //console.log('new version - class Popup: openPopup works!');
     };
 
     closePopup(){
         this._popup.classList.remove('popup_open');
-        document.removeEventListener('keydown', this._closePopupWithEsc);
         //console.log('new version - class Popup: closePopup works!');
     }
 
@@ -20,9 +18,8 @@ export class Popup {
     _closePopupWithEsc=(event)=>{
         if (event.key === 'Escape'){
             this.closePopup();
-            //console.log('new version - class Popup: _closePopupWithEsc works!');
-        }; 
-    }
+        }
+    };
 
     _closePopupWithOverlayClick(){
         this._popup.addEventListener('click', (event)=>{
