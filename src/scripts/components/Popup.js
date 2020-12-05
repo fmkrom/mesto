@@ -19,6 +19,7 @@ export class Popup {
         if (event.key === 'Escape'){
             this.closePopup();
         }
+        console.log(event.key);
     };
 
     _closePopupWithOverlayClick(){
