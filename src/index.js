@@ -1,46 +1,36 @@
-import "../pages/index.css";
+import "./pages/index.css";
 
 //1. Импорт массива карточек:
-import {initialCards} from "../scripts/data-arrays/initialCards.js";
+import {initialCards} from "./scripts/data-arrays/initialCards";
 
 //2. Импорт переменных из файла констант: 
 import {
         popupEditProfile,
         formEditProfile,
-        formFieldName,
-        formFieldJob,
         popupAddCard,
         buttonAddCard,
         popupFormAddPlace,
         buttonEditProfile,
         popupFullsizeImage,
-        buttonCloseFullsizeImage,
-        popupFormButtonSavePlace,
-        
-        formAddPlaceFieldName,
-        formAddPlaceFieldUrl,
         buttonCloseAddCard,
         buttonCloseEditProfile,
-        cardsNode,
-        pageProfileName,
-        pageProfileJob
-} from "../scripts/utils/constants.js";
+} from "./scripts/utils/constants.js";
 
-import {Section} from "../scripts/components/Section.js";
+import {Section} from "./scripts/components/Section.js";
 
-import {Card} from "../scripts/components/Card.js";
+import {Card} from "./scripts/components/Card.js";
 
 //3. Импорт класса валидатора:
-import {FormValidator} from "../scripts/components/FormValidator.js";
+import {FormValidator} from "./scripts/components/FormValidator.js";
 
 //3.2. Импорт классов модальных окон:
-import {PopupWithFullSizeImage} from "../scripts/components/PopupWithFullSizeImage.js";
-import {PopupWithForm} from "../scripts/components/PopupWithForm.js";
+import {PopupWithFullSizeImage} from "./scripts/components/PopupWithFullSizeImage.js";
+import {PopupWithForm} from "./scripts/components/PopupWithForm.js";
 
 //5. Импорт настроек валидации:
-import {validationSettings} from "../scripts/settings/validationSettings.js";
+import {validationSettings} from "./scripts/settings/validationSettings.js";
 
-import {UserInfo} from "../scripts/components/UserInfo.js";
+import {UserInfo} from "./scripts/components/UserInfo.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
