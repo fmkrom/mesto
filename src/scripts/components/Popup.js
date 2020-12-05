@@ -5,22 +5,21 @@ export class Popup {
 
     openPopup(){
         this._popup.classList.add('popup_open');
-        document.addEventListener('keydown', (event)=> {this._closePopupWithEsc(event)});
+        //document.addEventListener('keydown', this._closePopupWithEsc);
         this._closePopupWithOverlayClick();
         //console.log('new version - class Popup: openPopup works!');
     };
 
     closePopup(){
         this._popup.classList.remove('popup_open');
-        document.removeEventListener('keydown', ()=> {this._closePopupWithEsc});
+        document.removeEventListener('keydown', this._closePopupWithEsc);
         //console.log('new version - class Popup: closePopup works!');
     }
 
     //Важно! В новой версии все работает норм, но не работает закрытие по Esc - это нужно исправить!!
     _closePopupWithEsc=(event)=>{
-        const popupOpen = document.querySelector('.popup_open');
         if (event.key === 'Escape'){
-            this.closePopup(popupOpen);
+            this.closePopup();
             //console.log('new version - class Popup: _closePopupWithEsc works!');
         }; 
     }
@@ -38,6 +37,7 @@ export class Popup {
     setEventListeners(openButton, closeButton){
         openButton.addEventListener('click', ()=>{this.openPopup(this._popup)});
         closeButton.addEventListener('click', ()=>{this.closePopup(this._popup)});
+        document.addEventListener('keydown', this._closePopupWithEsc);
         //console.log('new version - class Popup: setEventListeners works!');
     }
 }
