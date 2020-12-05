@@ -2,13 +2,13 @@ import {PopupWithFullSizeImage} from "../components/PopupWithFullSizeImage.js";
 import {popupFullsizeImage} from "../utils/constants.js";
 
 export class Card {
-    constructor({name, link, handleCardClick}){
+    constructor({name, link, handleCardClick}, templateSelector){
         this._name = name;
         this._link = link;
-        this._template = ('.template');
+        this._template = templateSelector;
         this.handleCardClick = handleCardClick;
     }
-
+    
     _getCardTemplate(){
         const clonedTemplate = document.querySelector(this._template)
         .content.querySelector('.card').cloneNode(true);

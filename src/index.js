@@ -45,7 +45,7 @@ const cardsContainer = new Section(
                 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
                 openedPopupWithFullSizeImage.openFullSizeImage(item.name, item.link);
         }
-    });
+     }, '.template');
      const cardElement = card.generateCard();
      cardsContainer.addItem(cardElement);
  }
@@ -82,7 +82,7 @@ const popupAddCardClass = new PopupWithForm({
                           const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
                           openedPopupWithFullSizeImage.openFullSizeImage(formData.addPlaceName, formData.addPlaceUrl);
                         }
-                });
+                }, '.template');
             const cardElement = card.generateCard();
             cardsContainer.addItem(cardElement);
             popupAddCardClass.closePopup();
