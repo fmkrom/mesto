@@ -7,10 +7,6 @@ export class PopupWithForm extends Popup {
         this._form = popup.querySelector('.form');
     }
 
-    openPopup(){
-        super.openPopup();
-    }
-
     _getInputValues(){
         this._inputList = this._form.querySelectorAll('.form__field');
         this._formValues = {};
@@ -18,18 +14,6 @@ export class PopupWithForm extends Popup {
                 this._formValues[input.name] = input.value;
             });
         return this._formValues;
-    }
-
-    closePopup(){
-        super.closePopup();
-    }
-    
-    _closePopupWithEsc(event){
-        super._closePopupWithEsc(event);
-    }
-
-    _closePopupWithOverlayClick(){
-        super._closePopupWithOverlayClick();
     }
 
     setEventListeners(openButton, closeButton){
