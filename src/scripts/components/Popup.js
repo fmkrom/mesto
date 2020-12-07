@@ -32,9 +32,9 @@ export class Popup {
         }); 
     };
 
-    setEventListeners(openButton, closeButton){
-        openButton.addEventListener('click', ()=>{this.openPopup(this._popup)});
-        closeButton.addEventListener('click', ()=>{this.closePopup(this._popup)});
+    setEventListeners(){
+        this._popup.querySelector('.popup__button-close')
+        .addEventListener('click', ()=> {this.closePopup(this._popup)}); 
         document.addEventListener('keydown', this._closePopupWithEsc);
         //console.log('new version - class Popup: setEventListeners works!');
     }

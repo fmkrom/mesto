@@ -5,6 +5,7 @@ import {initialCards} from "./scripts/data-arrays/initialCards";
 
 //2. Импорт переменных из файла констант: 
 import {
+        buttonSaveProfile,
         popupEditProfile,
         formEditProfile,
         popupAddCard,
@@ -12,6 +13,8 @@ import {
         popupFormAddPlace,
         buttonEditProfile,
         popupFullsizeImage,
+        popupFormButtonSavePlace,
+        popopupAddCardClass,
         buttonCloseAddCard,
         buttonCloseEditProfile,
 } from "./scripts/utils/constants.js";
@@ -31,6 +34,8 @@ import {PopupWithForm} from "./scripts/components/PopupWithForm.js";
 import {validationSettings} from "./scripts/settings/validationSettings.js";
 
 import {UserInfo} from "./scripts/components/UserInfo.js";
+
+import {setButtonListeners} from "./scripts/utils/utils.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
@@ -69,7 +74,8 @@ const popupEditProfileClass = new PopupWithForm(
            popupEditProfileClass.closePopup();
         }
 });
-popupEditProfileClass.setEventListeners(buttonEditProfile, buttonCloseEditProfile);
+
+setButtonListeners(buttonEditProfile, buttonSaveProfile, popupEditProfileClass);
 
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
@@ -88,4 +94,5 @@ const popupAddCardClass = new PopupWithForm({
             popupAddCardClass.closePopup();
         }
 });
-popupAddCardClass.setEventListeners(buttonAddCard, buttonCloseAddCard);
+
+setButtonListeners(buttonAddCard, popupFormButtonSavePlace, popupAddCardClass);

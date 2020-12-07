@@ -43,3 +43,9 @@ export function clearForm(button, settings){
     button.classList.add(settings.inactiveButtonClass);
     button.disabled = true;
 }
+
+export function setButtonListeners(button, saveButton, newPopupClass){
+    button.addEventListener('click', ()=> {newPopupClass.openPopup()});
+    saveButton.addEventListener('click', ()=> {newPopupClass.setEventListeners()});
+}
+
