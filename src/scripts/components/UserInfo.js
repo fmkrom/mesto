@@ -11,12 +11,12 @@ export class UserInfo{
     }
 
     getUserInfo(formName, formJob){
-        this.userName = formName.value;
-        this.userJob = formJob.value;
+        this.userName = formName;
+        this.userJob = formJob;
     }
 
     setUserInfo(formName, formJob){
-        formName.value = this.userName;
-        formJob.value = this.userJob;
+        formName = this.userName;
+        formJob = this.userJob;
     }
 };
