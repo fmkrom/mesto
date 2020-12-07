@@ -11,17 +11,20 @@ export class UserInfo{
     }
 
     getUserInfo(formName, formJob){
-        this.userName = formName;
-        this.userJob = formJob;
+        formName = this.userName;
+        formJob = this.userJob;
+        
+        //formName = pageProfileName.textContent;
+        //formJob = pageProfileJob.textContent;
     }
 
     setUserInfo(formName, formJob){
-        this.userName = formName;
-        this.userJob = formJob;
-        
-        console.log(this.userName, this.userJob, '/это данные со страницы');
-        console.log(formName, formJob, '/это поля формы');
-
-        console.log('setUserInfo works!');
+        pageProfileName.textContent = formName;
+        pageProfileJob.textContent = formJob;
     }
 };
+
+/*
+Итог: не работает геттер. Сеттер работает только 1 раз, затем - пусто.
+Завтра решить эту проблему.
+*/

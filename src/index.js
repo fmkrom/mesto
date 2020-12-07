@@ -69,16 +69,19 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 //Классы попапов:
 const currentUser = new UserInfo(pageProfileName.textContent, pageProfileJob.textContent);
 
-//console.log(currentUser.userName);
-//console.log(currentUser.userJob);
+buttonEditProfile.addEventListener('click', ()=>{
+        currentUser.getUserInfo(formFieldName, formFieldJob)
+});
 
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
            handleFormSubmit:(formData)=>{
-                console.log(formData);
-                //currentUser.getUserInfo(formFieldName.value, formFieldJob.value);
-                currentUser.setUserInfo(formData.editProfileName, formData.editProfileJob);
+                //currentUser.getUserInfo(formData.editProfileName, 
+                                        //formData.editProfileJob);
+                currentUser.setUserInfo(formData.editProfileName, 
+                                        formData.editProfileJob);
                 popupEditProfileClass.closePopup();
+                console.log(pageProfileName.textContent, pageProfileJob.textContent);
            }
         }
 );
