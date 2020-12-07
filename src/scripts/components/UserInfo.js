@@ -1,5 +1,7 @@
 import {pageProfileName,
-        pageProfileJob
+        pageProfileJob, 
+        formFieldName,
+        formFieldJob
 } from "../utils/constants.js"
 
 export class UserInfo{
@@ -8,13 +10,13 @@ export class UserInfo{
         this.userJob = userJob;
     }
 
-    getUserInfo(){
-        this.userName = pageProfileName.textContent;
-        this.userJob = pageProfileJob.textContent;
+    getUserInfo(formName, formJob){
+        this.userName = formName.value;
+        this.userJob = formJob.value;
     }
 
-    setUserInfo(){
-        pageProfileName.textContent = this.userName;
-        pageProfileJob.textContent = this.userJob; 
+    setUserInfo(formName, formJob){
+        formName.value = this.userName;
+        formJob.value = this.userJob;
     }
 };

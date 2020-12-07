@@ -14,6 +14,8 @@ import {
         buttonEditProfile,
         popupFullsizeImage,
         popupFormButtonSavePlace,
+        pageProfileName,
+        pageProfileJob,
         popopupAddCardClass,
         buttonCloseAddCard,
         buttonCloseEditProfile,
@@ -63,10 +65,14 @@ const formCardValidator = new FormValidator(validationSettings, popupFormAddPlac
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
 //Классы попапов:
+const currentUser = new UserInfo(pageProfileName.textContent, pageProfileJob.textContent);
+
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
         handleFormSubmit:(formData)=>{
-           editUserProfile(popupEditProfileClass, UserInfo, formData.name, formData.job);
+           currentUser.getUserInfo(formData.name, formData.job);
+           currentUser.setUserInfo(formData.name, formData.job);
+           popupEditProfileClass.closePopup();
         }
 });
 
