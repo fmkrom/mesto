@@ -35,7 +35,8 @@ import {validationSettings} from "./scripts/settings/validationSettings.js";
 
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
-import {setButtonListeners} from "./scripts/utils/utils.js";
+import {setButtonListeners,
+        createNewCard} from "./scripts/utils/utils.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
@@ -43,18 +44,13 @@ import {setButtonListeners} from "./scripts/utils/utils.js";
 const cardsContainer = new Section(
   {items: initialCards,
   renderer: (item) =>{
-    const card = new Card({
-        name: item.name,
-        link: item.link,
-        handleCardClick: ()=>{
-                const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
-                openedPopupWithFullSizeImage.openFullSizeImage(item.name, item.link);
-        }
-     }, '.template');
-     const cardElement = card.generateCard();
-     cardsContainer.addItem(cardElement);
- }
-}, '.cards');
+        createNewCard(Card, 
+                item.name, 
+                item.link, 
+                PopupWithFullSizeImage, 
+                popupFullsizeImage,
+                cardsContainer)}
+  }, '.cards');
 
 cardsContainer.renderItems();
 
@@ -81,16 +77,12 @@ setButtonListeners(buttonEditProfile, buttonSaveProfile, popupEditProfileClass);
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
-            const card = new Card({
-                    name: formData.addPlaceName, 
-                    link: formData.addPlaceUrl,
-                        handleCardClick: ()=>{
-                          const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
-                          openedPopupWithFullSizeImage.openFullSizeImage(formData.addPlaceName, formData.addPlaceUrl);
-                        }
-                }, '.template');
-            const cardElement = card.generateCard();
-            cardsContainer.addItem(cardElement);
+                createNewCard(Card, 
+                        formData.addPlaceName,
+                        formData.addPlaceUrl,
+                        PopupWithFullSizeImage, 
+                        popupFullsizeImage,
+                        cardsContainer);
             popupAddCardClass.closePopup();
         }
 });
