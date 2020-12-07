@@ -36,7 +36,8 @@ import {validationSettings} from "./scripts/settings/validationSettings.js";
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
 import {setButtonListeners,
-        createNewCard} from "./scripts/utils/utils.js";
+        createNewCard,
+        editUserProfile} from "./scripts/utils/utils.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
@@ -65,9 +66,7 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
         handleFormSubmit:(formData)=>{
-           const editUserInfo = new UserInfo(formData.editProfileName, formData.editProfileJob);
-           editUserInfo.setUserInfo();
-           popupEditProfileClass.closePopup();
+           editUserProfile(popupEditProfileClass, UserInfo, formData.name, formData.job);
         }
 });
 

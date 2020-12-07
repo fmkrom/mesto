@@ -21,3 +21,9 @@ export function createNewCard(CardClass,
     const cardElement = card.generateCard();
     container.addItem(cardElement);
 };
+
+export function editUserProfile(PopupClass, UserClass, name, job){
+        const editUserInfo = new UserClass(name, job);
+        editUserInfo.setUserInfo();
+        PopupClass.closePopup();
+}; 
