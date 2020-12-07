@@ -19,6 +19,8 @@ import {
         popopupAddCardClass,
         buttonCloseAddCard,
         buttonCloseEditProfile,
+        formFieldName,
+        formFieldJob
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -67,14 +69,19 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 //Классы попапов:
 const currentUser = new UserInfo(pageProfileName.textContent, pageProfileJob.textContent);
 
+//console.log(currentUser.userName);
+//console.log(currentUser.userJob);
+
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
-        handleFormSubmit:(formData)=>{
-           currentUser.getUserInfo(formData.name, formData.job);
-           currentUser.setUserInfo(formData.name, formData.job);
-           popupEditProfileClass.closePopup();
+           handleFormSubmit:(formData)=>{
+                console.log(formData);
+                //currentUser.getUserInfo(formFieldName.value, formFieldJob.value);
+                currentUser.setUserInfo(formData.editProfileName, formData.editProfileJob);
+                popupEditProfileClass.closePopup();
+           }
         }
-});
+);
 
 setButtonListeners(buttonEditProfile, buttonSaveProfile, popupEditProfileClass);
 

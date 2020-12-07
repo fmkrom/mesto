@@ -16,7 +16,12 @@ export class UserInfo{
     }
 
     setUserInfo(formName, formJob){
-        formName = this.userName;
-        formJob = this.userJob;
+        this.userName = formName;
+        this.userJob = formJob;
+        
+        console.log(this.userName, this.userJob, '/это данные со страницы');
+        console.log(formName, formJob, '/это поля формы');
+
+        console.log('setUserInfo works!');
     }
 };
