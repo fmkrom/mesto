@@ -40,6 +40,7 @@ import {validationSettings} from "./scripts/settings/validationSettings.js";
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
 import {setButtonListeners,
+        setEditProfileButtonListeners,
         createNewCard,
         editUserProfile} from "./scripts/utils/utils.js";
 
@@ -69,24 +70,26 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 //Классы попапов:
 const currentUser = new UserInfo(pageProfileName.textContent, pageProfileJob.textContent);
 
-buttonEditProfile.addEventListener('click', ()=>{
-        currentUser.getUserInfo(formFieldName, formFieldJob)
-});
+console.log('This is current user: ', currentUser);
 
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
            handleFormSubmit:(formData)=>{
-                //currentUser.getUserInfo(formData.editProfileName, 
-                                        //formData.editProfileJob);
-                currentUser.setUserInfo(formData.editProfileName, 
+                currentUser.setUserInfo(formData.editProfileName,
                                         formData.editProfileJob);
                 popupEditProfileClass.closePopup();
-                console.log(pageProfileName.textContent, pageProfileJob.textContent);
            }
-        }
+        },
 );
 
-setButtonListeners(buttonEditProfile, buttonSaveProfile, popupEditProfileClass);
+setEditProfileButtonListeners(buttonEditProfile, 
+        buttonSaveProfile, 
+        popupEditProfileClass, 
+        currentUser,
+        formFieldName,
+        formFieldJob);
+
+
 
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({

@@ -4,6 +4,16 @@ export function setButtonListeners(button, saveButton, newPopupClass){
     saveButton.addEventListener('click', ()=> {newPopupClass.setEventListeners()});
 }
 
+export function setEditProfileButtonListeners(button, saveButton, newPopupClass, NewUserConst, formInputName, formInputJob){
+    button.addEventListener('click', ()=> {
+        newPopupClass.openPopup();
+        NewUserConst.getUserInfo(formInputName, formInputJob);
+        //console.log('This is data before editing: ', formInputName.value, formInputJob.value);
+        //NewUserConst.setUserInfo(formInputName, formInputJob);
+    });
+    saveButton.addEventListener('click', ()=> {newPopupClass.setEventListeners()});
+};
+
 export function createNewCard(CardClass, 
                               cardName, 
                               cardLink, 

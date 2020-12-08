@@ -11,11 +11,8 @@ export class UserInfo{
     }
 
     getUserInfo(formName, formJob){
-        formName = this.userName;
-        formJob = this.userJob;
-        
-        //formName = pageProfileName.textContent;
-        //formJob = pageProfileJob.textContent;
+        formName.value = this.userName;
+        formJob.value = this.userJob;
     }
 
     setUserInfo(formName, formJob){
@@ -23,8 +20,3 @@ export class UserInfo{
         pageProfileJob.textContent = formJob;
     }
 };
-
-/*
-Итог: не работает геттер. Сеттер работает только 1 раз, затем - пусто.
-Завтра решить эту проблему.
-*/
