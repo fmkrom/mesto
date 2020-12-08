@@ -8,10 +8,10 @@ export function setEditProfileButtonListeners(button, saveButton, newPopupClass,
     button.addEventListener('click', ()=> {
         newPopupClass.openPopup();
         NewUserConst.getUserInfo(formInputName, formInputJob);
-        //console.log('This is data before editing: ', formInputName.value, formInputJob.value);
-        //NewUserConst.setUserInfo(formInputName, formInputJob);
     });
-    saveButton.addEventListener('click', ()=> {newPopupClass.setEventListeners()});
+    saveButton.addEventListener('click', ()=> {
+        newPopupClass.setEventListeners();       
+    });
 };
 
 export function createNewCard(CardClass, 
@@ -32,8 +32,8 @@ export function createNewCard(CardClass,
     container.addItem(cardElement);
 };
 
-export function editUserProfile(PopupClass, UserClass, name, job){
+/*export function editUserProfile(PopupClass, UserClass, name, job){
         const editUserInfo = new UserClass(name, job);
         editUserInfo.setUserInfo();
         PopupClass.closePopup();
-}; 
+}; */

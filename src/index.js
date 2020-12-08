@@ -42,7 +42,8 @@ import {UserInfo} from "./scripts/components/UserInfo.js";
 import {setButtonListeners,
         setEditProfileButtonListeners,
         createNewCard,
-        editUserProfile} from "./scripts/utils/utils.js";
+        //editUserProfile
+} from "./scripts/utils/utils.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
@@ -70,7 +71,7 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 //Классы попапов:
 const currentUser = new UserInfo(pageProfileName.textContent, pageProfileJob.textContent);
 
-console.log('This is current user: ', currentUser);
+//console.log('This is current user: ', currentUser);
 
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
