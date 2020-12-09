@@ -40,6 +40,8 @@ export const pageProfileName = document.querySelector('.profile__name');
 //2.2.3. Профессия на странице
 export const pageProfileJob = document.querySelector('.profile__job');
 
+export const pageProfileAvatar = document.querySelector('.profile__image');
+
 //2.3.1. Кнопка "редактировать профиль"
 export const buttonEditProfile = document.querySelector('.profile__edit-button');
 

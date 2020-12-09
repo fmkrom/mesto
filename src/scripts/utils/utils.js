@@ -1,3 +1,5 @@
+
+
 export function createNewCard(CardClass, 
                               cardName, 
                               cardLink, 
@@ -17,26 +19,8 @@ export function createNewCard(CardClass,
     container.addItem(cardElement);
 };
 
-/*
-
-export function addCardsToContainer(array, SectionClass, CardClass){
-        const newCardsContainer = new SectionClass(
-        {items: array,
-          renderer: (item) =>{
-            const card = new CardClass({
-                name: item.name,
-                link: item.link,
-                handleCardClick: ()=>{
-                        const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
-                        openedPopupWithFullSizeImage.openFullSizeImage(item.name, item.link);
-                }
-            });
-             const cardElement = card.generateCard();
-             newCardsContainer.addItem(cardElement);
-         }
-        }, '.cards');
-        newCardsContainer.renderItems();
-};
-
-*/
-
+export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
+    pageName.textContent = data.name; 
+    pageJob.textContent = data.about;
+    pageAvatar.src = data.avatar;
+}

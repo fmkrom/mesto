@@ -16,7 +16,8 @@ import {
         formFieldJob,
         popupFormButtonSavePlace,
         pageProfileName,
-        pageProfileJob
+        pageProfileJob,
+        pageProfileAvatar
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -39,12 +40,11 @@ import {validationSettings} from "./scripts/settings/validationSettings.js";
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
 import {createNewCard,
-        //addCardsToContainer
+        setUserDataOnPage
 }from "./scripts/utils/utils.js";
 
 /*===*/
-//Класс контейнера, содержащего карточки:
-
+//Добавляю в контейнер свой изначальный массив карточек:
 const cardsContainer = new Section(
   {items: initialCards,
   renderer: (item) =>{
@@ -58,8 +58,7 @@ const cardsContainer = new Section(
 
 cardsContainer.renderItems();
 
-//addCardsToContainer(initialCards, Section, Card);
-
+//Запрос на сервер: карточки
 const cardsApi = new Api({
     url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
     headers: {
@@ -68,9 +67,8 @@ const cardsApi = new Api({
     },
 });
 
-const serverCardsArray = cardsApi.getAllCards();
-
-serverCardsArray.then((data) => {
+//Загружаю с сервера карточки и добавляю в контейнер
+cardsApi.getAllCards().then((data) => {
   const NewCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
   const serverCardsContainer = new Section(
         {items: NewCardsArray,
@@ -85,6 +83,28 @@ serverCardsArray.then((data) => {
         serverCardsContainer.renderItems();
 }).catch((err) => console.log(err));
 
+//Запрос на сервер: данные пользователя
+const userApi = new Api({
+   url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
+   headers: {
+        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+        "content-type": "application/json",
+   },
+});
+
+//Вставляю данные пользователя на страницу
+userApi.getUserData().then((data) => {
+   setUserDataOnPage(data, 
+                     pageProfileName, 
+                     pageProfileJob, 
+                     pageProfileAvatar);
+}).catch((err) => console.log(err));
+
+/*
+pageProfileName.textContent = data.name; 
+    pageProfileJob.textContent = data.about;
+    pageProfileAvatar.src = data.avatar;
+*/
 
 
 //Применяем класс валидатора к каждой из форм:
@@ -116,7 +136,7 @@ buttonAddCard.addEventListener('click', ()=> {
 }); 
 
 //Логика профиля пользователя:
-const currentUser = new UserInfo('.profile__name', '.profile__job');
+//const currentUser = new UserInfo('.profile__name', '.profile__job');
 
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
@@ -128,10 +148,10 @@ const popupEditProfileClass = new PopupWithForm(
         },
 );
 popupEditProfileClass.setEventListeners();
-
+/*
 buttonEditProfile.addEventListener('click', ()=>{
         popupEditProfileClass.openPopup();
         formFieldName.value = pageProfileName.textContent;
         formFieldJob.value = pageProfileJob.textContent;
-});
+});*/
 
