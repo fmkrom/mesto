@@ -10,6 +10,7 @@ export function createNewCard(CardClass,
         handleCardClick: ()=>{
             const openedPopupWithFullSizeImage = new PopupImageClass(popupConst);
             openedPopupWithFullSizeImage.openFullSizeImage(cardName, cardLink);
+            openedPopupWithFullSizeImage.setEventListeners();
         }
     }, '.template');
     const cardElement = card.generateCard();

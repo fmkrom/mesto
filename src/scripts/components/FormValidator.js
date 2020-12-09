@@ -32,9 +32,6 @@ export class FormValidator{
     //console.log('_validateInput works!');
   };
 
-  /*ВАЖНО! По _returnInvalidInput: вот это правильная комбинация кода - как в оригинале.
-  При такой комбинации формы валидируются и кнопка отключается, но на второй раз*/
-  
     _returnInvalidInput(input){
       return input.some((input)=>{
       return !input.validity.valid;
