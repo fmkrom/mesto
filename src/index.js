@@ -94,4 +94,3 @@ buttonEditProfile.addEventListener('click', ()=>{
         formFieldName.value = currentUserInfo.userName;
         formFieldJob.value = currentUserInfo.userJob;
 });
-
