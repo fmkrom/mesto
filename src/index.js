@@ -39,11 +39,7 @@ import {validationSettings} from "./scripts/settings/validationSettings.js";
 
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
-import {//setButtonListeners,
-        setEditProfileButtonListeners,
-        createNewCard,
-        //editUserProfile
-} from "./scripts/utils/utils.js";
+import {createNewCard}from "./scripts/utils/utils.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
@@ -83,9 +79,7 @@ const popupAddCardClass = new PopupWithForm({
 });
 popupAddCardClass.setEventListeners();
 
-buttonAddCard.addEventListener('click', ()=> {
-        popupAddCardClass.openPopup();
-}); 
+buttonAddCard.addEventListener('click', ()=> {popupAddCardClass.openPopup()}); 
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');

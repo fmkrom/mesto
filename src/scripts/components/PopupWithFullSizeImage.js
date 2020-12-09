@@ -11,7 +11,6 @@ export class PopupWithFullSizeImage extends Popup {
 
     openFullSizeImage=(name, link)=>{
         super.openPopup();
-        //console.log('openFullSizeImage in PopupWithFullSizeImage works!');
         fullsizeImage.setAttribute('src', link);
         fullsizeImageTitle.textContent = name;
         fullsizeImage.setAttribute('alt', name);
