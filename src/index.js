@@ -70,6 +70,7 @@ const cardsApi = new Api({
 //Загружаю с сервера карточки и добавляю в контейнер
 cardsApi.getAllCards().then((data) => {
   const NewCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
+  console.log(NewCardsArray);
   const serverCardsContainer = new Section(
         {items: NewCardsArray,
         renderer: (item) =>{
@@ -82,6 +83,20 @@ cardsApi.getAllCards().then((data) => {
         }, '.cards');
         serverCardsContainer.renderItems();
 }).catch((err) => console.log(err));
+
+//Логика добавления на сервер новой карточки
+
+const addCardApi = new Api({
+    url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
+    headers: {
+           Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+          "content-type": "application/json",
+        },
+});
+
+
+
+/*====*/
 
 //Запрос на сервер: данные пользователя
 const userApi = new Api({
@@ -118,7 +133,8 @@ const popupAddCardClass = new PopupWithForm({
                         PopupWithFullSizeImage, 
                         popupFullsizeImage,
                         cardsContainer);
-            popupAddCardClass.closePopup();
+                popupAddCardClass.closePopup();
+                addCardApi.addCard(formData.name, formData.link);
         }
 });
 popupAddCardClass.setEventListeners();
