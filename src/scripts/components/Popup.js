@@ -5,12 +5,13 @@ export class Popup {
 
     openPopup(){
         this._popup.classList.add('popup_open');
-        this._closePopupWithOverlayClick();
+        document.addEventListener('keydown', this._closePopupWithEsc);
         //console.log('new version - class Popup: openPopup works!');
     };
 
     closePopup(){
         this._popup.classList.remove('popup_open');
+        document.removeEventListener('keydown', this._closePopupWithEsc);
         //console.log('new version - class Popup: closePopup works!');
     }
 
@@ -35,7 +36,7 @@ export class Popup {
     setEventListeners(){
         this._popup.querySelector('.popup__button-close')
         .addEventListener('click', ()=> {this.closePopup(this._popup)}); 
-        document.addEventListener('keydown', this._closePopupWithEsc);
+        this._closePopupWithOverlayClick();
         //console.log('new version - class Popup: setEventListeners works!');
     }
 }

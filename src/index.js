@@ -39,7 +39,7 @@ import {validationSettings} from "./scripts/settings/validationSettings.js";
 
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
-import {setButtonListeners,
+import {//setButtonListeners,
         setEditProfileButtonListeners,
         createNewCard,
         //editUserProfile
@@ -68,30 +68,6 @@ formProfileValidator.enableValidation(formEditProfile, validationSettings);
 const formCardValidator = new FormValidator(validationSettings, popupFormAddPlace);;
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
-//Классы попапов:
-const currentUser = new UserInfo(pageProfileName.textContent, pageProfileJob.textContent);
-
-//console.log('This is current user: ', currentUser);
-
-const popupEditProfileClass = new PopupWithForm(
-        {popup: popupEditProfile,
-           handleFormSubmit:(formData)=>{
-                currentUser.setUserInfo(formData.editProfileName,
-                                        formData.editProfileJob);
-                popupEditProfileClass.closePopup();
-           }
-        },
-);
-
-setEditProfileButtonListeners(buttonEditProfile, 
-        buttonSaveProfile, 
-        popupEditProfileClass, 
-        currentUser,
-        formFieldName,
-        formFieldJob);
-
-
-
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
@@ -106,4 +82,30 @@ const popupAddCardClass = new PopupWithForm({
         }
 });
 
-setButtonListeners(buttonAddCard, popupFormButtonSavePlace, popupAddCardClass);
+buttonAddCard.addEventListener('click', ()=> {popupAddCardClass.openPopup()}); 
+popupFormButtonSavePlace.addEventListener('click', ()=> {popupAddCardClass.setEventListeners()}); 
+
+
+//Логика профиля пользователя:
+const currentUser = new UserInfo('.profile__name', '.profile__job');
+const currentUserInfo = currentUser.getUserInfo();
+
+buttonEditProfile.addEventListener('click', ()=>{
+        popupEditProfileClass.openPopup();
+        formFieldName.value = currentUserInfo.userName;
+        formFieldJob.value = currentUserInfo.userJob;
+});
+
+const popupEditProfileClass = new PopupWithForm(
+        {popup: popupEditProfile,
+           handleFormSubmit:(formData)=>{
+                currentUser.setUserInfo(formData.editProfileName,
+                                        formData.editProfileJob);
+                popupEditProfileClass.closePopup();
+           }
+        },
+);
+
+buttonSaveProfile.addEventListener('click', ()=> {
+        popupEditProfileClass.setEventListeners();
+});

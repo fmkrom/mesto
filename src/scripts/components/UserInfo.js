@@ -5,18 +5,20 @@ import {pageProfileName,
 } from "../utils/constants.js"
 
 export class UserInfo{
-    constructor(userName, userJob){
-        this.userName = userName;
-        this.userJob = userJob;
+    constructor(userNameSelector, userJobSelector){
+        this._userName = document.querySelector(userNameSelector);
+        this._userJob = document.querySelector(userJobSelector);
     }
 
-    getUserInfo(formName, formJob){
-        formName.value = this.userName;
-        formJob.value = this.userJob;
+    getUserInfo(){
+        return {
+            userName: this._userName.textContent,
+            userJob: this._userJob.textContent
+        };    
     }
 
     setUserInfo(formName, formJob){
-        pageProfileName.textContent = formName;
-        pageProfileJob.textContent = formJob;
+        this._userName.textContent = formName;
+        this._userJob.textContent = formJob;
     }
 };
