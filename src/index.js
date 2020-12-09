@@ -100,12 +100,6 @@ userApi.getUserData().then((data) => {
                      pageProfileAvatar);
 }).catch((err) => console.log(err));
 
-/*
-pageProfileName.textContent = data.name; 
-    pageProfileJob.textContent = data.about;
-    pageProfileAvatar.src = data.avatar;
-*/
-
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -136,7 +130,7 @@ buttonAddCard.addEventListener('click', ()=> {
 }); 
 
 //Логика профиля пользователя:
-//const currentUser = new UserInfo('.profile__name', '.profile__job');
+const currentUser = new UserInfo('.profile__name', '.profile__job');
 
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
@@ -148,10 +142,10 @@ const popupEditProfileClass = new PopupWithForm(
         },
 );
 popupEditProfileClass.setEventListeners();
-/*
+
 buttonEditProfile.addEventListener('click', ()=>{
         popupEditProfileClass.openPopup();
         formFieldName.value = pageProfileName.textContent;
         formFieldJob.value = pageProfileJob.textContent;
-});*/
+});
 
