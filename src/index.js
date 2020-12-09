@@ -13,7 +13,11 @@ import {
         buttonEditProfile,
         popupFullsizeImage,
         formFieldName,
-        formFieldJob
+        formFieldJob,
+        popupFormButtonSavePlace,
+        buttonSaveProfile,
+        pageProfileName,
+        pageProfileJob
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -72,11 +76,15 @@ const popupAddCardClass = new PopupWithForm({
 });
 popupAddCardClass.setEventListeners();
 
-buttonAddCard.addEventListener('click', ()=> {popupAddCardClass.openPopup()}); 
+buttonAddCard.addEventListener('click', ()=> {
+        popupAddCardClass.openPopup();
+        popupFormButtonSavePlace.classList.add(validationSettings.inactiveButtonClass);
+        popupFormButtonSavePlace.disabled = true;
+}); 
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
-const currentUserInfo = currentUser.getUserInfo();
+//const currentUserInfo = currentUser.getUserInfo();
 
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
@@ -91,6 +99,7 @@ popupEditProfileClass.setEventListeners();
 
 buttonEditProfile.addEventListener('click', ()=>{
         popupEditProfileClass.openPopup();
-        formFieldName.value = currentUserInfo.userName;
-        formFieldJob.value = currentUserInfo.userJob;
+        formFieldName.value = pageProfileName.textContent;
+        formFieldJob.value = pageProfileJob.textContent;
 });
+

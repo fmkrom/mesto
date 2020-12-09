@@ -28,8 +28,6 @@ export class PopupWithForm extends Popup {
             evt.preventDefault();
             this._handleFormSubmit(this._getInputValues());
             this._form.reset();
-            const formSavebutton = this._form.querySelector('.form__button-save');
-            formSavebutton.disabled = true;
         });
     }
 };
