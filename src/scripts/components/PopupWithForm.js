@@ -7,6 +7,12 @@ export class PopupWithForm extends Popup {
         this._form = popup.querySelector('.form');
     }
 
+    openPopup(){
+        super.openPopup();
+        //const formSavebutton = this._form.querySelector('.form__button-save');
+        //formSavebutton.disabled = true;
+    }
+
     _getInputValues(){
         this._inputList = this._form.querySelectorAll('.form__field');
         this._formValues = {};

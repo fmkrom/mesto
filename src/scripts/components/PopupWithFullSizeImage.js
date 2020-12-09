@@ -15,4 +15,5 @@ export class PopupWithFullSizeImage extends Popup {
         fullsizeImageTitle.textContent = name;
         fullsizeImage.setAttribute('alt', name);
     }
+
 };
