@@ -81,20 +81,15 @@ const popupAddCardClass = new PopupWithForm({
             popupAddCardClass.closePopup();
         }
 });
+popupAddCardClass.setEventListeners();
 
-buttonAddCard.addEventListener('click', ()=> {popupAddCardClass.openPopup()}); 
-popupFormButtonSavePlace.addEventListener('click', ()=> {popupAddCardClass.setEventListeners()}); 
-
+buttonAddCard.addEventListener('click', ()=> {
+        popupAddCardClass.openPopup();
+}); 
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
 const currentUserInfo = currentUser.getUserInfo();
-
-buttonEditProfile.addEventListener('click', ()=>{
-        popupEditProfileClass.openPopup();
-        formFieldName.value = currentUserInfo.userName;
-        formFieldJob.value = currentUserInfo.userJob;
-});
 
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
@@ -105,7 +100,10 @@ const popupEditProfileClass = new PopupWithForm(
            }
         },
 );
+popupEditProfileClass.setEventListeners();
 
-buttonSaveProfile.addEventListener('click', ()=> {
-        popupEditProfileClass.setEventListeners();
+buttonEditProfile.addEventListener('click', ()=>{
+        popupEditProfileClass.openPopup();
+        formFieldName.value = currentUserInfo.userName;
+        formFieldJob.value = currentUserInfo.userJob;
 });

@@ -17,5 +17,3 @@ export class PopupWithFullSizeImage extends Popup {
         fullsizeImage.setAttribute('alt', name);
     }
 };
-
-/*ВАЖНО! Сейчас не работает закрытие попапа FullSizeImage по ESC! Почему - нужно разобраться позже*/
