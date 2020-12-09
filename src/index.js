@@ -5,7 +5,6 @@ import {initialCards} from "./scripts/data-arrays/initialCards";
 
 //2. Импорт переменных из файла констант: 
 import {
-        buttonSaveProfile,
         popupEditProfile,
         formEditProfile,
         popupAddCard,
@@ -13,12 +12,6 @@ import {
         popupFormAddPlace,
         buttonEditProfile,
         popupFullsizeImage,
-        popupFormButtonSavePlace,
-        pageProfileName,
-        pageProfileJob,
-        popopupAddCardClass,
-        buttonCloseAddCard,
-        buttonCloseEditProfile,
         formFieldName,
         formFieldJob
 } from "./scripts/utils/constants.js";
@@ -101,3 +94,4 @@ buttonEditProfile.addEventListener('click', ()=>{
         formFieldName.value = currentUserInfo.userName;
         formFieldJob.value = currentUserInfo.userJob;
 });
+
