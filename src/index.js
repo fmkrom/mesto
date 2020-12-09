@@ -15,7 +15,6 @@ import {
         formFieldName,
         formFieldJob,
         popupFormButtonSavePlace,
-        buttonSaveProfile,
         pageProfileName,
         pageProfileJob
 } from "./scripts/utils/constants.js";
@@ -84,7 +83,6 @@ buttonAddCard.addEventListener('click', ()=> {
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
-//const currentUserInfo = currentUser.getUserInfo();
 
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,

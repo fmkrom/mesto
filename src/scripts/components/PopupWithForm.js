@@ -9,8 +9,6 @@ export class PopupWithForm extends Popup {
 
     openPopup(){
         super.openPopup();
-        //const formSavebutton = this._form.querySelector('.form__button-save');
-        //formSavebutton.disabled = true;
     }
 
     _getInputValues(){
