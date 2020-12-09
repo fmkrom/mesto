@@ -28,16 +28,18 @@ export class Popup {
             if (event.target.classList.contains('popup__overlay') 
             || event.target.classList.contains('popup__button-close')){
                 this.closePopup();
+                console.log(event.target);
             }
-            //console.log('new version - class Popup: _closePopupWithOverlayClick works!');
+            console.log('new version - class Popup: _closePopupWithOverlayClick works!');
         }); 
     };
 
     setEventListeners(){
-        this._closePopupWithOverlayClick();
         const popupCloseButton = this._popup.querySelector('.popup__button-close')
         popupCloseButton.addEventListener('click', this.closePopup); 
-        //console.log('Popup: basic setEventListeners works!');
+        this._closePopupWithOverlayClick();
     }
 };
+
+
 
