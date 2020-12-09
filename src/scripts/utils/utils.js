@@ -17,6 +17,8 @@ export function createNewCard(CardClass,
     container.addItem(cardElement);
 };
 
+/*
+
 export function addCardsToContainer(array, SectionClass, CardClass){
         const newCardsContainer = new SectionClass(
         {items: array,
@@ -36,4 +38,5 @@ export function addCardsToContainer(array, SectionClass, CardClass){
         newCardsContainer.renderItems();
 };
 
+*/
 
