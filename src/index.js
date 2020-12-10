@@ -40,14 +40,15 @@ import {createNewCard}from "./scripts/utils/utils.js";
 /*===*/
 //Класс контейнера, содержащего карточки:
 
+const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
+
 const cardsContainer = new Section(
   {items: initialCards,
   renderer: (item) =>{
         createNewCard(Card, 
                 item.name, 
                 item.link, 
-                PopupWithFullSizeImage, 
-                popupFullsizeImage,
+                openedPopupWithFullSizeImage,
                 cardsContainer)}
   }, '.cards');
 
@@ -67,8 +68,7 @@ const popupAddCardClass = new PopupWithForm({
                 createNewCard(Card, 
                         formData.addPlaceName,
                         formData.addPlaceUrl,
-                        PopupWithFullSizeImage, 
-                        popupFullsizeImage,
+                        openedPopupWithFullSizeImage, 
                         cardsContainer);
             popupAddCardClass.closePopup();
         }
