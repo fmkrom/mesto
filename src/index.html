@@ -18,14 +18,14 @@
 
          <section class="profile">
             <div class="profile__avatar">
-               <img src="" class="profile__image" alt="Фото профиля">
+               <img src="<%=require('./images/cousteau-profile-photo.jpg')%>" class="profile__image" alt="Фото профиля">
             </div>
             <div class="profile__info">
                <div class="profile__name-block">
-                  <h1 class="profile__name"></h1>
+                  <h1 class="profile__name">Жак-Ив Кусто</h1>
                   <button class="profile__edit-button" type="button"></button>
                </div>
-               <p class="profile__job"></p>
+               <p class="profile__job">Исследователь океана</p>
             </div>
             <button class="profile__add-button" type="button"></button>
          </section>
@@ -112,6 +112,7 @@
          </div>
       </section>
 
+
    </div>
 </div>
 </div>
@@ -133,49 +134,6 @@
             </div>
          </div>
       </section>
-
-      <!--Попап №4 - удаление карточки-->
-      <!--<section class="popup popup_mode_closed popup_type-add-card">-->
-         <section class="popup popup_type-add-card">
-            <div class="popup__overlay popup__overlay_light">
-               <div class="popup__content-block">
-                  
-                  <button class="popup__button-close" type="button"></button>
-                  <div class="popup__form-container">
-                     <h3 class="popup__title">Вы уверены?</h3>
-                     
-                     <!--Отдельный блок внутри попапа: форма для заполнения-->
-                           <form class="form form_confirm-deleting-card"  name="confirmDeletingCard" novalidate>
-                              <button class="form__button-save" type="submit">Да</button>
-                           </form>
-                     <!--Конец формы-->
-   
-                  </div>
-               </div>
-            </div>
-         </section>
-
-      <!--Попап №5 - Обновить аватар-->
-      <!--<section class="popup popup_mode_closed popup_type-add-card">-->
-         <section class="popup popup_type-add-card">
-            <div class="popup__overlay popup__overlay_light">
-               <div class="popup__content-block">
-                  
-                  <button class="popup__button-close" type="button"></button>
-                  <div class="popup__form-container">
-                     <h3 class="popup__title">Обновить аватар</h3>
-                     
-                     <!--Отдельный блок внутри попапа: форма для заполнения-->
-                     <input required id="input_edit-avatar" class="form__field" name="editAvatar" placeholder="Ссылка на новый аватар" value=""  type="url">
-                     <span class="form-error form-error_hidden" id="input_addplace-name-error"></span>
-                     
-                     <button class="form__button-save" type="submit">Создать</button>
-                     <!--Конец формы-->
-   
-                  </div>
-               </div>
-            </div>
-         </section>
 
    </body>
 </html>

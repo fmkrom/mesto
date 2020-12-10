@@ -16,10 +16,3 @@ export function createNewCard(CardClass,
     const cardElement = card.generateCard();
     container.addItem(cardElement);
 };
-
-export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
-    pageName.textContent = data.name; 
-    pageJob.textContent = data.about;
-    pageAvatar.src = data.avatar;
-    //pageAvatar.src = `<%=require(${data.avatar})%>`;
-}

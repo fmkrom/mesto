@@ -16,8 +16,7 @@ import {
         formFieldJob,
         popupFormButtonSavePlace,
         pageProfileName,
-        pageProfileJob,
-        pageProfileAvatar
+        pageProfileJob
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -31,20 +30,16 @@ import {FormValidator} from "./scripts/components/FormValidator.js";
 import {PopupWithFullSizeImage} from "./scripts/components/PopupWithFullSizeImage.js";
 import {PopupWithForm} from "./scripts/components/PopupWithForm.js";
 
-//3.3. Импорт класса API:
-import {Api} from "./scripts/components/Api.js";
-
 //5. Импорт настроек валидации:
 import {validationSettings} from "./scripts/settings/validationSettings.js";
 
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
-import {createNewCard,
-        setUserDataOnPage
-}from "./scripts/utils/utils.js";
+import {createNewCard}from "./scripts/utils/utils.js";
 
 /*===*/
-//Добавляю в контейнер свой изначальный массив карточек:
+//Класс контейнера, содержащего карточки:
+
 const cardsContainer = new Section(
   {items: initialCards,
   renderer: (item) =>{
@@ -57,64 +52,6 @@ const cardsContainer = new Section(
   }, '.cards');
 
 cardsContainer.renderItems();
-
-//Запрос на сервер: карточки
-const cardsApi = new Api({
-    url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
-    headers: {
-        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-        "content-type": "application/json",
-    },
-});
-
-//Загружаю с сервера карточки и добавляю в контейнер
-cardsApi.getAllCards().then((data) => {
-  const NewCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
-  console.log(NewCardsArray);
-  const serverCardsContainer = new Section(
-        {items: NewCardsArray,
-        renderer: (item) =>{
-              createNewCard(Card, 
-                      item.name, 
-                      item.link, 
-                      PopupWithFullSizeImage, 
-                      popupFullsizeImage,
-                      cardsContainer)}
-        }, '.cards');
-        serverCardsContainer.renderItems();
-}).catch((err) => console.log(err));
-
-//Логика добавления на сервер новой карточки
-
-const addCardApi = new Api({
-    url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
-    headers: {
-           Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-          "content-type": "application/json",
-        },
-});
-
-
-
-/*====*/
-
-//Запрос на сервер: данные пользователя
-const userApi = new Api({
-   url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
-   headers: {
-        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-        "content-type": "application/json",
-   },
-});
-
-//Вставляю данные пользователя на страницу
-userApi.getUserData().then((data) => {
-   setUserDataOnPage(data, 
-                     pageProfileName, 
-                     pageProfileJob, 
-                     pageProfileAvatar);
-}).catch((err) => console.log(err));
-
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -133,8 +70,7 @@ const popupAddCardClass = new PopupWithForm({
                         PopupWithFullSizeImage, 
                         popupFullsizeImage,
                         cardsContainer);
-                popupAddCardClass.closePopup();
-                addCardApi.addCard(formData.name, formData.link);
+            popupAddCardClass.closePopup();
         }
 });
 popupAddCardClass.setEventListeners();
@@ -161,9 +97,8 @@ popupEditProfileClass.setEventListeners();
 
 buttonEditProfile.addEventListener('click', ()=>{
         popupEditProfileClass.openPopup();
-        formFieldName.value = pageProfileName.textContent;
-        formFieldJob.value = pageProfileJob.textContent;
+        const userData = currentUser.getUserInfo();
+        formFieldName.value = userData.userName;
+        formFieldJob.value = userData.userJob; 
 });
-
-
 
