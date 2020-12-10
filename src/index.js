@@ -35,6 +35,8 @@ import {validationSettings} from "./scripts/settings/validationSettings.js";
 
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
+import {Api} from "./scripts/components/Api.js";
+
 import {createNewCard}from "./scripts/utils/utils.js";
 
 /*===*/
@@ -53,6 +55,29 @@ const cardsContainer = new Section(
   }, '.cards');
 
 cardsContainer.renderItems();
+
+const cardsApi = new Api({
+        url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
+        headers: {
+            Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+            "content-type": "application/json",
+        },
+});
+
+cardsApi.getAllCards().then((data) => {
+        const NewCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
+        console.log(NewCardsArray);
+        const serverCardsContainer = new Section(
+                {items: NewCardsArray,
+                renderer: (item) =>{
+                      createNewCard(Card, 
+                              item.name, 
+                              item.link, 
+                              openedPopupWithFullSizeImage,
+                              serverCardsContainer)}
+                }, '.cards');
+serverCardsContainer.renderItems()
+}).catch((err) => console.log(err));
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
