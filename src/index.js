@@ -93,9 +93,12 @@ const popupAddCardClass = new PopupWithForm({
                 const MyCardsForServerContainer = new Section(
                         {items: formData,
                         renderer: (item) =>{
+                                const newCardForServer = new Card ()
+                                
+                                console.log(item);
                                 createNewCard(Card, 
                                               item.addPlaceName,
-                                              item.addPalceUrl,
+                                              item.addPlaceUrl,
                                               openedPopupWithFullSizeImage,
                                               MyCardsForServerContainer)}
                         }, '.cards');
