@@ -89,15 +89,21 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
-        handleFormSubmit:(formData) =>{
-                createNewCard(Card, 
-                        formData.addPlaceName,
-                        formData.addPlaceUrl,
-                        openedPopupWithFullSizeImage, 
-                        cardsContainer);
-            popupAddCardClass.closePopup();
+                handleFormSubmit:(formData) =>{
+                const MyCardsForServerContainer = new Section(
+                        {items: formData,
+                        renderer: (item) =>{
+                                createNewCard(Card, 
+                                              item.addPlaceName,
+                                              item.addPalceUrl,
+                                              openedPopupWithFullSizeImage,
+                                              MyCardsForServerContainer)}
+                        }, '.cards');
+        MyCardsForServerContainer.renderItems();
+        popupAddCardClass.closePopup();
         }
 });
+
 popupAddCardClass.setEventListeners();
 
 buttonAddCard.addEventListener('click', ()=> {
