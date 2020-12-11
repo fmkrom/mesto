@@ -10,6 +10,8 @@
 @import "../profile/__edit-button/profile__edit-button.css";
 
 @import "../profile/__add-button/profile__add-button.css";
+@import "./__avatar-overlay/profile__avatar-overlay.css";
+/*@import "./__avatar-edit-button/profile__avatar-edit-button.css";*/
 
 
 .profile {

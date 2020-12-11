@@ -59,6 +59,13 @@ export const buttonCloseEditProfile = popupEditProfile.querySelector('.popup__bu
 //2.3.5. Кнопка "Закрыть без сохранения изменений" окно добавления фото
 export const buttonCloseAddCard = popupAddCard.querySelector('.popup__button-close');
 
+//Попап: редактировать аватар
+export const popupConfirmDeletingCard = document.querySelector('.popup_type-delete-card');
+
+export const popupEditAvatar = document.querySelector('.popup_type-edit-avatar');
+
+//Попап: подтвердить удаление карточки
+
 /*==============================================================*/
 
 //ПЕРЕМЕННЫЕ ДЛЯ МАССИВА КАРТОЧЕК

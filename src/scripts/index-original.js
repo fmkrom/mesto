@@ -17,9 +17,7 @@ import {
         popupFormButtonSavePlace,
         pageProfileName,
         pageProfileJob,
-        pageProfileAvatar,
-        popupConfirmDeletingCard,
-        popupEditAvatar
+        pageProfileAvatar
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -51,14 +49,15 @@ import {createNewCard,
 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
 
 const cardsContainer = new Section(
-        {items: initialCards,
-        renderer: (item) =>{
-              createNewCard(Card, 
-                      item.name, 
-                      item.link, 
-                      openedPopupWithFullSizeImage,
-                      cardsContainer)}
-        }, '.cards');
+  {items: initialCards,
+  renderer: (item) =>{
+        createNewCard(Card, 
+                item.name, 
+                item.link, 
+                openedPopupWithFullSizeImage,
+                cardsContainer)}
+  }, '.cards');
+
 cardsContainer.renderItems();
 
 
@@ -73,10 +72,9 @@ const cardsApi = new Api({
 
 cardsApi.getCardsFromServer().then((data) => {
         const NewCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
+        console.log(NewCardsArray);
         createNewSection(Section, NewCardsArray, Card, openedPopupWithFullSizeImage);
 }).catch((err) => console.log(err));
-
-
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -94,6 +92,7 @@ const popupAddCardClass = new PopupWithForm({
         popupAddCardClass.closePopup();
         }
 });
+
 popupAddCardClass.setEventListeners();
 
 buttonAddCard.addEventListener('click', ()=> {
@@ -101,21 +100,6 @@ buttonAddCard.addEventListener('click', ()=> {
         popupFormButtonSavePlace.classList.add(validationSettings.inactiveButtonClass);
         popupFormButtonSavePlace.disabled = true;
 }); 
-
-const popupEditAvatarClass = new PopupWithForm({
-       popup: popupEditAvatar,
-       handleFormSubmit:()=>{
-         console.log('popupEditAvatar');
-         popupEditAvatarClass.closePopup();
-        }, 
-});
-popupEditAvatarClass.setEventListeners();
-
-pageProfileAvatar.addEventListener('click', ()=> {
-        popupEditAvatarClass.openPopup();
-        console.log(popupEditAvatarClass);
-});
-
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
@@ -125,7 +109,6 @@ const popupEditProfileClass = new PopupWithForm(
            handleFormSubmit:(formData)=>{
                 currentUser.setUserInfo(formData.editProfileName,
                                         formData.editProfileJob);
-                //setUserApi.setUserData(formData);
                 popupEditProfileClass.closePopup();
            }
         },
@@ -154,13 +137,3 @@ userApi.getUserData().then((data) => {
                           pageProfileJob, 
                           pageProfileAvatar);
 }).catch((err) => console.log(err));
-
-
-/*
-const setUserApi = new Api({
-        url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me',
-        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-        "content-type": "application/json",
-});*/
-
-

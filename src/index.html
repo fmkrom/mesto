@@ -18,7 +18,9 @@
 
          <section class="profile">
             <div class="profile__avatar">
-               <img src="" class="profile__image" alt="Фото профиля">
+               <div class="profile__avatar-overlay">
+                  <img src="" class="profile__image" alt="Фото профиля">
+               </div>
             </div>
             <div class="profile__info">
                <div class="profile__name-block">
@@ -41,7 +43,10 @@
                         </a>
                      <div class="card__title-block">
                         <h2 class="card__title"></h2>
-                        <button class="card__like-button" type="button"></button>
+                        <div class="card__like-section">
+                           <button class="card__like-button" type="button"></button>
+                           <p class="card__like-number">0</p>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -112,12 +117,6 @@
          </div>
       </section>
 
-
-   </div>
-</div>
-</div>
-</section>
-
    <!--Попап №3 - Полномасштабное изображение-->
    <!--<section class="popup popup_mode_closed popup_type-fullsize-image">-->
       <section class="popup popup_type-fullsize-image">
@@ -134,6 +133,49 @@
             </div>
          </div>
       </section>
+
+      <!--Попап №4 - удаление карточки-->
+      <!--<section class="popup popup_mode_closed popup_type-add-card">-->
+         <section class="popup popup_type-delete-card">
+            <div class="popup__overlay popup__overlay_light">
+               <div class="popup__content-block">
+                  
+                  <button class="popup__button-close" type="button"></button>
+                  <div class="popup__form-container">
+                     <h3 class="popup__title">Вы уверены?</h3>
+                     
+                     <!--Отдельный блок внутри попапа: форма для заполнения-->
+                           <form class="form form_confirm-deleting-card"  name="confirmDeletingCard" novalidate>
+                              <button class="form__button-save" type="submit">Да</button>
+                           </form>
+                     <!--Конец формы-->
+   
+                  </div>
+               </div>
+            </div>
+         </section>
+
+      <!--Попап №5 - Обновить аватар-->
+      <!--<section class="popup popup_mode_closed popup_type-add-card">-->
+         <section class="popup popup_type-edit-avatar">
+            <div class="popup__overlay popup__overlay_light">
+               <div class="popup__content-block">
+                  
+                  <button class="popup__button-close" type="button"></button>
+                  <div class="popup__form-container">
+                     <h3 class="popup__title">Обновить аватар</h3>
+                     
+                     <!--Отдельный блок внутри попапа: форма для заполнения-->
+                     <input required id="input_edit-avatar" class="form__field" name="editAvatar" placeholder="Ссылка на новый аватар" value=""  type="url">
+                     <span class="form-error form-error_hidden" id="input_addplace-name-error"></span>
+                     
+                     <button class="form__button-save" type="submit">Создать</button>
+                     <!--Конец формы-->
+   
+                  </div>
+               </div>
+            </div>
+         </section>
 
    </body>
 </html>

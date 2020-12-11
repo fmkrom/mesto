@@ -16,6 +16,18 @@ export class Api {
         })
     };
 
+    getCardLikesFromServer(){
+      return fetch(this._url, {
+          method: 'GET',
+          headers: this._headers,
+      }).then((res) => {
+          if (res.ok) {
+             return res.json();
+          }
+          return Promise.reject("Произошла ошибка");
+      })
+    };
+
     addCard(data) {
         return fetch(this._url, {
             method: "POST",
@@ -54,6 +66,22 @@ export class Api {
             }
             return Promise.reject("Произошла ошибка");
         })
+    };
+
+    setUserData(userData){
+      return fetch(this._url, {
+          method: 'PATCH',
+          headers: this._headers,
+          body: JSON.stringify({
+            name: userData.name,
+            link: userData.about
+        }),
+      }).then((res) => {
+          if (res.ok) {
+             return res.json();
+          }
+          return Promise.reject("Произошла ошибка");
+      })
     };
 };
 
