@@ -37,7 +37,8 @@ import {UserInfo} from "./scripts/components/UserInfo.js";
 
 import {Api} from "./scripts/components/Api.js";
 
-import {createNewCard}from "./scripts/utils/utils.js";
+import {createNewCard,
+        createNewSection}from "./scripts/utils/utils.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
@@ -67,19 +68,8 @@ const cardsApi = new Api({
 cardsApi.getCardsFromServer().then((data) => {
         const NewCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
         console.log(NewCardsArray);
-        const serverCardsContainer = new Section(
-                {items: NewCardsArray,
-                renderer: (item) =>{
-                      createNewCard(Card, 
-                              item.name, 
-                              item.link, 
-                              openedPopupWithFullSizeImage,
-                              serverCardsContainer)}
-                }, '.cards');
-serverCardsContainer.renderItems()
+        createNewSection(Section, NewCardsArray, Card, openedPopupWithFullSizeImage);
 }).catch((err) => console.log(err));
-
-
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -92,19 +82,7 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
                 handleFormSubmit:(formData) =>{
-                const MyCardsForServerContainer = new Section(
-                        {items: formData,
-                        renderer: (item) =>{
-                                const newCardForServer = new Card ()
-                                
-                                console.log(item);
-                                createNewCard(Card, 
-                                              item.addPlaceName,
-                                              item.addPlaceUrl,
-                                              openedPopupWithFullSizeImage,
-                                              MyCardsForServerContainer)}
-                        }, '.cards');
-        MyCardsForServerContainer.renderItems();
+                createNewSection(Section, formData, Card, openedPopupWithFullSizeImage);
         popupAddCardClass.closePopup();
         }
 });

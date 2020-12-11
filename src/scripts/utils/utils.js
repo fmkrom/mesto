@@ -16,3 +16,17 @@ export function createNewCard(CardClass,
     const cardElement = card.generateCard();
     container.addItem(cardElement);
 };
+    
+export function createNewSection(SectionClass, array, CardClass, NewPopupClass){
+        const newCardsContainer = new SectionClass(
+            {items: array,
+            renderer: (item) =>{
+                  createNewCard(CardClass, 
+                          item.name, 
+                          item.link, 
+                          NewPopupClass,
+                          newCardsContainer)}
+            }, '.cards');
+    newCardsContainer.renderItems();    
+};
+
