@@ -64,7 +64,7 @@ const cardsApi = new Api({
         },
 });
 
-cardsApi.getAllCards().then((data) => {
+cardsApi.getCardsFromServer().then((data) => {
         const NewCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
         console.log(NewCardsArray);
         const serverCardsContainer = new Section(
@@ -78,6 +78,8 @@ cardsApi.getAllCards().then((data) => {
                 }, '.cards');
 serverCardsContainer.renderItems()
 }).catch((err) => console.log(err));
+
+
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -135,4 +137,3 @@ buttonEditProfile.addEventListener('click', ()=>{
         formFieldName.value = userData.userName;
         formFieldJob.value = userData.userJob; 
 });
-

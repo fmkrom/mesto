@@ -4,7 +4,7 @@ export class Api {
         this._headers = config.headers;
     }
     
-    getAllCards() {
+    getCardsFromServer() {
         return fetch(this._url, {
             method: 'GET',
             headers: this._headers,
