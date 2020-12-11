@@ -16,7 +16,8 @@ import {
         formFieldJob,
         popupFormButtonSavePlace,
         pageProfileName,
-        pageProfileJob
+        pageProfileJob,
+        pageProfileAvatar
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -38,7 +39,9 @@ import {UserInfo} from "./scripts/components/UserInfo.js";
 import {Api} from "./scripts/components/Api.js";
 
 import {createNewCard,
-        createNewSection}from "./scripts/utils/utils.js";
+        createNewSection,
+        setUserDataOnPage
+}from "./scripts/utils/utils.js";
 
 /*===*/
 //Класс контейнера, содержащего карточки:
@@ -115,3 +118,19 @@ buttonEditProfile.addEventListener('click', ()=>{
         formFieldName.value = userData.userName;
         formFieldJob.value = userData.userJob; 
 });
+
+const userApi = new Api({
+        url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
+        headers: {
+             Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+             "content-type": "application/json",
+        },
+});
+     
+//Вставляю данные пользователя на страницу
+userApi.getUserData().then((data) => {
+        setUserDataOnPage(data, 
+                          pageProfileName, 
+                          pageProfileJob, 
+                          pageProfileAvatar);
+}).catch((err) => console.log(err));

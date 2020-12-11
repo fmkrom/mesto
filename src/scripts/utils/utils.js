@@ -30,3 +30,8 @@ export function createNewSection(SectionClass, array, CardClass, NewPopupClass){
     newCardsContainer.renderItems();    
 };
 
+export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
+    pageName.textContent = data.name; 
+    pageJob.textContent = data.about;
+    pageAvatar.src = data.avatar;
+};
