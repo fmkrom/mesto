@@ -126,7 +126,9 @@ const userApi = new Api({
              "content-type": "application/json",
         },
 });
-     
+
+
+
 //Вставляю данные пользователя на страницу
 userApi.getUserData().then((data) => {
         setUserDataOnPage(data, 
