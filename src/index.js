@@ -95,13 +95,14 @@ const postCardApi = new Api ({
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
+                console.log(formData);
                 postCardApi
-                .addCardToServer(formData)
-                .then((data)=>{
-                console.log('This is data from server in popupAddCardClass', data);
+                .addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
+                .then((formData)=>{
+                console.log('This is data from server in popupAddCardClass', formData);
                         createNewCard(Card,  
-                                data.name, 
-                                data.link,
+                                formData.addPlaceName, 
+                                formData.addPlaceUrl,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection);
                 }).catch((err) => console.log(err));

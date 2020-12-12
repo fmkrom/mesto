@@ -28,13 +28,13 @@ export class Api {
       })
     };
 
-    addCardToServer(data) {
+    addCardToServer(name, link) {
         return fetch(this._url, {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
-                name: data.name,
-                link: data.link
+                name: name,
+                link: link
             }),
           }).then((res) => {
             if (res.ok) {
