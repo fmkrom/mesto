@@ -71,12 +71,11 @@ const cardsApi = new Api({
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 cardsApi.getCardsFromServer().then((data) => {
-        const serverCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
-        cardsSection.renderItems(serverCardsArray);
+        cardsSection.renderItems(data);
 }).catch((err) => console.log(err));
 
 //Рендерим этим же методом мой изначальный массив карточек:
-cardsSection.renderItems(initialCards);
+//cardsSection.renderItems(initialCards);
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -85,12 +84,27 @@ formProfileValidator.enableValidation(formEditProfile, validationSettings);
 const formCardValidator = new FormValidator(validationSettings, popupFormAddPlace);;
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
+const postCardApi = new Api ({
+        url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
+        headers: {
+            Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+            "content-type": "application/json",
+        },
+});
+
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
-                handleFormSubmit:(formData) =>{
-                
-                ;
+        handleFormSubmit:(formData) =>{
+                postCardApi.addCardToServer(
+                        formData.editProfileJob,
+                        formData.editProfileJob).then((res)=>{
+                        createNewCard(Card,  
+                                res.name, 
+                                res.link,
+                                openedPopupWithFullSizeImage,  
+                                cardsSection);
+                }).catch((err) => console.log(err));
         popupAddCardClass.closePopup();
         }
 });
@@ -101,7 +115,7 @@ buttonAddCard.addEventListener('click', ()=> {
         popupFormButtonSavePlace.classList.add(validationSettings.inactiveButtonClass);
         popupFormButtonSavePlace.disabled = true;
 }); 
-
+/*
 const popupEditAvatarClass = new PopupWithForm({
        popup: popupEditAvatar,
        handleFormSubmit:()=>{
@@ -110,12 +124,11 @@ const popupEditAvatarClass = new PopupWithForm({
         }, 
 });
 popupEditAvatarClass.setEventListeners();
-
-pageProfileAvatar.addEventListener('click', ()=> {
+*/
+/*pageProfileAvatar.addEventListener('click', ()=> {
         popupEditAvatarClass.openPopup();
         console.log(popupEditAvatarClass);
-});
-
+});*/
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
@@ -149,7 +162,7 @@ const userApi = new Api({
 
 //Вставляю данные пользователя на страницу
 userApi.getUserData().then((data) => {
-        console.log(data);
+        //console.log(data);
         setUserDataOnPage(data, 
                           pageProfileName, 
                           pageProfileJob, 
