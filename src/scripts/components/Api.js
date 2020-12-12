@@ -28,19 +28,19 @@ export class Api {
       })
     };
 
-    addCardToServer(name, link) {
+    addCardToServer(data) {
         return fetch(this._url, {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
-                name: name,
-                link: link
+                name: data.name,
+                link: data.link
             }),
-        }).then((res) => {
+          }).then((res) => {
             if (res.ok) {
                 console.log(res);
                 return res.json();
-            }return Promise.reject("Произошла ошибка");
+            }return Promise.reject("Произошла ошибка - не запостили карточки на сервер");
         });
     }
 

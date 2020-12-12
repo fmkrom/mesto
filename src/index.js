@@ -72,6 +72,7 @@ const cardsApi = new Api({
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 cardsApi.getCardsFromServer().then((data) => {
         cardsSection.renderItems(data);
+        //console.log(data);
 }).catch((err) => console.log(err));
 
 //Рендерим этим же методом мой изначальный массив карточек:
@@ -84,6 +85,7 @@ formProfileValidator.enableValidation(formEditProfile, validationSettings);
 const formCardValidator = new FormValidator(validationSettings, popupFormAddPlace);;
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
+//Api для загрузки новых карточек на сервер
 const postCardApi = new Api ({
         url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
         headers: {
@@ -96,12 +98,13 @@ const postCardApi = new Api ({
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
-                postCardApi.addCardToServer(
-                        formData.editProfileJob,
-                        formData.editProfileJob).then((res)=>{
+                postCardApi
+                .addCardToServer(formData)
+                .then((data)=>{
+                console.log('This is data from server in popupAddCardClass', data);
                         createNewCard(Card,  
-                                res.name, 
-                                res.link,
+                                data.name, 
+                                data.link,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection);
                 }).catch((err) => console.log(err));
@@ -109,6 +112,8 @@ const popupAddCardClass = new PopupWithForm({
         }
 });
 popupAddCardClass.setEventListeners();
+
+
 
 buttonAddCard.addEventListener('click', ()=> {
         popupAddCardClass.openPopup();
