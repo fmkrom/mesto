@@ -75,9 +75,6 @@ cardsApi.getCardsFromServer().then((data) => {
         //console.log(data);
 }).catch((err) => console.log(err));
 
-//Рендерим этим же методом мой изначальный массив карточек:
-//cardsSection.renderItems(initialCards);
-
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
 formProfileValidator.enableValidation(formEditProfile, validationSettings);
@@ -113,13 +110,12 @@ const popupAddCardClass = new PopupWithForm({
 });
 popupAddCardClass.setEventListeners();
 
-
-
 buttonAddCard.addEventListener('click', ()=> {
         popupAddCardClass.openPopup();
         popupFormButtonSavePlace.classList.add(validationSettings.inactiveButtonClass);
         popupFormButtonSavePlace.disabled = true;
 }); 
+
 /*
 const popupEditAvatarClass = new PopupWithForm({
        popup: popupEditAvatar,
@@ -158,7 +154,6 @@ const popupEditProfileClass = new PopupWithForm(
                 }
         },
 );
-
 popupEditProfileClass.setEventListeners();
 
 buttonEditProfile.addEventListener('click', ()=>{
@@ -184,3 +179,14 @@ userApi.getUserData().then((data) => {
                           pageProfileJob, 
                           pageProfileAvatar);
 }).catch((err) => console.log(err));
+
+
+//Попап: подтвердить удаление карточки
+const popupConfirmDeletingCardClass = new PopupWithForm({
+        popup: popupConfirmDeletingCard,
+        handleFormSubmit:() =>{
+                                                
+        popupConfirmDeletingCardClass.closePopup();
+        }
+});
+popupConfirmDeletingCardClass.setEventListeners();

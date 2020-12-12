@@ -60,11 +60,12 @@ export const buttonCloseEditProfile = popupEditProfile.querySelector('.popup__bu
 export const buttonCloseAddCard = popupAddCard.querySelector('.popup__button-close');
 
 //Попап: редактировать аватар
-export const popupConfirmDeletingCard = document.querySelector('.popup_type-delete-card');
 
 export const popupEditAvatar = document.querySelector('.popup_type-edit-avatar');
 
+/*=================================================================*/
 //Попап: подтвердить удаление карточки
+export const popupConfirmDeletingCard = document.querySelector('.popup_type-delete-card');
 
 /*==============================================================*/
 
