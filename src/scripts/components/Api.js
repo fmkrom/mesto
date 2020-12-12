@@ -69,13 +69,13 @@ export class Api {
         })
     };
 
-    setUserData(userDataName, userDataJob){
+    setUserData(name, about){
       return fetch(this._url, {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify({
-            name: userDataName,
-            link: userDataJob
+            name: name,
+            link: about
         }),
       }).then((res) => {
           if (res.ok) {

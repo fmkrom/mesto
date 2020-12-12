@@ -96,23 +96,12 @@ const postCardApi = new Api ({
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
-<<<<<<< HEAD
-                console.log('This is the data I enter', formData);
-=======
-                console.log(formData);
->>>>>>> api
                 postCardApi
                 .addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
                 .then((formData)=>{
-                console.log('This is data from server in popupAddCardClass', formData);
-<<<<<<< HEAD
-                console.dir(formData);
-                        createNewCard(Card,  
-                                formData.addPlaceName,
-=======
+                //console.log('This is data from server in popupAddCardClass', formData);
                         createNewCard(Card,  
                                 formData.addPlaceName, 
->>>>>>> api
                                 formData.addPlaceUrl,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
@@ -157,12 +146,13 @@ const editUserApi = new Api({
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
            handleFormSubmit:(formData)=>{
-                        console.log(formData);
+                        console.log('This is formData stage 1 ', formData);
                         editUserApi.setUserData(formData.editProfileName, formData.editProfileJob)
                         .then((formData)=>{
+                                console.log('This is formData stage 2 ',formData);
                                 currentUser.setUserInfo(formData.editProfileName,
                                                         fromData.editProfileJob),
-                                console.log('This is formData from popupEditProfileClass', formData);
+                                console.log('This is formData stage 3 from popupEditProfileClass', formData);
                                 popupEditProfileClass.closePopup()
                         })
                 }
@@ -187,8 +177,8 @@ const userApi = new Api({
 
 //Вставляю данные пользователя на страницу
 userApi.getUserData().then((data) => {
-        console.log('This is user data on page', data);
-        console.dir(this);
+        //console.log('This is user data on page', data);
+        //console.dir(this);
         setUserDataOnPage(data, 
                           pageProfileName, 
                           pageProfileJob, 
