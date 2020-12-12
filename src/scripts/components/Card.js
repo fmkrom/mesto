@@ -2,11 +2,12 @@ import {PopupWithFullSizeImage} from "../components/PopupWithFullSizeImage.js";
 import {popupFullsizeImage} from "../utils/constants.js";
 
 export class Card {
-    constructor({name, link, handleCardClick}, templateSelector){
+    constructor({name, link, handleCardClick, handleDeleteCard}, templateSelector){
         this._name = name;
         this._link = link;
         this._template = templateSelector;
         this.handleCardClick = handleCardClick;
+        this.handleDeleteCard = handleDeleteCard;
     }
     
     _getCardTemplate(){
@@ -37,8 +38,8 @@ export class Card {
         const likeButton = this._element.querySelector('.card__like-button');
         likeButton.addEventListener('click', ()=> this._likeCard(likeButton));
 
-        const deleteButton = this._element.querySelector('.card__delete-button');
-        deleteButton.addEventListener('click', ()=> this._deleteCard(this._element));
+        /*const deleteButton = this._element.querySelector('.card__delete-button');
+        deleteButton.addEventListener('click', ()=> this._deleteCard(this._element));*/
                         
         const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
         

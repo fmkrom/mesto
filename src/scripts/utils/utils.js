@@ -7,27 +7,31 @@ export function createNewCard(CardClass,
                               cardName, 
                               cardLink, 
                               NewPopupClass,
-                              NewSectionClass){
+                              NewSectionClass,
+                              PopupConfirmClass){
     const card = new CardClass({
         name: cardName,
         link: cardLink, 
-        handleCardClick: ()=>{openFullSizeImage(NewPopupClass, cardName, cardLink)}
+        handleCardClick: ()=>{openFullSizeImage(NewPopupClass, cardName, cardLink)},
+        handleDeleteCard: ()=>{
+            const cardDeleteButton = card.querySelector('.card__delete-button');
+            cardDeleteButton.addEventListener('click', ()=> {
+                console.log('clicking cardDeleteButton works!');
+                PopupConfirmClass.openPopup();
+            })
+        }
     }, '.template');
     const cardElement = card.generateCard();
     NewSectionClass.addItem(cardElement);
 };
-    
-export function createNewSection(SectionClass, array, CardClass, NewPopupClass){
-        const newCardsSection = new SectionClass(
-            {items: array,
-            renderer: (item) =>{
-                  createNewCard(CardClass, 
-                          item.name, 
-                          item.link, 
-                          NewPopupClass,
-                          newCardsSection)}
-            }, '.cards');
-        newCardsSection.renderItems();
+
+export function confirmDeletingCard(PopupConfirmClass, 
+                                    popupConfirmButton,
+                                    cardConst){
+        PopupConfirmClass.openPopup();
+        popupConfirmButton.addEventListener('click', ()=> {
+        cardConst.handleDeleteCard(cardConst);
+    });
 };
 
 export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){

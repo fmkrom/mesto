@@ -19,7 +19,8 @@ import {
         pageProfileJob,
         pageProfileAvatar,
         popupConfirmDeletingCard,
-        popupEditAvatar
+        popupEditAvatar,
+        buttonConfirmDeletingCard
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -42,7 +43,8 @@ import {Api} from "./scripts/components/Api.js";
 
 import {createNewCard,
         createNewSection,
-        setUserDataOnPage
+        setUserDataOnPage,
+        confirmDeletingCard
 }from "./scripts/utils/utils.js";
 
 /*===*/
@@ -53,11 +55,10 @@ const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeIma
 //Создаем Section - независимый от всех прочих элементов страницы:
 const cardsSection = new Section(
 {renderer: (item) =>{
-        createNewCard(Card, 
-                item.name, 
-                item.link, 
+        createNewCard(Card, item.name, item.link, 
                 openedPopupWithFullSizeImage,
-                cardsSection)}
+                cardsSection, popupConfirmDeletingCardClass,
+                buttonConfirmDeletingCard)}
 }, '.cards');
 
 //Запрос из сервера на массив карточек:
@@ -95,15 +96,18 @@ const postCardApi = new Api ({
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
+                console.log('This is the data I enter', formData);
                 postCardApi
-                .addCardToServer(formData)
-                .then((data)=>{
-                console.log('This is data from server in popupAddCardClass', data);
+                .addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
+                .then((formData)=>{
+                console.log('This is data from server in popupAddCardClass', formData);
+                console.dir(formData);
                         createNewCard(Card,  
-                                data.name, 
-                                data.link,
+                                formData.addPlaceName,
+                                formData.addPlaceUrl,
                                 openedPopupWithFullSizeImage,  
-                                cardsSection);
+                                cardsSection,
+                                popupConfirmDeletingCardClass)
                 }).catch((err) => console.log(err));
         popupAddCardClass.closePopup();
         }
@@ -144,11 +148,12 @@ const editUserApi = new Api({
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
            handleFormSubmit:(formData)=>{
-                        editUserApi.setUserData(formData)
-                        .then((data)=>{
-                                currentUser.setUserInfo(data.editProfileName,
-                                                        data.editProfileJob),
-                                console.log(data);
+                        console.log(formData);
+                        editUserApi.setUserData(formData.editProfileName, formData.editProfileJob)
+                        .then((formData)=>{
+                                currentUser.setUserInfo(formData.editProfileName,
+                                                        fromData.editProfileJob),
+                                console.log('This is formData from popupEditProfileClass', formData);
                                 popupEditProfileClass.closePopup()
                         })
                 }
@@ -173,7 +178,8 @@ const userApi = new Api({
 
 //Вставляю данные пользователя на страницу
 userApi.getUserData().then((data) => {
-        //console.log(data);
+        console.log('This is user data on page', data);
+        console.dir(this);
         setUserDataOnPage(data, 
                           pageProfileName, 
                           pageProfileJob, 
@@ -185,7 +191,9 @@ userApi.getUserData().then((data) => {
 const popupConfirmDeletingCardClass = new PopupWithForm({
         popup: popupConfirmDeletingCard,
         handleFormSubmit:() =>{
-                                                
+                /*confirmDeletingCard(popupConfirmDeletingCardClass, 
+                                    buttonConfirmDeletingCard,
+                        );    */                                    
         popupConfirmDeletingCardClass.closePopup();
         }
 });

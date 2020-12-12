@@ -67,6 +67,8 @@ export const popupEditAvatar = document.querySelector('.popup_type-edit-avatar')
 //Попап: подтвердить удаление карточки
 export const popupConfirmDeletingCard = document.querySelector('.popup_type-delete-card');
 
+export const buttonConfirmDeletingCard = popupConfirmDeletingCard.querySelector('.form__button-save');
+
 /*==============================================================*/
 
 //ПЕРЕМЕННЫЕ ДЛЯ МАССИВА КАРТОЧЕК

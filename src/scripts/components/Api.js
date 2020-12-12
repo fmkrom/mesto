@@ -28,19 +28,20 @@ export class Api {
       })
     };
 
-    addCardToServer(data) {
+    addCardToServer(name, link) {
         return fetch(this._url, {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
-                name: data.name,
-                link: data.link
+                name: name,
+                link: link
             }),
           }).then((res) => {
             if (res.ok) {
-                console.log(res);
-                return res.json();
-            }return Promise.reject("Произошла ошибка данные карточки не отправились на сервер");
+                console.log('this is fetch addCardToServer result:', res);
+                console.dir(res);
+              return res.json();
+            } return Promise.reject("Произошла ошибка в файле Api: данные карточки не отправились на сервер");
         });
     }
 
@@ -68,17 +69,18 @@ export class Api {
         })
     };
 
-    setUserData(userData){
+    setUserData(userDataName, userDataJob){
       return fetch(this._url, {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify({
-            name: userData.name,
-            link: userData.about
+            name: userDataName,
+            link: userDataJob
         }),
       }).then((res) => {
           if (res.ok) {
-             return res.json();
+            console.dir(res);
+            return res.json();
           }
           return Promise.reject("Произошла ошибка - данные пользователя не отправились на сервер");
       })
