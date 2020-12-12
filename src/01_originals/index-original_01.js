@@ -1,3 +1,9 @@
+/*
+Оригинал index.js: 2020-12-12, 10:00
+Работае загрузка карточек с сервера
+Не работает все остальное
+*/
+
 import "./pages/index.css";
 
 //1. Импорт массива карточек:
@@ -50,17 +56,19 @@ import {createNewCard,
 
 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
 
-//Создаем Section - независимый от всех прочих элементов страницы:
-const cardsSection = new Section(
-{renderer: (item) =>{
-        createNewCard(Card, 
-                item.name, 
-                item.link, 
-                openedPopupWithFullSizeImage,
-                cardsSection)}
-}, '.cards');
+const cardsContainer = new Section(
+        {items: initialCards,
+        renderer: (item) =>{
+              createNewCard(Card, 
+                      item.name, 
+                      item.link, 
+                      openedPopupWithFullSizeImage,
+                      cardsContainer)}
+        }, '.cards');
+cardsContainer.renderItems();
 
-//Запрос из сервера на массив карточек:
+
+
 const cardsApi = new Api({
         url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
         headers: {
@@ -69,14 +77,12 @@ const cardsApi = new Api({
         },
 });
 
-//Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 cardsApi.getCardsFromServer().then((data) => {
-        const serverCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
-        cardsSection.renderItems(serverCardsArray);
+        const NewCardsArray = data.map((item) => ({ name: item.name, link: item.link }));
+        createNewSection(Section, NewCardsArray, Card, openedPopupWithFullSizeImage);
 }).catch((err) => console.log(err));
 
-//Рендерим этим же методом мой изначальный массив карточек:
-cardsSection.renderItems(initialCards);
+
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -88,7 +94,7 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
-                handleFormSubmit:(formData) =>{
+        handleFormSubmit:(formData) =>{
                 
                 ;
         popupAddCardClass.closePopup();

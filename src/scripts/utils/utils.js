@@ -7,27 +7,27 @@ export function createNewCard(CardClass,
                               cardName, 
                               cardLink, 
                               NewPopupClass,
-                              container){
+                              NewSectionClass){
     const card = new CardClass({
         name: cardName,
         link: cardLink, 
         handleCardClick: ()=>{openFullSizeImage(NewPopupClass, cardName, cardLink)}
     }, '.template');
     const cardElement = card.generateCard();
-    container.addItem(cardElement);
+    NewSectionClass.addItem(cardElement);
 };
     
 export function createNewSection(SectionClass, array, CardClass, NewPopupClass){
-        const newCardsContainer = new SectionClass(
+        const newCardsSection = new SectionClass(
             {items: array,
             renderer: (item) =>{
                   createNewCard(CardClass, 
                           item.name, 
                           item.link, 
                           NewPopupClass,
-                          newCardsContainer)}
+                          newCardsSection)}
             }, '.cards');
-    newCardsContainer.renderItems();    
+        newCardsSection.renderItems();
 };
 
 export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
