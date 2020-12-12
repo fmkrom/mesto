@@ -96,14 +96,23 @@ const postCardApi = new Api ({
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
+<<<<<<< HEAD
                 console.log('This is the data I enter', formData);
+=======
+                console.log(formData);
+>>>>>>> api
                 postCardApi
                 .addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
                 .then((formData)=>{
                 console.log('This is data from server in popupAddCardClass', formData);
+<<<<<<< HEAD
                 console.dir(formData);
                         createNewCard(Card,  
                                 formData.addPlaceName,
+=======
+                        createNewCard(Card,  
+                                formData.addPlaceName, 
+>>>>>>> api
                                 formData.addPlaceUrl,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
