@@ -138,16 +138,27 @@ popupEditAvatarClass.setEventListeners();
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
 
+const editUserApi = new Api({
+        url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me',
+        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+        "content-type": "application/json",
+});
+
+//Запрос API для изменения данных пользователя
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
            handleFormSubmit:(formData)=>{
-                currentUser.setUserInfo(formData.editProfileName,
-                                        formData.editProfileJob);
-                //setUserApi.setUserData(formData);
-                popupEditProfileClass.closePopup();
-           }
+                        editUserApi.setUserData(formData)
+                        .then((data)=>{
+                                currentUser.setUserInfo(data.editProfileName,
+                                                        data.editProfileJob),
+                                console.log(data);
+                                popupEditProfileClass.closePopup()
+                        })
+                }
         },
 );
+
 popupEditProfileClass.setEventListeners();
 
 buttonEditProfile.addEventListener('click', ()=>{
@@ -173,13 +184,3 @@ userApi.getUserData().then((data) => {
                           pageProfileJob, 
                           pageProfileAvatar);
 }).catch((err) => console.log(err));
-
-
-/*
-const setUserApi = new Api({
-        url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me',
-        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-        "content-type": "application/json",
-});*/
-
-

@@ -40,7 +40,7 @@ export class Api {
             if (res.ok) {
                 console.log(res);
                 return res.json();
-            }return Promise.reject("Произошла ошибка - не запостили карточки на сервер");
+            }return Promise.reject("Произошла ошибка данные карточки не отправились на сервер");
         });
     }
 
@@ -80,7 +80,7 @@ export class Api {
           if (res.ok) {
              return res.json();
           }
-          return Promise.reject("Произошла ошибка");
+          return Promise.reject("Произошла ошибка - данные пользователя не отправились на сервер");
       })
     };
 };
