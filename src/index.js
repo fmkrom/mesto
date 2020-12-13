@@ -72,6 +72,7 @@ const cardsApi = new Api({
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 cardsApi.getCardsFromServer().then((data) => {
+        console.log(data);
         cardsSection.renderItems(data);
         //console.log(data);
 }).catch((err) => console.log(err));

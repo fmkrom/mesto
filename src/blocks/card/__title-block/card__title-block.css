@@ -5,9 +5,11 @@
     align-content: center;
 
     width:246px;
-    height: max-content;
-
+    height: 23px;
     margin:0 auto;
+
+    margin-bottom:31px;
+    margin-top: 25px;
 
     padding-top: 0;
     padding-bottom: 0;

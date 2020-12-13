@@ -1,12 +1,7 @@
 .card__image{
-    width: auto;
-    height: 282px;
+    width:120%;
+    height: auto;
     margin-bottom:0;
-
     align-self:center;
-    
-    position: relative;
-    top:-20px;
     z-index:0;
 }
-
