@@ -53,8 +53,6 @@ export class Card {
             this.handleDeleteCard();
         });
 
-        //_handleDeleteButtonClick(element)
-                        
         const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
         
         openFullsizeImageLink.addEventListener('click', ()=>{this.handleCardClick()

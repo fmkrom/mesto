@@ -58,8 +58,8 @@ const cardsSection = new Section(
 {renderer: (item) =>{
         createNewCard(Card, item.name, item.link, 
                 openedPopupWithFullSizeImage,
-                cardsSection, popupConfirmDeletingCardClass,
-                buttonConfirmDeletingCard)}
+                cardsSection, popupConfirmDeletingCardClass
+                )}
 }, '.cards');
 
 //Запрос из сервера на массив карточек:
@@ -107,9 +107,7 @@ const popupAddCardClass = new PopupWithForm({
                                 formData.addPlaceUrl,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
-                                popupConfirmDeletingCardClass,
-                                buttonConfirmDeletingCard
-                                );
+                                popupConfirmDeletingCardClass);
                 }).catch((err) => console.log(err));
         popupAddCardClass.closePopup();
         }

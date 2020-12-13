@@ -8,17 +8,14 @@ export function createNewCard(CardClass,
                               cardLink, 
                               NewPopupClass,
                               NewSectionClass,
-                              PopupConfirmClass,
-                              PopupConfirmButton){
+                              PopupConfirmClass){
     const card = new CardClass({
         name: cardName,
         link: cardLink, 
         handleCardClick: ()=>{openFullSizeImage(NewPopupClass, cardName, cardLink)},
         handleDeleteCard: ()=>{
                         PopupConfirmClass.openPopup();
-                        PopupConfirmButton.addEventListener('click', ()=>{
-                            card._deleteCard(card);
-                        })
+                        PopupConfirmClass.setEventListeners(card);
                     }
     }, '.template');
     const cardElement = card.generateCard();

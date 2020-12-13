@@ -9,7 +9,15 @@ export class PopupWithButton extends Popup {
         super.openPopup();
     }
 
-    setEventListeners(){
-        super.setEventListeners();    
+    _confirmDeletingCard(newCardClass){
+        newCardClass._deleteCard(newCardClass);
+    }
+
+    setEventListeners(newCardClass){
+        super.setEventListeners();
+        const confirmDeletingButton = this.popup.querySelector('.form__button-save');
+        confirmDeletingButton.addEventListener('click', ()=>{
+            _confirmDeletingCard(newCardClass);
+        })
     }
 };
