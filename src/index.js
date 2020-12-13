@@ -33,6 +33,7 @@ import {FormValidator} from "./scripts/components/FormValidator.js";
 //3.2. Импорт классов модальных окон:
 import {PopupWithFullSizeImage} from "./scripts/components/PopupWithFullSizeImage.js";
 import {PopupWithForm} from "./scripts/components/PopupWithForm.js";
+import {PopupWithButton} from "./scripts/components/PopupWithButton.js";
 
 //5. Импорт настроек валидации:
 import {validationSettings} from "./scripts/settings/validationSettings.js";
@@ -106,7 +107,9 @@ const popupAddCardClass = new PopupWithForm({
                                 formData.addPlaceUrl,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
-                                popupConfirmDeletingCardClass)
+                                popupConfirmDeletingCardClass,
+                                buttonConfirmDeletingCard
+                                );
                 }).catch((err) => console.log(err));
         popupAddCardClass.closePopup();
         }
@@ -152,7 +155,7 @@ const popupEditProfileClass = new PopupWithForm(
                         .then((formData)=>{
                                 console.log('This is formData stage 2 ',formData);
                                 currentUser.setUserInfo(formData.editProfileName,
-                                                        fromData.editProfileJob),
+                                                        formData.editProfileJob),
                                 console.log('This is formData stage 3 from popupEditProfileClass', formData);
                                 popupEditProfileClass.closePopup()
                         })
@@ -188,13 +191,11 @@ userApi.getUserData().then((data) => {
 
 
 //Попап: подтвердить удаление карточки
-const popupConfirmDeletingCardClass = new PopupWithForm({
-        popup: popupConfirmDeletingCard,
-        handleFormSubmit:() =>{
-                /*confirmDeletingCard(popupConfirmDeletingCardClass, 
-                                    buttonConfirmDeletingCard,
-                        );    */                                    
-        popupConfirmDeletingCardClass.closePopup();
-        }
-});
+const popupConfirmDeletingCardClass = new PopupWithButton({
+        popup: popupConfirmDeletingCard})
+        //handleFormSubmit:(deleteButton, confirmButton, Card) =>{
+                      
+        //popupConfirmDeletingCardClass.closePopup();
+        
+//});
 popupConfirmDeletingCardClass.setEventListeners();

@@ -75,11 +75,12 @@ export class Api {
           headers: this._headers,
           body: JSON.stringify({
             name: name,
-            link: about
+            about: about
         }),
       }).then((res) => {
           if (res.ok) {
             console.dir(res);
+            console.log(res.status, res.statusText);
             return res.json();
           }
           return Promise.reject("Произошла ошибка - данные пользователя не отправились на сервер");

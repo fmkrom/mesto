@@ -8,18 +8,18 @@ export function createNewCard(CardClass,
                               cardLink, 
                               NewPopupClass,
                               NewSectionClass,
-                              PopupConfirmClass){
+                              PopupConfirmClass,
+                              PopupConfirmButton){
     const card = new CardClass({
         name: cardName,
         link: cardLink, 
         handleCardClick: ()=>{openFullSizeImage(NewPopupClass, cardName, cardLink)},
         handleDeleteCard: ()=>{
-            const cardDeleteButton = card.querySelector('.card__delete-button');
-            cardDeleteButton.addEventListener('click', ()=> {
-                console.log('clicking cardDeleteButton works!');
-                PopupConfirmClass.openPopup();
-            })
-        }
+                        PopupConfirmClass.openPopup();
+                        PopupConfirmButton.addEventListener('click', ()=>{
+                            card._deleteCard(card);
+                        })
+                    }
     }, '.template');
     const cardElement = card.generateCard();
     NewSectionClass.addItem(cardElement);

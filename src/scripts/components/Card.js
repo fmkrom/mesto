@@ -26,6 +26,15 @@ export class Card {
         element = null;
     };
 
+    /*_handleDeleteButtonClick(element){
+        const deleteButton = this._template.querySelector('.card__delete-button');
+        deleteButton.addEventListener('click', ()=>{
+            console.log(deleteButton);
+            this.handleDeleteCard(element);
+            //this._deleteCard(element);
+        })
+    }*/
+
     generateCard(){
         
         this._element = this._getCardTemplate();
@@ -38,8 +47,13 @@ export class Card {
         const likeButton = this._element.querySelector('.card__like-button');
         likeButton.addEventListener('click', ()=> this._likeCard(likeButton));
 
-        /*const deleteButton = this._element.querySelector('.card__delete-button');
-        deleteButton.addEventListener('click', ()=> this._deleteCard(this._element));*/
+        const deleteButton = this._element.querySelector('.card__delete-button');
+        deleteButton.addEventListener('click', ()=>{
+            console.log(deleteButton);
+            this.handleDeleteCard();
+        });
+
+        //_handleDeleteButtonClick(element)
                         
         const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
         
