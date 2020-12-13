@@ -3,13 +3,10 @@
     width: 282px;
     overflow:hidden;
     margin: 0 auto;
-    margin-top: 0;
-    margin-bottom: 0;
-
-    display:flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    /*margin-top: 0;
+    margin-bottom: 0;*/
 
     position: relative;
     top:-30px;
+    bottom:-5px;
 }
