@@ -49,7 +49,7 @@ export class Card {
 
         const deleteButton = this._element.querySelector('.card__delete-button');
         deleteButton.addEventListener('click', ()=>{
-            console.log(deleteButton);
+            //console.log(deleteButton);
             this.handleDeleteCard();
         });
 
