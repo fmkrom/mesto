@@ -37,3 +37,7 @@ export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
     pageAvatar.src = data.avatar;
 };
 
+export function updateAvatarOnPage(url){
+    const avatarOnPage = document.querySelector('.profile__image');
+    avatarOnPage.src = url;
+};

@@ -79,11 +79,28 @@ export class Api {
         }),
       }).then((res) => {
           if (res.ok) {
-            console.dir(res);
-            console.log(res.status, res.statusText);
+            //console.dir(res);
+            //console.log(res.status, res.statusText);
             return res.json();
           }
           return Promise.reject("Произошла ошибка - данные пользователя не отправились на сервер");
+      })
+    };
+
+    editAvatar(avatarUrl){
+      return fetch(this._url, {
+          method: 'PATCH',
+          headers: this._headers,
+          body: JSON.stringify({
+            url: avatarUrl
+        }),
+      }).then((res) => {
+          if (res.ok) {
+            //console.dir(res);
+            console.log(res.status, res.statusText);
+            return res.json();
+          }
+          return Promise.reject("Произошла ошибка - url аватара не отправилось на сервер");
       })
     };
 };

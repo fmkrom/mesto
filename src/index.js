@@ -22,7 +22,7 @@ import {
         popupEditAvatar,
         buttonConfirmDeletingCard,
         profileEditAvatarLink,
-        fromEditAvatar
+        fromEditAvatar,
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -47,7 +47,8 @@ import {Api} from "./scripts/components/Api.js";
 import {createNewCard,
         createNewSection,
         setUserDataOnPage,
-        confirmDeletingCard
+        confirmDeletingCard,
+        updateAvatarOnPage
 }from "./scripts/utils/utils.js";
 
 /*===*/
@@ -144,7 +145,7 @@ const popupEditProfileClass = new PopupWithForm(
                                 console.log('This is formData stage 3 from popupEditProfileClass', formData);
                                 popupEditProfileClass.closePopup()
                         })
-                }
+                },
         },
 );
 popupEditProfileClass.setEventListeners();
@@ -184,15 +185,32 @@ const popupConfirmDeletingCardClass = new PopupWithButton({
 //});
 popupConfirmDeletingCardClass.setEventListeners();
 
+//ФОРМА РЕДАКТИРОВАНИЯ АВАТАРА:
+
 //Применяем валидатор к форме редактирования аватара: 
 const formEditAvatarValidator = new FormValidator(validationSettings, fromEditAvatar);;
 formEditAvatarValidator.enableValidation(fromEditAvatar, validationSettings);
 
+//Запрос на сервер:
+const editAvatarApi = new Api({
+        url: 'PATCH https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar',
+        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+        "content-type": "application/json",
+});
+
 const popupEditAvatarClass = new PopupWithForm({
         popup: popupEditAvatar,
-        handleFormSubmit: ()=>{
-                console.log(popupEditAvatar);
+        handleFormSubmit: (formUrl)=>{
+                        console.log('This is formUrl stage 1 ', formUrl);
+                        editAvatarApi.editAvatar(formUrl)
+                        .then((formUrl)=>{
+                                console.log('This is formUrl stage 2 ',formUrl);
+                                updateAvatarOnPage(formUrl);
+                                console.log('This is formURl stage 3 from popupEditAvatarClass', formUrl);
+                                popupEditAvatarClass.closePopup();
+                        })
         }
+        
 });
 popupEditAvatarClass.setEventListeners();
 
