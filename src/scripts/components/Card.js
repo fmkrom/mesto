@@ -1,14 +1,10 @@
-import {PopupWithFullSizeImage} from "../components/PopupWithFullSizeImage.js";
-import {popupFullsizeImage} from "../utils/constants.js";
-
 export class Card {
-    constructor({name, link, likes, handleCardClick, handleDeleteCard}, templateSelector){
+    constructor({name, link, likes, handleCardClick}, templateSelector){
         this._name = name;
         this._link = link;
-        this.likes = likes;
+        this._likes = likes;
         this._template = templateSelector;
         this.handleCardClick = handleCardClick;
-        this.handleDeleteCard = handleDeleteCard;
     }
     
     _getCardTemplate(){
@@ -17,15 +13,16 @@ export class Card {
         return clonedTemplate;
     }
 
-    _likeCard=(button)=>{
+    _likeCard=(button, number)=>{
         button.classList.toggle('card__like-button');
         button.classList.toggle('card__like-button_active');
+        number.textContent = this._likes.length + 1;
     };
 
-    _deleteCard=(element)=>{
+    /*_deleteCard=(element)=>{
         element.remove();
         element = null;
-    };
+    };*/
 
     /*_handleDeleteButtonClick(element){
         const deleteButton = this._template.querySelector('.card__delete-button');
@@ -37,7 +34,6 @@ export class Card {
     }*/
 
     generateCard(){
-        
         this._element = this._getCardTemplate();
         
         const generatedCardImage = this._element.querySelector('.card__image');
@@ -46,10 +42,10 @@ export class Card {
         this._element.querySelector('.card__title').textContent=this._name;
  
         const likeButton = this._element.querySelector('.card__like-button');
-        likeButton.addEventListener('click', ()=> this._likeCard(likeButton));
+        likeButton.addEventListener('click', ()=> this._likeCard(likeButton, likesNumber));
 
         const likesNumber = this._element.querySelector('.card__like-number');
-        likesNumber.textContent = this.likes.length;
+        likesNumber.textContent = this._likes.length;
 
         const deleteButton = this._element.querySelector('.card__delete-button');
         deleteButton.addEventListener('click', ()=>{

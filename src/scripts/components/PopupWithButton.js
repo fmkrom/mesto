@@ -16,6 +16,9 @@ export class PopupWithButton extends Popup {
 
     setEventListeners(newCardClass){
         super.setEventListeners();
+
+        
+
         const confirmDeletingButton = this.popup.querySelector('.form__button-save');
         console.log('This is NewCardClass', newCardClass);
         confirmDeletingButton.addEventListener('click', ()=>{

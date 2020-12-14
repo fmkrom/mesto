@@ -28,6 +28,7 @@ import {
 import {Section} from "./scripts/components/Section.js";
 
 import {Card} from "./scripts/components/Card.js";
+import {MyCard} from "./scripts/components/MyCard";
 
 //3. Импорт класса валидатора:
 import {FormValidator} from "./scripts/components/FormValidator.js";
@@ -49,7 +50,8 @@ import {createNewCard,
         setUserDataOnPage,
         confirmDeletingCard,
         updateAvatarOnPage,
-        createNewServerCard
+        createNewServerCard,
+        createMyNewCard
 }from "./scripts/utils/utils.js";
 
 /*===*/
@@ -62,8 +64,7 @@ const cardsSection = new Section(
 {renderer: (item) =>{
         createNewServerCard(Card, item.name, item.link, item.likes,
                 openedPopupWithFullSizeImage,
-                cardsSection, popupConfirmDeletingCardClass
-                )}
+                cardsSection)}
 }, '.cards');
 
 //Запрос из сервера на массив карточек:
@@ -106,7 +107,7 @@ const popupAddCardClass = new PopupWithForm({
                 .addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
                 .then((formData)=>{
                 //console.log('This is data from server in popupAddCardClass', formData);
-                        createNewCard(Card,  
+                        createMyNewCard(Card,  
                                 formData.addPlaceName, 
                                 formData.addPlaceUrl,
                                 0,
@@ -217,5 +218,3 @@ const popupEditAvatarClass = new PopupWithForm({
 popupEditAvatarClass.setEventListeners();
 
 profileEditAvatarLink.addEventListener('click', ()=>{popupEditAvatarClass.openPopup()});
-
-
