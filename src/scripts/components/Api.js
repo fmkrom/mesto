@@ -71,7 +71,7 @@ export class Api {
 
     setUserData(name, about){
       return fetch(this._url, {
-          method: 'PATCH',
+          method: "PATCH",
           headers: this._headers,
           body: JSON.stringify({
             name: name,

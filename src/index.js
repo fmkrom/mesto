@@ -48,7 +48,8 @@ import {createNewCard,
         createNewSection,
         setUserDataOnPage,
         confirmDeletingCard,
-        updateAvatarOnPage
+        updateAvatarOnPage,
+        createNewServerCard
 }from "./scripts/utils/utils.js";
 
 /*===*/
@@ -59,7 +60,7 @@ const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeIma
 //Создаем Section - независимый от всех прочих элементов страницы:
 const cardsSection = new Section(
 {renderer: (item) =>{
-        createNewCard(Card, item.name, item.link, 
+        createNewServerCard(Card, item.name, item.link, item.likes,
                 openedPopupWithFullSizeImage,
                 cardsSection, popupConfirmDeletingCardClass
                 )}
