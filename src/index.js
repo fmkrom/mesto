@@ -21,14 +21,13 @@ import {
         popupConfirmDeletingCard,
         popupEditAvatar,
         buttonConfirmDeletingCard,
-        profileEditAvatarLink,
-        fromEditAvatar,
+        formEditAvatar,
+        profileEditAvatarLink
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
 
 import {Card} from "./scripts/components/Card.js";
-import {MyCard} from "./scripts/components/MyCard";
 
 //3. Импорт класса валидатора:
 import {FormValidator} from "./scripts/components/FormValidator.js";
@@ -48,13 +47,10 @@ import {Api} from "./scripts/components/Api.js";
 import {createNewCard,
         createNewSection,
         setUserDataOnPage,
-        confirmDeletingCard,
-        updateAvatarOnPage,
-        createNewServerCard,
-        createMyNewCard
+        confirmDeletingCard
 }from "./scripts/utils/utils.js";
 
-/*========*/
+/*===*/
 //Класс контейнера, содержащего карточки:
 
 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
@@ -62,9 +58,10 @@ const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeIma
 //Создаем Section - независимый от всех прочих элементов страницы:
 const cardsSection = new Section(
 {renderer: (item) =>{
-        createNewServerCard(Card, item.name, item.link, item.likes,
+        createNewCard(Card, item.name, item.link, item.likes, 
                 openedPopupWithFullSizeImage,
-                cardsSection)}
+                cardsSection, popupConfirmDeletingCardClass
+                )}
 }, '.cards');
 
 //Запрос из сервера на массив карточек:
@@ -107,7 +104,7 @@ const popupAddCardClass = new PopupWithForm({
                 .addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
                 .then((formData)=>{
                 //console.log('This is data from server in popupAddCardClass', formData);
-                        createMyNewCard(Card,  
+                        createNewCard(Card,  
                                 formData.addPlaceName, 
                                 formData.addPlaceUrl,
                                 0,
@@ -132,7 +129,7 @@ const currentUser = new UserInfo('.profile__name', '.profile__job');
 const editUserApi = new Api({
         url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me',
         Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-        "content-type": "application/json-patch+json",
+        "content-type": "application/json",
 });
 
 //Запрос API для изменения данных пользователя
@@ -148,7 +145,7 @@ const popupEditProfileClass = new PopupWithForm(
                                 console.log('This is formData stage 3 from popupEditProfileClass', formData);
                                 popupEditProfileClass.closePopup()
                         })
-                },
+                }
         },
 );
 popupEditProfileClass.setEventListeners();
@@ -183,6 +180,7 @@ userApi.getUserData().then((data) => {
 const popupConfirmDeletingCardClass = new PopupWithButton({
         popup: popupConfirmDeletingCard})
         //handleFormSubmit:(deleteButton, confirmButton, Card) =>{
+                      
         //popupConfirmDeletingCardClass.closePopup();
         
 //});
@@ -191,8 +189,8 @@ popupConfirmDeletingCardClass.setEventListeners();
 //ФОРМА РЕДАКТИРОВАНИЯ АВАТАРА:
 
 //Применяем валидатор к форме редактирования аватара: 
-const formEditAvatarValidator = new FormValidator(validationSettings, fromEditAvatar);;
-formEditAvatarValidator.enableValidation(fromEditAvatar, validationSettings);
+const formEditAvatarValidator = new FormValidator(validationSettings, formEditAvatar);;
+formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
 
 //Запрос на сервер:
 const editAvatarApi = new Api({

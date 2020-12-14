@@ -6,12 +6,14 @@ function openFullSizeImage(NewPopupClass, cardName, cardLink){
 export function createNewCard(CardClass, 
                               cardName, 
                               cardLink, 
+                              cardLikes,
                               NewPopupClass,
                               NewSectionClass,
                               PopupConfirmClass){
     const card = new CardClass({
         name: cardName,
-        link: cardLink, 
+        link: cardLink,
+        likes: cardLikes, 
         handleCardClick: ()=>{openFullSizeImage(NewPopupClass, cardName, cardLink)},
         handleDeleteCard: ()=>{
                         PopupConfirmClass.openPopup();
@@ -44,7 +46,7 @@ export function updateAvatarOnPage(url){
     avatarOnPage.src = url;
 };
 
-export function createNewServerCard(CardClass, 
+/*export function createNewServerCard(CardClass, 
                               cardName, 
                               cardLink,
                               cardLikes, 
@@ -58,8 +60,8 @@ export function createNewServerCard(CardClass,
     }, '.template');
     const cardElement = serverCard.generateCard();
     NewSectionClass.addItem(cardElement);
-};
-
+};*/
+/*
 export function createMyNewCard(MyCardClass, 
                                 cardName, cardLink, cardLikes, 
                                 NewPopupClass, NewSectionClass, PopupConfirmClass){
@@ -74,5 +76,5 @@ export function createMyNewCard(MyCardClass,
                     }
         }, '.template');
         const cardElement = myCard.generateCard();
-    NewSectionClass.addItem(cardElement);s
-};
+    NewSectionClass.addItem(cardElement);
+};*/

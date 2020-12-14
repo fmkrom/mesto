@@ -1,8 +1,8 @@
-@import "./_hidden/card__delete-button_hidden.css";
-@import "./_shown/card__delete-button_shown.css";
+/*@import "./_hidden/card__delete-button_hidden.css";
+@import "./_shown/card__delete-button_shown.css";*/
 
 .card__delete-button{
-    display:none;
+    display:block;
     width:20px;
     height: 20px;
     

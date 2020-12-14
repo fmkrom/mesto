@@ -23,7 +23,7 @@ export const buttonSaveProfile = formEditProfile.querySelector('.form__button-sa
 
 export const profileEditAvatarLink = document.querySelector('.profile__edit-avatar-link');
 
-export const fromEditAvatar = document.querySelector('.form_edit-avatar');
+export const formEditAvatar = document.querySelector('.form_edit-avatar');
 
 /*--------------------------------------------------------------------------------------------*/
 
