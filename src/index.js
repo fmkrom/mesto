@@ -129,7 +129,7 @@ const currentUser = new UserInfo('.profile__name', '.profile__job');
 const editUserApi = new Api({
         url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me',
         Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-        "content-type": "application/json",
+        "content-type": "application/json-patch+json",
 });
 
 //Запрос API для изменения данных пользователя
@@ -193,8 +193,8 @@ formEditAvatarValidator.enableValidation(fromEditAvatar, validationSettings);
 
 //Запрос на сервер:
 const editAvatarApi = new Api({
-        url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar',
-        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+        url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar",
+        Authorization: "6b4f0e7a-6b81-4fab-971b-4da07f00c7c0",
         "content-type": "application/json",
 });
 

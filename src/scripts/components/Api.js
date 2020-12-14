@@ -62,8 +62,9 @@ export class Api {
             method: 'GET',
             headers: this._headers,
         }).then((res) => {
-            if (res.ok) {
-               return res.json();
+          if (res.ok) {
+              console.log('This is getUserData result:', res);
+              return res.json();
             }
             return Promise.reject("Произошла ошибка");
         })
@@ -79,8 +80,8 @@ export class Api {
         }),
       }).then((res) => {
           if (res.ok) {
-            //console.dir(res);
-            //console.log(res.status, res.statusText);
+            console.dir(res);
+            console.log(res.status, res.statusText);
             return res.json();
           }
           return Promise.reject("Произошла ошибка - данные пользователя не отправились на сервер");
@@ -89,14 +90,14 @@ export class Api {
 
     editAvatar(avatarUrl){
       return fetch(this._url, {
-          method: 'PATCH',
+          method: "PATCH",
           headers: this._headers,
           body: JSON.stringify({
-            url: avatarUrl
+            avatar: avatarUrl
         }),
       }).then((res) => {
           if (res.ok) {
-            //console.dir(res);
+            console.dir(res);
             console.log(res.status, res.statusText);
             return res.json();
           }
@@ -104,6 +105,17 @@ export class Api {
       })
     };
 };
+
+/*
+ addCardToServer(name, link) {
+        return fetch(this._url, {
+            method: "POST",
+            headers: this._headers,
+            body: JSON.stringify({
+                name: name,
+                link: link
+            }),
+*/
 
 /*Образец из задания:
 // создаёт разметку для поста
