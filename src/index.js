@@ -109,6 +109,7 @@ const popupAddCardClass = new PopupWithForm({
                         createNewCard(Card,  
                                 formData.addPlaceName, 
                                 formData.addPlaceUrl,
+                                0,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
                                 popupConfirmDeletingCardClass);
