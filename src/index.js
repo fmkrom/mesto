@@ -1,7 +1,7 @@
 import "./pages/index.css";
 
 //1. Импорт массива карточек:
-import {initialCards} from "./scripts/data-arrays/initialCards";
+//import {initialCards} from "./scripts/data-arrays/initialCards";
 
 //2. Импорт переменных из файла констант: 
 import {
@@ -45,7 +45,6 @@ import {UserInfo} from "./scripts/components/UserInfo.js";
 import {Api} from "./scripts/components/Api.js";
 
 import {createNewCard,
-        createNewSection,
         setUserDataOnPage,
         confirmDeletingCard
 }from "./scripts/utils/utils.js";
