@@ -19,43 +19,23 @@ export class Card {
         number.textContent = this._likes.length + 1;
     };
 
-    /*_deleteCard=(element)=>{
-        element.remove();
-        element = null;
-    };*/
-
-    /*_handleDeleteButtonClick(element){
-        const deleteButton = this._template.querySelector('.card__delete-button');
-        deleteButton.addEventListener('click', ()=>{
-            console.log(deleteButton);
-            this.handleDeleteCard(element);
-            //this._deleteCard(element);
-        })
-    }*/
-
     generateCard(){
-        this._element = this._getCardTemplate();
-        
-        const generatedCardImage = this._element.querySelector('.card__image');
-        generatedCardImage.src=this._link;
-        generatedCardImage.alt=this._name;
-        this._element.querySelector('.card__title').textContent=this._name;
- 
-        const likeButton = this._element.querySelector('.card__like-button');
-        likeButton.addEventListener('click', ()=> this._likeCard(likeButton, likesNumber));
+            this._element = this._getCardTemplate();
+            
+            const generatedCardImage = this._element.querySelector('.card__image');
+            generatedCardImage.src=this._link;
+            generatedCardImage.alt=this._name;
+            this._element.querySelector('.card__title').textContent=this._name;
+    
+            const likesNumber = this._element.querySelector('.card__like-number');
+            likesNumber.textContent = this._likes.length;
 
-        const likesNumber = this._element.querySelector('.card__like-number');
-        likesNumber.textContent = this._likes.length;
+            const likeButton = this._element.querySelector('.card__like-button');
+            likeButton.addEventListener('click', ()=> this._likeCard(likeButton, likesNumber));
 
-        const deleteButton = this._element.querySelector('.card__delete-button');
-        deleteButton.addEventListener('click', ()=>{
-            //console.log(deleteButton);
-            this.handleDeleteCard();
-        });
-
-        const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
-        
-        openFullsizeImageLink.addEventListener('click', ()=>{this.handleCardClick()
+            const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
+            
+            openFullsizeImageLink.addEventListener('click', ()=>{this.handleCardClick()
         });
         
         return this._element;
