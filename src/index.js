@@ -20,7 +20,9 @@ import {
         pageProfileAvatar,
         popupConfirmDeletingCard,
         popupEditAvatar,
-        buttonConfirmDeletingCard
+        buttonConfirmDeletingCard,
+        profileEditAvatarLink,
+        fromEditAvatar
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -120,21 +122,6 @@ buttonAddCard.addEventListener('click', ()=> {
         popupFormButtonSavePlace.disabled = true;
 }); 
 
-/*
-const popupEditAvatarClass = new PopupWithForm({
-       popup: popupEditAvatar,
-       handleFormSubmit:()=>{
-         console.log('popupEditAvatar');
-         popupEditAvatarClass.closePopup();
-        }, 
-});
-popupEditAvatarClass.setEventListeners();
-*/
-/*pageProfileAvatar.addEventListener('click', ()=> {
-        popupEditAvatarClass.openPopup();
-        console.log(popupEditAvatarClass);
-});*/
-
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
 
@@ -192,8 +179,23 @@ userApi.getUserData().then((data) => {
 const popupConfirmDeletingCardClass = new PopupWithButton({
         popup: popupConfirmDeletingCard})
         //handleFormSubmit:(deleteButton, confirmButton, Card) =>{
-                      
         //popupConfirmDeletingCardClass.closePopup();
         
 //});
 popupConfirmDeletingCardClass.setEventListeners();
+
+//Применяем валидатор к форме редактирования аватара: 
+const formEditAvatarValidator = new FormValidator(validationSettings, fromEditAvatar);;
+formEditAvatarValidator.enableValidation(fromEditAvatar, validationSettings);
+
+const popupEditAvatarClass = new PopupWithForm({
+        popup: popupEditAvatar,
+        handleFormSubmit: ()=>{
+                console.log(popupEditAvatar);
+        }
+});
+popupEditAvatarClass.setEventListeners();
+
+profileEditAvatarLink.addEventListener('click', ()=>{popupEditAvatarClass.openPopup()});
+
+

@@ -18,6 +18,13 @@ export const formFieldJob = formEditProfile.editProfileJob;
 //2.3.2.1. Кнопка "Cохранить изменения профиля"
 export const buttonSaveProfile = formEditProfile.querySelector('.form__button-save');
 
+/*-------------------------------*/
+//Переменные для функций редактирования аватара:
+
+export const profileEditAvatarLink = document.querySelector('.profile__edit-avatar-link');
+
+export const fromEditAvatar = document.querySelector('.form_edit-avatar');
+
 /*--------------------------------------------------------------------------------------------*/
 
 //Б. Попап (всплывающее окно) добавления фото
