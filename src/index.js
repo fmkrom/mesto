@@ -193,7 +193,7 @@ formEditAvatarValidator.enableValidation(fromEditAvatar, validationSettings);
 
 //Запрос на сервер:
 const editAvatarApi = new Api({
-        url: 'PATCH https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar',
+        url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar',
         Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
         "content-type": "application/json",
 });
