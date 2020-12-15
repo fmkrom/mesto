@@ -1,7 +1,7 @@
 import "./pages/index.css";
 
 //1. Импорт массива карточек:
-//import {initialCards} from "./scripts/data-arrays/initialCards";
+import {initialCards} from "./scripts/data-arrays/initialCards";
 
 //2. Импорт переменных из файла констант: 
 import {
@@ -54,14 +54,25 @@ import {createNewCard,
 
 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
 
+const popupConfirmDeletingCardClass = new PopupWithButton(
+        {popup: popupConfirmDeletingCard,
+                handleConfirmDeletingCard:(CardClass, currentCard)=>{
+                        console.log('This is PopupConfirmDeleting Card', popupConfirmDeletingCard);
+                        confirmDeletingCard(CardClass, currentCard);
+                }          
+});
+popupConfirmDeletingCardClass.setEventListeners();
+
 //Создаем Section - независимый от всех прочих элементов страницы:
 const cardsSection = new Section(
-{renderer: (item) =>{
-        createNewCard(Card, item.name, item.link, item.likes, 
-                openedPopupWithFullSizeImage,
-                cardsSection, popupConfirmDeletingCardClass
-                )}
-}, '.cards');
+        {renderer: (item) =>{
+                createNewCard(Card, item.name, item.link, item.likes, 
+                        openedPopupWithFullSizeImage,
+                        cardsSection, popupConfirmDeletingCardClass
+                        )}
+        }, '.cards');
+        
+//cardsSection.renderItems(initialCards);
 
 //Запрос из сервера на массив карточек:
 const cardsApi = new Api({
@@ -74,9 +85,8 @@ const cardsApi = new Api({
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 cardsApi.getCardsFromServer().then((data) => {
-        console.log(data);
+        //console.log('This is data for cards from server:'data);
         cardsSection.renderItems(data);
-        //console.log(data);
 }).catch((err) => console.log(err));
 
 //Применяем класс валидатора к каждой из форм:
@@ -176,14 +186,13 @@ userApi.getUserData().then((data) => {
 
 
 //Попап: подтвердить удаление карточки
-const popupConfirmDeletingCardClass = new PopupWithButton({
-        popup: popupConfirmDeletingCard})
+
         //handleFormSubmit:(deleteButton, confirmButton, Card) =>{
                       
         //popupConfirmDeletingCardClass.closePopup();
         
 //});
-popupConfirmDeletingCardClass.setEventListeners();
+//popupConfirmDeletingCardClass.setEventListeners();
 
 //ФОРМА РЕДАКТИРОВАНИЯ АВАТАРА:
 

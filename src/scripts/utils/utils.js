@@ -1,39 +1,27 @@
-function openFullSizeImage(NewPopupClass, cardName, cardLink){
-    NewPopupClass.openFullSizeImage(cardName, cardLink);
-    NewPopupClass.setEventListeners();
+export function confirmDeletingCard(CardClass, currentCard){
+    CardClass.handleDeleteCard(currentCard);
 };
 
-export function createNewCard(CardClass, 
-                              cardName, 
-                              cardLink, 
-                              cardLikes,
-                              NewPopupClass,
+export function createNewCard(CardClass, cardName, cardLink, cardLikes,
+                              PopupFullSizeImageClass,
                               NewSectionClass,
-                              PopupConfirmClass){
-    const card = new CardClass({
+                              PopupConfirmDeletingClass){
+    const currentCard = new CardClass({
         name: cardName,
         link: cardLink,
-        likes: cardLikes, 
-        handleCardClick: ()=>{openFullSizeImage(NewPopupClass, cardName, cardLink)},
-        handleDeleteCard: ()=>{
-                        PopupConfirmClass.openPopup();
-                        PopupConfirmClass.setEventListeners(card);
-                    }
+        likes: cardLikes,
+            handleDeleteCard:()=>{
+                    console.log('This is basicCardClass in handleDeleteCard: ', CardClass);
+                    console.log('This is cuurentCard in handleDeleteCard:', currentCard);
+                PopupConfirmDeletingClass.openPopup();
+                PopupConfirmDeletingClass.handleConfirmDeletingCard(CardClass, currentCard);
+            }
     }, '.template');
-    const cardElement = card.generateCard();
+    const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
     NewSectionClass.addItem(cardElement);
 };
 
 
-
-export function confirmDeletingCard(PopupConfirmClass, 
-                                    popupConfirmButton,
-                                    cardConst){
-        PopupConfirmClass.openPopup();
-        popupConfirmButton.addEventListener('click', ()=> {
-        cardConst.handleDeleteCard(cardConst);
-    });
-};
 
 export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
     pageName.textContent = data.name; 
