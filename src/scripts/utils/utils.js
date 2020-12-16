@@ -1,21 +1,19 @@
+export function openFullSizeImage(PopupFullSizeImageClass, cardName, cardLink){
+    PopupFullSizeImageClass.openFullSizeImage(cardName, cardLink);
+    PopupFullSizeImageClass.setEventListeners();
+};
+
 export function confirmDeletingCard(CardClass, currentCard){
     CardClass.handleDeleteCard(currentCard);
 };
 
-export function createNewCard(CardClass, cardName, cardLink, cardLikes,
-                              PopupFullSizeImageClass,
-                              NewSectionClass,
+export function createNewCard(CardClass, data,
+                              PopupFullSizeImageClass, NewSectionClass,
                               PopupConfirmDeletingClass){
-    const currentCard = new CardClass({
-        name: cardName,
-        link: cardLink,
-        likes: cardLikes,
-            handleDeleteCard:()=>{
-                    console.log('This is basicCardClass in handleDeleteCard: ', CardClass);
-                    console.log('This is cuurentCard in handleDeleteCard:', currentCard);
-                PopupConfirmDeletingClass.openPopup();
-                PopupConfirmDeletingClass.handleConfirmDeletingCard(CardClass, currentCard);
-            }
+const currentCard = new CardClass({name: data.name, url: data.link, likes: data.likes, id: data.id,
+        handleCardClick:()=>openFullSizeImage(PopupFullSizeImageClass, cardName, cardLink),
+        handleDeleteCard:()=>{console.log(PopupConfirmDeletingClass)},
+        handleLikeCard:()=>{cardLikes + 1}
     }, '.template');
     const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
     NewSectionClass.addItem(cardElement);

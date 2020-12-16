@@ -1,14 +1,17 @@
 export class Card {
-    constructor({name, 
-                link, 
-                likes,
-                handleDeleteCard}, 
+    constructor({data,
+                handleDeleteCard,
+                handleCardClick,
+                handleLikeCard}, 
                 templateSelector){
-        this._name = name;
-        this._link = link;
-        this._likes = likes;
+        this._name = data.name;
+        this._url = data.link;
+        this._likes = data.likes;
+        this._id = data._id;
         this._template = templateSelector;
         this.handleDeleteCard = handleDeleteCard;
+        this.handleCardClick = handleCardClick;
+        this.handleLikeCard = handleLikeCard;
     }
     
     _getCardTemplate(){
@@ -17,16 +20,11 @@ export class Card {
         return clonedTemplate;
     }
 
-    _handleCardClick(PopupFullSizeImageClass){
-        PopupFullSizeImageClass.openFullSizeImage(this._name, this._link);
-        PopupFullSizeImageClass.setEventListeners();
-    }
-  
-    _handleLikeCard(button, number){
+    _activateLikeCard(button){
         button.classList.toggle('card__like-button');
         button.classList.toggle('card__like-button_active');
-        number.textContent = this._likes.length + 1;
     };
+    
 
     _deleteCard(element){
         console.log('This is element form _deleteCard method:', element);
@@ -34,34 +32,32 @@ export class Card {
         element = null;
     };
 
-    generateCard(PopupFullSizeImageClass){
+    generateCard(){
+        this._element = this._getCardTemplate();
             
-            this._element = this._getCardTemplate();
-            
-            const generatedCardImage = this._element.querySelector('.card__image');
-            generatedCardImage.src=this._link;
-            generatedCardImage.alt=this._name;
-            this._element.querySelector('.card__title').textContent=this._name;
+        const generatedCardImage = this._element.querySelector('.card__image');
+        generatedCardImage.src=this._url;
+        generatedCardImage.alt=this._name;
+        this._element.querySelector('.card__title').textContent=this._name;
 
-            const deleteButton = this._element.querySelector('.card__delete-button');
-            deleteButton.addEventListener('click', ()=>{
-                this.handleDeleteCard(this._element);
-            });
+        const deleteButton = this._element.querySelector('.card__delete-button');
+        deleteButton.addEventListener('click', ()=>{
+           this.handleDeleteCard();
+        });
     
-            const likesNumber = this._element.querySelector('.card__like-number');
-            likesNumber.textContent = this._likes.length;
+        const likesNumber = this._element.querySelector('.card__like-number');
+        likesNumber.textContent = this._likes.length;
 
-            const likeButton = this._element.querySelector('.card__like-button');
-            likeButton.addEventListener('click', ()=> {
-                this._handleLikeCard(likeButton, likesNumber)
-            });
+        const likeButton = this._element.querySelector('.card__like-button');
+        likeButton.addEventListener('click', ()=> {
+            this._activateLikeCard(likeButton);
+            this.handleLikeCard();
+        });
 
-            //this.deleteCard(this._element);
-
-            const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
-            openFullsizeImageLink.addEventListener('click', ()=>{
-                this._handleCardClick(PopupFullSizeImageClass);
-            });
+        const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
+        openFullsizeImageLink.addEventListener('click', ()=>{
+            this.handleCardClick();
+        });
         
         return this._element;
     }

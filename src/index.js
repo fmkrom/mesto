@@ -1,8 +1,5 @@
 import "./pages/index.css";
 
-//1. Импорт массива карточек:
-import {initialCards} from "./scripts/data-arrays/initialCards";
-
 //2. Импорт переменных из файла констант: 
 import {
         popupEditProfile,
@@ -20,7 +17,6 @@ import {
         pageProfileAvatar,
         popupConfirmDeletingCard,
         popupEditAvatar,
-        buttonConfirmDeletingCard,
         formEditAvatar,
         profileEditAvatarLink
 } from "./scripts/utils/constants.js";
@@ -54,6 +50,14 @@ import {createNewCard,
 
 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
 
+const api = new Api({
+        url: "https://mesto.nomoreparties.co/v1/cohort-18/",
+        headers: {
+            Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+            "content-type": "application/json",
+        },
+});
+
 const popupConfirmDeletingCardClass = new PopupWithButton(
         {popup: popupConfirmDeletingCard,
                 handleConfirmDeletingCard:(CardClass, currentCard)=>{
@@ -66,12 +70,14 @@ popupConfirmDeletingCardClass.setEventListeners();
 //Создаем Section - независимый от всех прочих элементов страницы:
 const cardsSection = new Section(
         {renderer: (item) =>{
-                createNewCard(Card, item.name, item.link, item.likes, 
+                console.log('Tis is item from SectionRenderer', item.name, item,link, item.likes, item._id);
+                createNewCard(Card, item.name, item.link, item.likes, item.id,
                         openedPopupWithFullSizeImage,
                         cardsSection, popupConfirmDeletingCardClass
                         )}
         }, '.cards');
         
+<<<<<<< HEAD
 //Запрос c сервера на  данные:
 const api = new Api({
         url: "https://mesto.nomoreparties.co/v1/cohort-18/",
@@ -84,6 +90,15 @@ const api = new Api({
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 api.getCardsFromServer().then((data) => {
         console.log('This is data for cards from server:', data);
+=======
+//cardsSection.renderItems(initialCards);
+
+//Запрос из сервера на массив карточек:
+
+//Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
+api.getCardsDataFromServer().then((data) => {
+        console.log('This is data for cards from server:', data, data._id);
+>>>>>>> newcardclass
         cardsSection.renderItems(data);
 }).catch((err) => console.log(err));
 
@@ -131,6 +146,7 @@ buttonAddCard.addEventListener('click', ()=> {
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
+<<<<<<< HEAD
 
 //Вставляю данные пользователя на страницу
 api.getUserData().then((data) => {
@@ -147,6 +163,15 @@ api.getUserData().then((data) => {
         "content-type": "application/json",
 });*/
 
+=======
+/*
+const editUserApi = new Api({
+        url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me',
+        Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+        "content-type": "application/json",
+});
+*/
+>>>>>>> newcardclass
 //Запрос API для изменения данных пользователя
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
@@ -172,6 +197,18 @@ buttonEditProfile.addEventListener('click', ()=>{
         formFieldJob.value = userData.userJob; 
 });
 
+<<<<<<< HEAD
+=======
+//Вставляю данные пользователя на страницу
+api.getUserData().then((data) =>{
+        //console.log('This is user data on page', data);
+        //console.dir(this);
+        setUserDataOnPage(data, 
+                          pageProfileName, 
+                          pageProfileJob, 
+                          pageProfileAvatar);
+}).catch((err) => console.log(err));
+>>>>>>> newcardclass
 
 
 //Попап: подтвердить удаление карточки
