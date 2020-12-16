@@ -67,19 +67,19 @@ const popupConfirmDeletingCardClass = new PopupWithButton(
 });
 popupConfirmDeletingCardClass.setEventListeners();
 
-//Создаем Section - независимый от всех прочих элементов страницы:
-const cardsSection = new Section(
-{renderer: (item) =>{
-        createNewCard(Card, item, openedPopupWithFullSizeImage,
-                cardsSection, popupConfirmDeletingCardClass)
-        }
-}, '.cards');
-
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 api.getCardsDataFromServer().then((data) => {
         //console.log('This is data for cards from server:', data, data._id);
         cardsSection.renderItems(data);
 }).catch((err) => console.log(err));
+
+//Создаем Section - независимый от всех прочих элементов страницы:
+const cardsSection = new Section(
+{renderer: (item) =>{
+        createNewCard(Card, item, openedPopupWithFullSizeImage,
+                cardsSection, popupConfirmDeletingCardClass, api);
+        }
+}, '.cards');
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -120,14 +120,14 @@ const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
            handleFormSubmit:(formData)=>{
                         console.log('This is formData stage 1 ', formData);
-                        editUserApi.setUserData(formData.editProfileName, formData.editProfileJob)
+                        api.setUserData(formData.editProfileName, formData.editProfileJob)
                         .then((formData)=>{
                                 console.log('This is formData stage 2 ',formData);
                                 currentUser.setUserInfo(formData.editProfileName,
                                                         formData.editProfileJob),
                                 console.log('This is formData stage 3 from popupEditProfileClass', formData);
                                 popupEditProfileClass.closePopup()
-                        })
+                        }).catch((err) => console.log(err));
                 }
         },
 );
@@ -158,11 +158,11 @@ const formEditAvatarValidator = new FormValidator(validationSettings, formEditAv
 formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
 
 //Запрос на сервер:
-const editAvatarApi = new Api({
+/*const editAvatarApi = new Api({
         url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar",
         Authorization: "6b4f0e7a-6b81-4fab-971b-4da07f00c7c0",
         "content-type": "application/json",
-});
+});*/
 
 const popupEditAvatarClass = new PopupWithForm({
         popup: popupEditAvatar,
@@ -181,3 +181,5 @@ const popupEditAvatarClass = new PopupWithForm({
 popupEditAvatarClass.setEventListeners();
 
 profileEditAvatarLink.addEventListener('click', ()=>{popupEditAvatarClass.openPopup()});
+
+//feature: profile update function developed and launched

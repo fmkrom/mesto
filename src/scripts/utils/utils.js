@@ -7,16 +7,17 @@ export function confirmDeletingCard(CardClass, currentCard){
     CardClass.handleDeleteCard(currentCard);
 };
 
-export function 
-
 export function createNewCard(CardClass, data,
                               PopupFullSizeImageClass, NewSectionClass,
-                              PopupConfirmDeletingClass){
+                              PopupConfirmDeletingClass, apiClass){
 //console.log('This is CreateNewCard in utils: ', data, data.name, data.link, data.likes);
 const currentCard = new CardClass({data,
         handleCardClick:()=>openFullSizeImage(PopupFullSizeImageClass, data.name, data.link),
         handleDeleteCard:()=>{console.log(PopupConfirmDeletingClass)},
-        handleLikeCard:()=>{console.log(data.likes)}
+        handleLikeCard:()=>{
+            apiClass.likeCard(data._id);
+            return data.likes + 1;
+        }
     }, '.template');
     const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
     NewSectionClass.addItem(cardElement);

@@ -16,17 +16,31 @@ export class Api {
         })
     };
 
-    getCardLikesFromServer(){
-      return fetch(this._url, {
-          method: 'GET',
+    likeCard(cardId) {
+      return fetch(`${this._basicUrl}cards/${cardId}`,{
+          method: 'PUT',
           headers: this._headers,
       }).then((res) => {
           if (res.ok) {
              return res.json();
           }
-          return Promise.reject("Произошла ошибка");
+          return Promise.reject(`"Произошла ошибка в методе лайка карточки ${res.status}"`);
       })
     };
+
+    dislikeCard(cardId) {
+      return fetch(`${this._basicUrl}cards/${cardId}`,{
+          method: 'DELETE',
+          headers: this._headers,
+      }).then((res) => {
+          if (res.ok) {
+             return res.json();
+          }
+          return Promise.reject(`"Произошла ошибка ${res.status}"`);
+      })
+    };
+    
+  
 
     addCardToServer(name, link) {
       return fetch(`${this._url}cards`,{
@@ -71,7 +85,7 @@ export class Api {
     };
 
     setUserData(name, about){
-      return fetch(this._url, {
+    return fetch(`${this._basicUrl}users/me`,{
           method: "PATCH",
           headers: this._headers,
           body: JSON.stringify({
