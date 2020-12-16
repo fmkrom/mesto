@@ -1,18 +1,18 @@
 export class Api {
     constructor(config) {
-        this._url = config.url;
+        this._basicUrl = config.url;
         this._headers = config.headers;
     }
     
-    getCardsFromServer() {
-        return fetch(this._url, {
+    getCardsDataFromServer() {
+        return fetch(`${this._basicUrl}cards`,{
             method: 'GET',
             headers: this._headers,
         }).then((res) => {
             if (res.ok) {
                return res.json();
             }
-            return Promise.reject("Произошла ошибка");
+            return Promise.reject(`"Произошла ошибка ${res.status}"`);
         })
     };
 
@@ -58,15 +58,15 @@ export class Api {
     }
 
     getUserData(){
-        return fetch(this._url, {
+        return fetch(`${this._basicUrl}users/me`, {
             method: 'GET',
             headers: this._headers,
         }).then((res) => {
           if (res.ok) {
-              //console.log('This is getUserData result:', res);
+              console.log('This is getUserData result:', res);
               return res.json();
             }
-            return Promise.reject("Произошла ошибка");
+            return Promise.reject("Произошла ошибка в получнии данных пользователя");
         })
     };
 

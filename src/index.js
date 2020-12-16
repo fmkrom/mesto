@@ -1,8 +1,5 @@
 import "./pages/index.css";
 
-//1. Импорт массива карточек:
-import {initialCards} from "./scripts/data-arrays/initialCards";
-
 //2. Импорт переменных из файла констант: 
 import {
         popupEditProfile,
@@ -20,7 +17,6 @@ import {
         pageProfileAvatar,
         popupConfirmDeletingCard,
         popupEditAvatar,
-        buttonConfirmDeletingCard,
         formEditAvatar,
         profileEditAvatarLink
 } from "./scripts/utils/constants.js";
@@ -54,6 +50,14 @@ import {createNewCard,
 
 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
 
+const api = new Api({
+        url: "https://mesto.nomoreparties.co/v1/cohort-18/",
+        headers: {
+            Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+            "content-type": "application/json",
+        },
+});
+
 const popupConfirmDeletingCardClass = new PopupWithButton(
         {popup: popupConfirmDeletingCard,
                 handleConfirmDeletingCard:(CardClass, currentCard)=>{
@@ -66,7 +70,8 @@ popupConfirmDeletingCardClass.setEventListeners();
 //Создаем Section - независимый от всех прочих элементов страницы:
 const cardsSection = new Section(
         {renderer: (item) =>{
-                createNewCard(Card, item.name, item.link, item.likes, 
+                console.log('Tis is item from SectionRenderer', item.name, item,link, item.likes, item._id);
+                createNewCard(Card, item.name, item.link, item.likes, item.id,
                         openedPopupWithFullSizeImage,
                         cardsSection, popupConfirmDeletingCardClass
                         )}
@@ -75,17 +80,10 @@ const cardsSection = new Section(
 //cardsSection.renderItems(initialCards);
 
 //Запрос из сервера на массив карточек:
-const cardsApi = new Api({
-        url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
-        headers: {
-            Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-            "content-type": "application/json",
-        },
-});
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
-cardsApi.getCardsFromServer().then((data) => {
-        //console.log('This is data for cards from server:'data);
+api.getCardsDataFromServer().then((data) => {
+        console.log('This is data for cards from server:', data, data._id);
         cardsSection.renderItems(data);
 }).catch((err) => console.log(err));
 
@@ -97,13 +95,13 @@ const formCardValidator = new FormValidator(validationSettings, popupFormAddPlac
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
 //Api для загрузки новых карточек на сервер
-const postCardApi = new Api ({
+/*const postCardApi = new Api ({
         url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
         headers: {
             Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
             "content-type": "application/json",
         },
-});
+});*/
 
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
@@ -134,13 +132,13 @@ buttonAddCard.addEventListener('click', ()=> {
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
-
+/*
 const editUserApi = new Api({
         url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me',
         Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
         "content-type": "application/json",
 });
-
+*/
 //Запрос API для изменения данных пользователя
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
@@ -166,16 +164,8 @@ buttonEditProfile.addEventListener('click', ()=>{
         formFieldJob.value = userData.userJob; 
 });
 
-const userApi = new Api({
-        url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
-        headers: {
-             Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-             "content-type": "application/json",
-        },
-});
-
 //Вставляю данные пользователя на страницу
-userApi.getUserData().then((data) => {
+api.getUserData().then((data) =>{
         //console.log('This is user data on page', data);
         //console.dir(this);
         setUserDataOnPage(data, 
