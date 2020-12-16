@@ -54,7 +54,7 @@ const api = new Api({
         url: "https://mesto.nomoreparties.co/v1/cohort-18/",
         headers: {
             Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-            "content-type": "application/json",
+            "content-type": "application/json; charset=UTF-8",
         },
 });
 
@@ -166,13 +166,13 @@ formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
 
 const popupEditAvatarClass = new PopupWithForm({
         popup: popupEditAvatar,
-        handleFormSubmit: (formUrl)=>{
-                        console.log('This is formUrl stage 1 ', formUrl);
-                        editAvatarApi.editAvatar(formUrl)
-                        .then((formUrl)=>{
-                                console.log('This is formUrl stage 2 ',formUrl);
-                                updateAvatarOnPage(formUrl);
-                                console.log('This is formURl stage 3 from popupEditAvatarClass', formUrl);
+        handleFormSubmit:(avatarUrl)=>{
+                        console.log('This is formUrl stage 1 ', avatarUrl);
+                        api.editAvatar(avatarUrl)
+                        .then((avatarUrl)=>{
+                                console.log('This is formUrl stage 2 ',avatarUrl);
+                                updateAvatarOnPage(avatarUrl);
+                                console.log('This is formURl stage 3 from popupEditAvatarClass', avatarUrl);
                                 popupEditAvatarClass.closePopup();
                         })
         }
@@ -181,5 +181,3 @@ const popupEditAvatarClass = new PopupWithForm({
 popupEditAvatarClass.setEventListeners();
 
 profileEditAvatarLink.addEventListener('click', ()=>{popupEditAvatarClass.openPopup()});
-
-//feature: profile update function developed and launched

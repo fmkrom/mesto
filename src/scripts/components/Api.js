@@ -40,8 +40,6 @@ export class Api {
       })
     };
     
-  
-
     addCardToServer(name, link) {
       return fetch(`${this._url}cards`,{
             method: "POST",
@@ -103,22 +101,23 @@ export class Api {
     };
 
     editAvatar(avatarUrl){
-      return fetch(this._url, {
+      return fetch(`${this._basicUrl}users/me/avatar`,{
           method: "PATCH",
           headers: this._headers,
-          body: JSON.stringify({
-            avatar: avatarUrl
-        }),
+          body: JSON.stringify({avatar: avatarUrl}),
       }).then((res) => {
           if (res.ok) {
             console.dir(res);
             console.log(res.status, res.statusText);
             return res.json();
           }
-          return Promise.reject("Произошла ошибка - url аватара не отправилось на сервер");
+          return Promise.reject(`Произошла ошибка в функции редактирования аватара ${res.status}`);
       })
     };
 };
+
+
+
 
 /*
  addCardToServer(name, link) {
