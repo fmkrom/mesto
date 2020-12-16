@@ -57,7 +57,7 @@ export class Api {
         });
     }
 
-    getUserData(){
+   getUserData(){
    return fetch(`${this._basicUrl}users/me`, {
             method: 'GET',
             headers: this._headers,

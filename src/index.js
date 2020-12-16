@@ -77,7 +77,7 @@ const cardsSection = new Section(
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 api.getCardsDataFromServer().then((data) => {
-        console.log('This is data for cards from server:', data, data._id);
+        //console.log('This is data for cards from server:', data, data._id);
         cardsSection.renderItems(data);
 }).catch((err) => console.log(err));
 
@@ -88,9 +88,6 @@ formProfileValidator.enableValidation(formEditProfile, validationSettings);
 const formCardValidator = new FormValidator(validationSettings, popupFormAddPlace);;
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
-
-
-
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
@@ -99,9 +96,7 @@ const popupAddCardClass = new PopupWithForm({
                 .then((formData)=>{
                 //console.log('This is data from server in popupAddCardClass', formData);
                         createNewCard(Card,  
-                                formData.addPlaceName, 
-                                formData.addPlaceUrl,
-                                0,
+                                formData,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
                                 popupConfirmDeletingCardClass);
