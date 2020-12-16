@@ -5,7 +5,7 @@ export class Card {
                 handleLikeCard}, 
                 templateSelector){
         this._name = data.name;
-        this._url = data.link;
+        this._link = data.link;
         this._likes = data.likes;
         this._id = data._id;
         this._template = templateSelector;
@@ -36,7 +36,7 @@ export class Card {
         this._element = this._getCardTemplate();
             
         const generatedCardImage = this._element.querySelector('.card__image');
-        generatedCardImage.src=this._url;
+        generatedCardImage.src=this._link;
         generatedCardImage.alt=this._name;
         this._element.querySelector('.card__title').textContent=this._name;
 

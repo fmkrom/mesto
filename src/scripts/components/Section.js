@@ -7,7 +7,6 @@ export class Section {
     renderItems(array){
         array.forEach(item => {
             this._renderer(item);
-            console.log(item.name, item,link, item.likes, item.id);
         });
     }
 

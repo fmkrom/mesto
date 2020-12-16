@@ -63,7 +63,7 @@ export class Api {
             headers: this._headers,
         }).then((res) => {
           if (res.ok) {
-              console.log('This is getUserData result:', res);
+              //console.log('This is getUserData result:', res);
               return res.json();
             }
             return Promise.reject("Произошла ошибка в получнии данных пользователя");
