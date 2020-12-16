@@ -28,7 +28,7 @@ export class Card {
         number.textContent = this._likes.length + 1;
     };
 
-    deleteCard(element){
+    _deleteCard(element){
         console.log('This is element form _deleteCard method:', element);
         element.remove();
         element = null;

@@ -12,7 +12,7 @@ export class PopupWithButton extends Popup {
     }
 
     setEventListeners(){
-        const confirmDeletingButton = popupConfirmDeletingCard.querySelector('.form__button-save');
+        const confirmDeletingButton = this.popup.querySelector('.form__button-save');
         confirmDeletingButton.addEventListener('click', ()=>{
             this.handleConfirmDeletingCard();
         });

@@ -5,7 +5,7 @@ export class Api {
     }
     
     getCardsFromServer() {
-        return fetch(this._url, {
+        return fetch(`${this._url}cards`,{
             method: 'GET',
             headers: this._headers,
         }).then((res) => {
@@ -29,7 +29,7 @@ export class Api {
     };
 
     addCardToServer(name, link) {
-        return fetch(this._url, {
+      return fetch(`${this._url}cards`,{
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
@@ -58,12 +58,12 @@ export class Api {
     }
 
     getUserData(){
-        return fetch(this._url, {
+      return fetch(`${this._url}users/me`,{
             method: 'GET',
             headers: this._headers,
         }).then((res) => {
           if (res.ok) {
-              //console.log('This is getUserData result:', res);
+              console.log('This is getUserData result:', res);
               return res.json();
             }
             return Promise.reject("Произошла ошибка");

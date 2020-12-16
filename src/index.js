@@ -72,11 +72,9 @@ const cardsSection = new Section(
                         )}
         }, '.cards');
         
-//cardsSection.renderItems(initialCards);
-
-//Запрос из сервера на массив карточек:
-const cardsApi = new Api({
-        url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
+//Запрос c сервера на  данные:
+const api = new Api({
+        url: "https://mesto.nomoreparties.co/v1/cohort-18/",
         headers: {
             Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
             "content-type": "application/json",
@@ -84,8 +82,8 @@ const cardsApi = new Api({
 });
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
-cardsApi.getCardsFromServer().then((data) => {
-        //console.log('This is data for cards from server:'data);
+api.getCardsFromServer().then((data) => {
+        console.log('This is data for cards from server:', data);
         cardsSection.renderItems(data);
 }).catch((err) => console.log(err));
 
@@ -97,20 +95,19 @@ const formCardValidator = new FormValidator(validationSettings, popupFormAddPlac
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
 //Api для загрузки новых карточек на сервер
-const postCardApi = new Api ({
+/*const postCardApi = new Api ({
         url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
         headers: {
             Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
             "content-type": "application/json",
         },
-});
+});*/
 
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
-                postCardApi
-                .addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
+                api.addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
                 .then((formData)=>{
                 //console.log('This is data from server in popupAddCardClass', formData);
                         createNewCard(Card,  
@@ -135,11 +132,20 @@ buttonAddCard.addEventListener('click', ()=> {
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
 
-const editUserApi = new Api({
+//Вставляю данные пользователя на страницу
+api.getUserData().then((data) => {
+        console.log('This is user data on page', data);
+        //console.dir(this);
+        setUserDataOnPage(data, pageProfileName, pageProfileJob, pageProfileAvatar);
+}).catch((err) => console.log(err));
+
+
+
+/*const editUserApi = new Api({
         url: 'https://mesto.nomoreparties.co/v1/cohort-18/users/me',
         Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
         "content-type": "application/json",
-});
+});*/
 
 //Запрос API для изменения данных пользователя
 const popupEditProfileClass = new PopupWithForm(
@@ -166,23 +172,6 @@ buttonEditProfile.addEventListener('click', ()=>{
         formFieldJob.value = userData.userJob; 
 });
 
-const userApi = new Api({
-        url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
-        headers: {
-             Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-             "content-type": "application/json",
-        },
-});
-
-//Вставляю данные пользователя на страницу
-userApi.getUserData().then((data) => {
-        //console.log('This is user data on page', data);
-        //console.dir(this);
-        setUserDataOnPage(data, 
-                          pageProfileName, 
-                          pageProfileJob, 
-                          pageProfileAvatar);
-}).catch((err) => console.log(err));
 
 
 //Попап: подтвердить удаление карточки
