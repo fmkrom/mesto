@@ -3,8 +3,14 @@ export function openFullSizeImage(PopupFullSizeImageClass, cardName, cardLink){
     PopupFullSizeImageClass.setEventListeners();
 };
 
-export function confirmDeletingCard(CardClass, currentCard){
-    CardClass.handleDeleteCard(currentCard);
+export function confirmDeletingCard(popupWithButton, currentCard, currentCardId){
+    popupWithButton.openPopup();
+    console.log(popupWithButton);
+    const confirmDeletingButton = popupWithButton.querySelector('.form__button-save');
+    confirmDeletingButton.addEventListener('click', ()=>{
+        currentCard.deleteCard(currentCardId);
+        popupWithButton.closePopup();
+    })
 };
 
 export function confirmCardOwner(currentCard, userId, ownerId){
@@ -31,10 +37,8 @@ const currentCard = new CardClass({data,
         },
         handleDeleteCard:()=>{
             console.log(PopupConfirmDeletingClass);
-            apiClass.deleteCard(data._id).then((cardId)=>{
-                console.log(data._id);
-                console.log(cardId);
-                //currentCard.deleteCard(cardId);
+                apiClass.deleteCard(data._id).then((cardId)=>{
+                    PopupConfirmDeletingClass.handleConfirmDeletingCard(currentCard, cardId);
             }).catch((err) => console.log(err));
         },
         handleLikeCard:()=>{

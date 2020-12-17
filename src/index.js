@@ -57,15 +57,14 @@ const api = new Api({
             "content-type": "application/json; charset=UTF-8",
         },
 });
-
+/*
 const popupConfirmDeletingCardClass = new PopupWithButton(
         {popup: popupConfirmDeletingCard,
-                handleConfirmDeletingCard:(CardClass, currentCard)=>{
-                        console.log('This is PopupConfirmDeleting Card', popupConfirmDeletingCard);
-                        confirmDeletingCard(CardClass, currentCard);
+                handleConfirmDeletingCard:(currentCard, cardId)=>{
+                     currentCard.deleteCard(cardId)
                 }          
 });
-popupConfirmDeletingCardClass.setEventListeners();
+popupConfirmDeletingCardClass.setEventListeners();*/
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 api.getCardsDataFromServer().then((data) => {
@@ -80,6 +79,8 @@ const cardsSection = new Section(
                 cardsSection, popupConfirmDeletingCardClass, api);
         }
 }, '.cards');
+
+
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -112,6 +113,15 @@ buttonAddCard.addEventListener('click', ()=> {
         popupFormButtonSavePlace.classList.add(validationSettings.inactiveButtonClass);
         popupFormButtonSavePlace.disabled = true;
 }); 
+
+const popupConfirmDeletingCardClass = new PopupWithButton(
+        {popup: popupConfirmDeletingCard,
+                handleConfirmDeletingCard:(currentCard, cardId)=>{
+                     currentCard.deleteCard(cardId)
+                }          
+});
+popupConfirmDeletingCardClass.setEventListeners();
+
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');
