@@ -16,6 +16,7 @@ import {
         pageProfileJob,
         pageProfileAvatar,
         popupConfirmDeletingCard,
+        buttonConfirmDeletingCard,
         popupEditAvatar,
         formEditAvatar,
         profileEditAvatarLink
@@ -57,14 +58,15 @@ const api = new Api({
             "content-type": "application/json; charset=UTF-8",
         },
 });
-/*
+
+
 const popupConfirmDeletingCardClass = new PopupWithButton(
         {popup: popupConfirmDeletingCard,
-                handleConfirmDeletingCard:(currentCard, cardId)=>{
-                     currentCard.deleteCard(cardId)
-                }          
+        button: buttonConfirmDeletingCard,
+                handleConfirmDeletingCard:()=>{return buttonConfirmDeletingCard}
 });
-popupConfirmDeletingCardClass.setEventListeners();*/
+popupConfirmDeletingCardClass.setEventListeners();
+
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 api.getCardsDataFromServer().then((data) => {
@@ -113,15 +115,6 @@ buttonAddCard.addEventListener('click', ()=> {
         popupFormButtonSavePlace.classList.add(validationSettings.inactiveButtonClass);
         popupFormButtonSavePlace.disabled = true;
 }); 
-
-const popupConfirmDeletingCardClass = new PopupWithButton(
-        {popup: popupConfirmDeletingCard,
-                handleConfirmDeletingCard:(currentCard, cardId)=>{
-                     currentCard.deleteCard(cardId)
-                }          
-});
-popupConfirmDeletingCardClass.setEventListeners();
-
 
 //Логика профиля пользователя:
 const currentUser = new UserInfo('.profile__name', '.profile__job');

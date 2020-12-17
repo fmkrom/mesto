@@ -3,16 +3,6 @@ export function openFullSizeImage(PopupFullSizeImageClass, cardName, cardLink){
     PopupFullSizeImageClass.setEventListeners();
 };
 
-export function confirmDeletingCard(popupWithButton, currentCard, currentCardId){
-    popupWithButton.openPopup();
-    console.log(popupWithButton);
-    const confirmDeletingButton = popupWithButton.querySelector('.form__button-save');
-    confirmDeletingButton.addEventListener('click', ()=>{
-        currentCard.deleteCard(currentCardId);
-        popupWithButton.closePopup();
-    })
-};
-
 export function confirmCardOwner(currentCard, userId, ownerId){
     const currentDeleteButton = currentCard.querySelector('.card__delete-button');
     if (userId === ownerId){
@@ -32,14 +22,16 @@ const currentCard = new CardClass({data,
         },
         handleCardClick:()=>{
             openFullSizeImage(PopupFullSizeImageClass, data.name, data.link)
-            //console.log('This is card owner info from CreateNewCard function:', data.owner._id);
-            console.log('This is card owner info from CreateNewCard function:', data, data._id);
         },
         handleDeleteCard:()=>{
-            console.log(PopupConfirmDeletingClass);
-                apiClass.deleteCard(data._id).then((cardId)=>{
-                    PopupConfirmDeletingClass.handleConfirmDeletingCard(currentCard, cardId);
-            }).catch((err) => console.log(err));
+            PopupConfirmDeletingClass.openPopup();
+            const confirmButton = PopupConfirmDeletingClass.handleConfirmDeletingCard();
+            confirmButton.addEventListener('click',()=>{
+                apiClass.deleteCard(data._id).then((data)=>{
+                    console.log(data);
+                    PopupConfirmDeletingClass.closePopup();
+                }).catch((err) => console.log(err));
+            });
         },
         handleLikeCard:()=>{
             apiClass.likeCard(data._id);

@@ -1,10 +1,10 @@
 import {Popup} from "./Popup.js";
 
 export class PopupWithButton extends Popup {
-    constructor({popup, confirmDeletingButton, handleConfirmDeletingCard}){
+    constructor({popup, button, handleConfirmDeletingCard}){
         super(popup);
         this.popup = popup;
-        this.confirmDeletingButton = confirmDeletingButton;
+        this.button = button;
         this.handleConfirmDeletingCard = handleConfirmDeletingCard;
     }
 
@@ -13,9 +13,7 @@ export class PopupWithButton extends Popup {
     }
 
     setEventListeners(){
-        confirmDeletingButton.addEventListener('click', ()=>{
             this.handleConfirmDeletingCard();
-        });
         super.setEventListeners();
     }
 };

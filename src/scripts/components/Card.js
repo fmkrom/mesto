@@ -25,7 +25,7 @@ export class Card {
     };
     
 
-    _deleteCard(element){
+    deleteCurrentCard(element){
         console.log('This is element form _deleteCard method:', element);
         element.remove();
         element = null;
