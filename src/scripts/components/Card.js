@@ -1,11 +1,13 @@
 export class Card {
-    constructor({data, handleDeleteCard, handleCardClick, handleLikeCard}, 
+    constructor({data, showDeleteButton, handleDeleteCard, handleCardClick, handleLikeCard}, 
                 templateSelector){
         this._name = data.name;
         this._link = data.link;
         this._likes = data.likes;
         this._id = data._id;
+        this._owner = data.owner._id;
         this._template = templateSelector;
+        this.showDeleteButton = showDeleteButton;
         this.handleDeleteCard = handleDeleteCard;
         this.handleCardClick = handleCardClick;
         this.handleLikeCard = handleLikeCard;
@@ -31,7 +33,9 @@ export class Card {
 
     generateCard(){
         this._element = this._getCardTemplate();
-            
+
+        this.showDeleteButton(this._element);
+
         const generatedCardImage = this._element.querySelector('.card__image');
         generatedCardImage.src=this._link;
         generatedCardImage.alt=this._name;

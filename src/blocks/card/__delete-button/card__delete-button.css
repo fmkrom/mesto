@@ -2,7 +2,7 @@
 @import "./_shown/card__delete-button_shown.css";*/
 
 .card__delete-button{
-    display:block;
+    display:none;
     width:20px;
     height: 20px;
     

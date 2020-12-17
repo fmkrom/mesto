@@ -94,7 +94,8 @@ const popupAddCardClass = new PopupWithForm({
         handleFormSubmit:(formData) =>{
                 api.addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
                 .then((data)=>{
-                console.log('This is data from server in popupAddCardClass', data);
+                //console.log('This is data from server in popupAddCardClass', data);
+                console.log('This is user that created this card:', data.owner._id);
                         createNewCard(Card,  
                                 data,
                                 openedPopupWithFullSizeImage,  
@@ -150,6 +151,12 @@ api.getUserData().then((data) =>{
                           pageProfileJob, 
                           pageProfileAvatar);
 }).catch((err) => console.log(err));
+
+/*
+api.getUserData().then((data) =>{
+        console.log(data.)
+}).catch((err) => console.log(err));
+*/
 
 //ФОРМА РЕДАКТИРОВАНИЯ АВАТАРА:
 
