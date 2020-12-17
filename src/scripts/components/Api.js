@@ -57,15 +57,15 @@ export class Api {
         });
     }
 
-    deleteCard(id) {
-        return fetch(`${this._url}${id}`, {
+    deleteCard(cardId) {
+        return fetch(`${this._url}cards/${cardId}`,{
             method: "DELETE",
             headers: this._headers,
         }).then((res) => {
             if (res.ok) {
                 return res.json();
             }
-            return Promise.reject("Произошла ошибка");
+            return Promise.reject(`"Произошла ошибка в удалении карточки: ${res.status}"`);
         });
     }
 

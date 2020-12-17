@@ -95,7 +95,7 @@ const popupAddCardClass = new PopupWithForm({
                 api.addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
                 .then((data)=>{
                 //console.log('This is data from server in popupAddCardClass', data);
-                console.log('This is user that created this card:', data.owner._id);
+                //console.log('This is user that created this card:', data.owner._id);
                         createNewCard(Card,  
                                 data,
                                 openedPopupWithFullSizeImage,  

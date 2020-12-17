@@ -7,15 +7,12 @@ export function confirmDeletingCard(CardClass, currentCard){
     CardClass.handleDeleteCard(currentCard);
 };
 
-
 export function confirmCardOwner(currentCard, userId, ownerId){
     const currentDeleteButton = currentCard.querySelector('.card__delete-button');
     if (userId === ownerId){
         currentDeleteButton.style.display = "block";
-    } else {
-        console.log('Card _confirmCardOwner says: this is a DIFFIRENT user!');
     }
-}
+};
 
 export function createNewCard(CardClass, data,
                               PopupFullSizeImageClass, NewSectionClass,
@@ -29,10 +26,16 @@ const currentCard = new CardClass({data,
         },
         handleCardClick:()=>{
             openFullSizeImage(PopupFullSizeImageClass, data.name, data.link)
-            console.log('This is card owner info from CreateNewCard function:', data.owner._id);
+            //console.log('This is card owner info from CreateNewCard function:', data.owner._id);
+            console.log('This is card owner info from CreateNewCard function:', data, data._id);
         },
         handleDeleteCard:()=>{
             console.log(PopupConfirmDeletingClass);
+            apiClass.deleteCard(data._id).then((cardId)=>{
+                console.log(data._id);
+                console.log(cardId);
+                //currentCard.deleteCard(cardId);
+            }).catch((err) => console.log(err));
         },
         handleLikeCard:()=>{
             apiClass.likeCard(data._id);
