@@ -100,7 +100,7 @@ const popupAddCardClass = new PopupWithForm({
                                 data,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
-                                popupConfirmDeletingCardClass);
+                                popupConfirmDeletingCardClass, api);
                 }).catch((err) => console.log(err));
         popupAddCardClass.closePopup();
         }
