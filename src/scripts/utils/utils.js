@@ -34,8 +34,9 @@ const currentCard = new CardClass({data,
             });
         },
         handleLikeCard:()=>{
-            apiClass.likeCard(data._id);
-            return data.likes + 1;
+            apiClass.likeCard(data._id).then((data)=>{
+                return data.likes + 1;
+            }).catch((err) => console.log(err));
         }
     }, '.template');
     const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
