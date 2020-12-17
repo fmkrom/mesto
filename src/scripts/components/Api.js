@@ -16,6 +16,20 @@ export class Api {
         })
     };
 
+    /*getCurrentCard(cardId){
+        return fetch(`${this._basicUrl}cards/${cardId}`,{
+              method: "GET",
+              headers: this._headers,
+            }).then((res) => {
+              if (res.ok) {
+                  console.log('this getCurrentCard from server result:', res);
+                  console.dir(res);
+                return res.json();
+              } return Promise.reject(`"Ошибка в getCardFromServer ${res.status}"`);
+          });
+      }
+    */
+   
     likeCard(cardId) {
       return fetch(`${this._basicUrl}cards/${cardId}`,{
           method: 'PUT',

@@ -16,6 +16,7 @@ import {
         pageProfileJob,
         pageProfileAvatar,
         popupConfirmDeletingCard,
+        buttonConfirmDeletingCard,
         popupEditAvatar,
         formEditAvatar,
         profileEditAvatarLink
@@ -58,14 +59,14 @@ const api = new Api({
         },
 });
 
+
 const popupConfirmDeletingCardClass = new PopupWithButton(
         {popup: popupConfirmDeletingCard,
-                handleConfirmDeletingCard:(CardClass, currentCard)=>{
-                        console.log('This is PopupConfirmDeleting Card', popupConfirmDeletingCard);
-                        confirmDeletingCard(CardClass, currentCard);
-                }          
+        button: buttonConfirmDeletingCard,
+                handleConfirmDeletingCard:()=>{return buttonConfirmDeletingCard}
 });
 popupConfirmDeletingCardClass.setEventListeners();
+
 
 //Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
 api.getCardsDataFromServer().then((data) => {
@@ -80,6 +81,8 @@ const cardsSection = new Section(
                 cardsSection, popupConfirmDeletingCardClass, api);
         }
 }, '.cards');
+
+
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -100,7 +103,7 @@ const popupAddCardClass = new PopupWithForm({
                                 data,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
-                                popupConfirmDeletingCardClass);
+                                popupConfirmDeletingCardClass, api);
                 }).catch((err) => console.log(err));
         popupAddCardClass.closePopup();
         }
