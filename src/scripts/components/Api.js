@@ -29,7 +29,7 @@ export class Api {
           });
       }
     */
-   
+
     likeCard(cardId) {
       return fetch(`${this._basicUrl}cards/${cardId}`,{
           method: 'PUT',
