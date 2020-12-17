@@ -93,10 +93,10 @@ const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
                 api.addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
-                .then((formData)=>{
-                //console.log('This is data from server in popupAddCardClass', formData);
+                .then((data)=>{
+                console.log('This is data from server in popupAddCardClass', data);
                         createNewCard(Card,  
-                                formData,
+                                data,
                                 openedPopupWithFullSizeImage,  
                                 cardsSection,
                                 popupConfirmDeletingCardClass);
@@ -156,13 +156,6 @@ api.getUserData().then((data) =>{
 //Применяем валидатор к форме редактирования аватара: 
 const formEditAvatarValidator = new FormValidator(validationSettings, formEditAvatar);;
 formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
-
-//Запрос на сервер:
-/*const editAvatarApi = new Api({
-        url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar",
-        Authorization: "6b4f0e7a-6b81-4fab-971b-4da07f00c7c0",
-        "content-type": "application/json",
-});*/
 
 const popupEditAvatarClass = new PopupWithForm({
         popup: popupEditAvatar,

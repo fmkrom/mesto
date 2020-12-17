@@ -40,20 +40,20 @@ export class Api {
       })
     };
     
-    addCardToServer(name, link) {
-      return fetch(`${this._url}cards`,{
+    addCardToServer(formName, formLink) {
+      return fetch(`${this._basicUrl}cards`,{
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
-                name: name,
-                link: link
+                name: formName,
+                link: formLink
             }),
           }).then((res) => {
             if (res.ok) {
                 console.log('this is fetch addCardToServer result:', res);
                 console.dir(res);
               return res.json();
-            } return Promise.reject("Произошла ошибка в файле Api: данные карточки не отправились на сервер");
+            } return Promise.reject(`"Ошибка в addCardToServer${res.status}"`);
         });
     }
 
@@ -116,69 +116,3 @@ export class Api {
     };
 };
 
-
-
-
-/*
- addCardToServer(name, link) {
-        return fetch(this._url, {
-            method: "POST",
-            headers: this._headers,
-            body: JSON.stringify({
-                name: name,
-                link: link
-            }),
-*/
-
-/*Образец из задания:
-// создаёт разметку для поста
-function createPostMarkup(post) {
-  return `
-    <div class="post">
-      <p class="post__title">${post.title}</p>
-      <p class="post__text">${post.body}</p>
-    </div>
-  `;
-}
-
-// вставляет разметку в DOM
-function addPostToDOM(container, markup) {
-  container.insertAdjacentHTML('afterbegin', markup);
-}
-
-function createPost(newPost) {
-  fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST', // нужно указать метод запроса
-    // тело запроса
-    body: JSON.stringify({
-      title: newPost.title,
-      body: newPost.text
-    }),
-    // и заголовки
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  }).then((res) => {
-    return res.json();
-  })
-  .then((post) => {
-      addPostToDOM(
-        document.querySelector('.container'),
-        createPostMarkup(post));
-  });
-}
-
-// обработчик сабмита формы
-document.forms.post.addEventListener('submit', function (event) {
-  event.preventDefault();
-
-  const { title, text } = event.currentTarget.elements;
-
-  createPost({
-    title: title.value,
-    text: text.value
-  });
-});
-
-
-*/
