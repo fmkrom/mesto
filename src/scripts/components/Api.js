@@ -36,7 +36,7 @@ export class Api {
           headers: this._headers,
       }).then((res) => {
           if (res.ok) {
-            console.log('This is result of liking card: ', res.status);
+            console.log('This is result of LIKING card: ', res.status);
             return res.json();
           }
           return Promise.reject(`"Произошла ошибка в методе лайка карточки ${res.status}"`);
@@ -50,7 +50,8 @@ export class Api {
       }).then((res) => {
           //console.log(cardId);
           if (res.ok) {
-             return res.json();
+            console.log('This is result of DISLIKING card: ', res.status); 
+            return res.json();
           }
           return Promise.reject(`"Произошла ошибка ${res.status}"`);
       })
