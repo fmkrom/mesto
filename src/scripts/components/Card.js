@@ -11,6 +11,7 @@ export class Card {
         this.handleDeleteCard = handleDeleteCard;
         this.handleCardClick = handleCardClick;
         this.handleLikeCard = handleLikeCard;
+        this.handleDislikeCard = handleLikeCard;
     }
     
     _getCardTemplate(){
@@ -19,9 +20,24 @@ export class Card {
         return clonedTemplate;
     }
 
-    _activateLikeCard(button){
+    _activateLikeIcon(button){
         button.classList.toggle('card__like-button');
         button.classList.toggle('card__like-button_active');
+    };
+
+    _deactivateLikeIcon(button){
+        button.classList.toggle('card__like-button_active');
+        button.classList.toggle('card__like-button');
+    };
+
+    _toggleLikeCard(button){
+        if (!button.classList.contains('card__like-button_active')){
+                this._activateLikeIcon(button);
+                this.handleLikeCard();    
+        } else if (button.classList.contains('card__like-button_active')){
+            this._deactivateLikeIcon(button);
+                this.handleDislikeCard();    
+        }
     };
     
 
@@ -51,8 +67,7 @@ export class Card {
 
         const likeButton = this._element.querySelector('.card__like-button');
         likeButton.addEventListener('click', ()=> {
-            this._activateLikeCard(likeButton);
-            this.handleLikeCard();
+            this._toggleLikeCard(likeButton);
         });
 
         const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');

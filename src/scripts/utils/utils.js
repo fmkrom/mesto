@@ -36,18 +36,18 @@ const currentCard = new CardClass({data,
         },
         handleLikeCard:()=>{
             apiClass.likeCard(data._id).then((data)=>{
-                console.log(data._id);
+                console.log(data, data.likes.length);
             }).catch((err) => console.log(err));
+        },
+        handleDislikeCard:()=>{            
             apiClass.dislikeCard(data._id).then((data)=>{
-                console.log(data._id);
+                console.log(data.likes.length);
             }).catch((err) => console.log(err));
         }
     }, '.template');
     const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
     NewSectionClass.addItem(cardElement);
 };
-
-
 
 export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
     pageName.textContent = data.name; 
