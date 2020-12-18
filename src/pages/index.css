@@ -10,6 +10,8 @@
 
 @import "../blocks/cards/cards.css";
 
+/*@import "../blocks/card/__like-button/_active/card__like-button_active.css";*/
+
 @import "../blocks/card/card.css";
 
 @import "../blocks/profile/profile.css";

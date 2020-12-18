@@ -20,26 +20,6 @@ export class Card {
         return clonedTemplate;
     }
 
-    _activateLikeIcon(button){
-        button.classList.toggle('card__like-button');
-        button.classList.toggle('card__like-button_active');
-    };
-
-    _deactivateLikeIcon(button){
-        button.classList.toggle('card__like-button_active');
-        button.classList.toggle('card__like-button');
-    };
-    
-    _toggleLikeCard(button){
-        if (!button.classList.contains('card__like-button_active')){
-                this._activateLikeIcon(button);
-                this.handleLikeCard();    
-        } else if (button.classList.contains('card__like-button_active')){
-            this._deactivateLikeIcon(button);
-                this.handleDislikeCard();    
-        }
-    };
-
     deleteCurrentCard(element){
         console.log('This is element form _deleteCard method:', element);
         element.remove();
@@ -58,7 +38,7 @@ export class Card {
 
         const deleteButton = this._element.querySelector('.card__delete-button');
         deleteButton.addEventListener('click', ()=>{
-           this.handleDeleteCard();
+            this.handleDeleteCard();
         });
     
         const likesNumber = this._element.querySelector('.card__like-number');
@@ -66,8 +46,7 @@ export class Card {
 
         const likeButton = this._element.querySelector('.card__like-button');
         likeButton.addEventListener('click', ()=> {
-            //console.log('This is likes ID from Card Class:', this._likes);
-            this._toggleLikeCard(likeButton);
+            this.handleLikeCard();
         });
 
         const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
