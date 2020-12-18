@@ -21,7 +21,8 @@ const currentCard = new CardClass({data,
             }).catch((err) => console.log(err));
         },
         handleCardClick:()=>{
-            openFullSizeImage(PopupFullSizeImageClass, data.name, data.link)
+            openFullSizeImage(PopupFullSizeImageClass, data.name, data.link);
+            console.log('This is data of a card I wanna like:', data);
         },
         handleDeleteCard:()=>{
             PopupConfirmDeletingClass.openPopup();
@@ -35,13 +36,18 @@ const currentCard = new CardClass({data,
         },
         handleLikeCard:()=>{
             apiClass.likeCard(data._id).then((data)=>{
-                return data.likes + 1;
+                console.log(data._id);
+            }).catch((err) => console.log(err));
+            apiClass.dislikeCard(data._id).then((data)=>{
+                console.log(data._id);
             }).catch((err) => console.log(err));
         }
     }, '.template');
     const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
     NewSectionClass.addItem(cardElement);
 };
+
+
 
 export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
     pageName.textContent = data.name; 

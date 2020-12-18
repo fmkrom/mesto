@@ -31,22 +31,24 @@ export class Api {
     */
 
     likeCard(cardId) {
-      return fetch(`${this._basicUrl}cards/${cardId}`,{
+      return fetch(`${this._basicUrl}cards/likes/${cardId}`,{
           method: 'PUT',
           headers: this._headers,
       }).then((res) => {
           if (res.ok) {
-             return res.json();
+            console.log('This is result of liking card: ', res.status);
+            return res.json();
           }
           return Promise.reject(`"Произошла ошибка в методе лайка карточки ${res.status}"`);
       })
     };
 
     dislikeCard(cardId) {
-      return fetch(`${this._basicUrl}cards/${cardId}`,{
+      return fetch(`${this._basicUrl}cards/likes/${cardId}`,{
           method: 'DELETE',
           headers: this._headers,
       }).then((res) => {
+          //console.log(cardId);
           if (res.ok) {
              return res.json();
           }
