@@ -29,7 +29,7 @@ export class Card {
         button.classList.toggle('card__like-button_active');
         button.classList.toggle('card__like-button');
     };
-    /*
+    
     _toggleLikeCard(button){
         if (!button.classList.contains('card__like-button_active')){
                 this._activateLikeIcon(button);
@@ -39,7 +39,6 @@ export class Card {
                 this.handleDislikeCard();    
         }
     };
-    */
 
     deleteCurrentCard(element){
         console.log('This is element form _deleteCard method:', element);
@@ -67,6 +66,7 @@ export class Card {
 
         const likeButton = this._element.querySelector('.card__like-button');
         likeButton.addEventListener('click', ()=> {
+            //console.log('This is likes ID from Card Class:', this._likes);
             this._toggleLikeCard(likeButton);
         });
 

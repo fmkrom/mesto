@@ -10,15 +10,24 @@ export function confirmCardOwner(currentCard, userId, ownerId){
     }
 };
 
+function findUserId(dataArray, ownerId){
+    const userIdsArray = dataArray.likes.map(item => item._id);
+    if (userIdsArray.includes(ownerId)){
+        console.log('findUserId says: user is here!');
+    } else {
+        console.log('findUserId says: NO user!!!');
+    }
+};
+
 export function createNewCard(CardClass, data,
-                              PopupFullSizeImageClass, NewSectionClass,
-                              PopupConfirmDeletingClass, apiClass){
+    PopupFullSizeImageClass, NewSectionClass,
+    PopupConfirmDeletingClass, apiClass){
 //console.log('This is CreateNewCard in utils: ', data, data.name, data.link, data.likes);
-const currentCard = new CardClass({data,
+    const currentCard = new CardClass({data,
         showDeleteButton:(currentElement)=>{
-            apiClass.getUserData().then((user) =>{
-                confirmCardOwner(currentElement, user._id, data.owner._id);
-            }).catch((err) => console.log(err));
+                apiClass.getUserData().then((user) =>{
+                    confirmCardOwner(currentElement, user._id, data.owner._id);
+                }).catch((err) => console.log(err));
         },
         handleCardClick:()=>{
             openFullSizeImage(PopupFullSizeImageClass, data.name, data.link);
@@ -35,16 +44,16 @@ const currentCard = new CardClass({data,
             });
         },
         handleLikeCard:()=>{
-            apiClass.likeCard(data._id).then((data)=>{
-                console.log(data, data.likes.length);
+            apiClass.likeCard(data._id).then((currentData)=>{
+                findUserId(currentData, data.owner._id);
             }).catch((err) => console.log(err));
         },
         handleDislikeCard:()=>{            
             apiClass.dislikeCard(data._id).then((data)=>{
-                console.log(data.likes.length);
-            }).catch((err) => console.log(err));
-        }
-    }, '.template');
+                    console.log(data.likes.length);
+                }).catch((err) => console.log(err));
+            }
+        }, '.template');
     const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
     NewSectionClass.addItem(cardElement);
 };
