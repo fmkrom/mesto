@@ -1,13 +1,25 @@
-export function openFullSizeImage(PopupFullSizeImageClass, cardName, cardLink){
+const likesSet = new Set;
+likesSet.add(true);
+console.log(likesSet);
+
+
+function openFullSizeImage(PopupFullSizeImageClass, cardName, cardLink){
     PopupFullSizeImageClass.openFullSizeImage(cardName, cardLink);
     PopupFullSizeImageClass.setEventListeners();
 };
 
-export function confirmCardOwner(currentCard, userId, ownerId){
+function confirmCardOwner(currentCard, userId, ownerId){
     const currentDeleteButton = currentCard.querySelector('.card__delete-button');
     if (userId === ownerId){
         currentDeleteButton.style.display = "block";
     }
+};
+
+export function changeSaveButtonText(popup){
+    const button = popup.querySelector('.form__button-save');
+    console.log(button.textContent);
+    button.textContent = "Сохранение...";
+    console.log(button.textContent);
 };
 
 function toggleLikeIcon(currentCard, dataArray, currentUserId){
