@@ -107,7 +107,9 @@ export class Api {
       return fetch(`${this._basicUrl}users/me/avatar`,{
           method: "PATCH",
           headers: this._headers,
-          body: JSON.stringify({avatar: avatarUrl}),
+          body: JSON.stringify({
+            avatar: avatarUrl
+          }),
       }).then((res) => {
           if (res.ok) {
             console.dir(res);

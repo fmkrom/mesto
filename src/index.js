@@ -1,4 +1,4 @@
-import "./pages/index.css";
+//import "./pages/index.css";
 
 //2. Импорт переменных из файла констант: 
 import {
@@ -43,7 +43,7 @@ import {Api} from "./scripts/components/Api.js";
 
 import {createNewCard,
         setUserDataOnPage,
-        confirmDeletingCard
+        changeSaveButtonText
 }from "./scripts/utils/utils.js";
 
 /*===*/
@@ -95,6 +95,7 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
+                changeSaveButtonText(popupAddCard);
                 api.addCardToServer(formData.addPlaceName, formData.addPlaceUrl)
                 .then((data)=>{
                 //console.log('This is data from server in popupAddCardClass', data);
@@ -123,6 +124,7 @@ const currentUser = new UserInfo('.profile__name', '.profile__job');
 const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
            handleFormSubmit:(formData)=>{
+                        changeSaveButtonText(popupEditProfile);
                         console.log('This is formData stage 1 ', formData);
                         api.setUserData(formData.editProfileName, formData.editProfileJob)
                         .then((formData)=>{
@@ -170,11 +172,12 @@ formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
 const popupEditAvatarClass = new PopupWithForm({
         popup: popupEditAvatar,
         handleFormSubmit:(avatarUrl)=>{
+                        changeSaveButtonText(popupEditAvatar);
                         console.log('This is formUrl stage 1 ', avatarUrl);
                         api.editAvatar(avatarUrl)
-                        .then((avatarUrl)=>{
-                                console.log('This is formUrl stage 2 ',avatarUrl);
-                                updateAvatarOnPage(avatarUrl);
+                        .then((data)=>{
+                                console.log('This is formUrl stage 2 ',data);
+                                updateAvatarOnPage(data);
                                 console.log('This is formURl stage 3 from popupEditAvatarClass', avatarUrl);
                                 popupEditAvatarClass.closePopup();
                         })
