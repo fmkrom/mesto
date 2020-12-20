@@ -16,13 +16,26 @@ export class Api {
         })
     };
 
+    getCardData(cardId){
+      return fetch(`${this._basicUrl}cards/likes/${cardId}`,{
+        method: 'GET',
+        headers: this._headers,
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`"Произошла ошибка в методе лайка карточки ${res.status}"`);
+      })
+    };
+
+
     likeCard(cardId) {
       return fetch(`${this._basicUrl}cards/likes/${cardId}`,{
           method: 'PUT',
           headers: this._headers,
       }).then((res) => {
           if (res.ok) {
-            console.log('This is result of LIKING card: ', res.status);
+            //console.log('This is result of LIKING card: ', res.status);
             return res.json();
           }
           return Promise.reject(`"Произошла ошибка в методе лайка карточки ${res.status}"`);
@@ -36,13 +49,13 @@ export class Api {
       }).then((res) => {
           console.log(cardId);
           if (res.ok) {
-            console.log('This is result of DISLIKING card: ', res.status); 
+            //console.log('This is result of DISLIKING card: ', res.status); 
             return res.json();
           }
           return Promise.reject(`"Произошла ошибка ${res.status}"`);
       })
     };
-    
+        
     addCardToServer(formName, formLink) {
       return fetch(`${this._basicUrl}cards`,{
             method: "POST",
@@ -53,8 +66,8 @@ export class Api {
             }),
           }).then((res) => {
             if (res.ok) {
-                console.log('this is fetch addCardToServer result:', res);
-                console.dir(res);
+                //console.log('this is fetch addCardToServer result:', res);
+                //console.dir(res);
               return res.json();
             } return Promise.reject(`"Ошибка в addCardToServer${res.status}"`);
         });
@@ -108,12 +121,14 @@ export class Api {
           method: "PATCH",
           headers: this._headers,
           body: JSON.stringify({
-            avatar: avatarUrl
-          }),
+            avatar: avatarUrl}),
+      }).then((res)=>{
+        console.log(res);
+        console.dir(res);
       }).then((res) => {
           if (res.ok) {
-            console.dir(res);
-            console.log(res.status, res.statusText);
+            //console.dir(res);
+            //console.log(res.status, res.statusText);
             return res.json();
           }
           return Promise.reject(`Произошла ошибка в функции редактирования аватара ${res.status}`);

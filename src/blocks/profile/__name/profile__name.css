@@ -33,3 +33,17 @@
         vertical-align: bottom;
     }
 }
+
+.profile__name:hover{
+    background-color: lawngreen;
+}
+
+.profile__name:hover~.profile__job{
+    background-color: blanchedalmond;
+}
+
+/*
+.cover__title:hover ~ .cover__overlay {
+    background-color: rgba(42, 44, 47, 0.8);
+}
+*/

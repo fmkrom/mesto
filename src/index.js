@@ -1,4 +1,4 @@
-//import "./pages/index.css";
+import "./pages/index.css";
 
 //2. Импорт переменных из файла констант: 
 import {
@@ -54,11 +54,10 @@ const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeIma
 const api = new Api({
         url: "https://mesto.nomoreparties.co/v1/cohort-18/",
         headers: {
-            Authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-            "content-type": "application/json; charset=UTF-8",
+            authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
+            'Content-Type': 'application/json'
         },
 });
-
 
 const popupConfirmDeletingCardClass = new PopupWithButton(
         {popup: popupConfirmDeletingCard,
@@ -125,13 +124,13 @@ const popupEditProfileClass = new PopupWithForm(
         {popup: popupEditProfile,
            handleFormSubmit:(formData)=>{
                         changeSaveButtonText(popupEditProfile);
-                        console.log('This is formData stage 1 ', formData);
+                        //console.log('This is formData stage 1 ', formData);
                         api.setUserData(formData.editProfileName, formData.editProfileJob)
                         .then((formData)=>{
-                                console.log('This is formData stage 2 ',formData);
+                                //console.log('This is formData stage 2 ',formData);
                                 currentUser.setUserInfo(formData.editProfileName,
                                                         formData.editProfileJob),
-                                console.log('This is formData stage 3 from popupEditProfileClass', formData);
+                                //console.log('This is formData stage 3 from popupEditProfileClass', formData);
                                 popupEditProfileClass.closePopup()
                         }).catch((err) => console.log(err));
                 }
@@ -173,12 +172,13 @@ const popupEditAvatarClass = new PopupWithForm({
         popup: popupEditAvatar,
         handleFormSubmit:(avatarUrl)=>{
                         changeSaveButtonText(popupEditAvatar);
+                        console.dir('This is formUrl stage 1 ', avatarUrl);
                         console.log('This is formUrl stage 1 ', avatarUrl);
-                        api.editAvatar(avatarUrl)
+                        patchApi.newAvatar(avatarUrl)
                         .then((data)=>{
-                                console.log('This is formUrl stage 2 ',data);
+                                console.dir('This is formUrl stage 2 ',data);
                                 updateAvatarOnPage(data);
-                                console.log('This is formURl stage 3 from popupEditAvatarClass', avatarUrl);
+                                //console.log('This is formURl stage 3 from popupEditAvatarClass', avatarUrl);
                                 popupEditAvatarClass.closePopup();
                         })
         }
