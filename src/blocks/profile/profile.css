@@ -1,4 +1,5 @@
 @import "../profile/__avatar/profile__avatar.css";
+@import "./__edit-avatar-link/profile__edit-avatar-link.css";
 @import "../profile/__image/profile__image.css";
 
 @import "../profile/__name/profile__name.css";

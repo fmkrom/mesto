@@ -1,8 +1,3 @@
-const likesSet = new Set;
-likesSet.add(true);
-console.log(likesSet);
-
-
 function openFullSizeImage(PopupFullSizeImageClass, cardName, cardLink){
     PopupFullSizeImageClass.openFullSizeImage(cardName, cardLink);
     PopupFullSizeImageClass.setEventListeners();
@@ -17,23 +12,33 @@ function confirmCardOwner(currentCard, userId, ownerId){
 
 export function changeSaveButtonText(popup){
     const button = popup.querySelector('.form__button-save');
-    console.log(button.textContent);
     button.textContent = "Сохранение...";
-    console.log(button.textContent);
 };
 
-function toggleLikeIcon(currentCard, dataArray, currentUserId){
+const likesSet = new Set;
+
+function createLikesSet(dataArray, currentSet){
+    dataArray.likes.forEach(item => {currentSet.add(item._id)});
+    //console.log(currentSet);
+};
+
+function toggleLikeButtonState(currentSet, currentUserId, button){
+    if (!currentSet.has(currentUserId)){
+        currentSet.add(currentUserId);
+        button.classList.remove('card__like-button_inactive');
+        button.classList.add('card__like-button_active');
+    } else if (currentSet.has(currentUserId)){
+        currentSet.delete(currentUserId);
+        button.classList.remove('card__like-button_active');
+        button.classList.add('card__like-button_inactive');
+    }
+};
+
+function toggleLikeButton(currentCard, currentSet, dataArray, currentUserId){
+    createLikesSet(dataArray, currentSet)
     const likeButton = currentCard.querySelector('.card__like-button');
     likeButton.addEventListener('click', ()=>{
-        const userIdsArray = dataArray.likes.map(item => item._id);
-        if (!userIdsArray.includes(currentUserId)){
-            likeButton.classList.remove('card__like-button_active');
-            likeButton.classList.add('card__like-button_inactive');
-        } else {
-            console.log('current user here!!', currentUserId);
-            likeButton.classList.remove('card__like-button_inavtive');
-            likeButton.classList.add('card__like-button_active');
-        }
+        toggleLikeButtonState(currentSet, currentUserId, likeButton);
     })
 };
 
@@ -64,19 +69,19 @@ export function createNewCard(CardClass, data,
         handleLikeCard:()=>{
             apiClass.likeCard(data._id).then((currentData)=>{
                 apiClass.getUserData().then((user) =>{
-                    toggleLikeIcon(cardElement, currentData, user._id);
-                }).catch((err) => console.log(err));
-            }).catch((err) => console.log(err));
-        },
-        handleDislikeCard:()=>{            
-            apiClass.dislikeCard(data._id).then((currentData)=>{
-                apiClass.getUserData().then((user) =>{
-                    toggleLikeIcon(cardElement, currentData, user._id);
+                    toggleLikeButton(cardElement, likesSet, currentData, user._id);
                 }).catch((err) => console.log(err));
             }).catch((err) => console.log(err));
         }
-        },
-        '.template');
+        /*handleDislikeCard:()=>{            
+            apiClass.dislikeCard(data._id).then((currentData)=>{
+                apiClass.getUserData().then((user) =>{
+                    toggleLikeButton(cardElement, currentData, user._id);
+                }).catch((err) => console.log(err));
+            }).catch((err) => console.log(err));
+        }*/
+    },
+    '.template');
     const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
     NewSectionClass.addItem(cardElement);
 };
