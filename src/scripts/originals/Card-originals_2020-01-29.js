@@ -6,7 +6,7 @@ export class Card {
         this._likes = data.likes;
         this._id = data._id;
         this._ownerId = data.owner._id;
-        this._userId = data.currentUserId;
+        this._userId = data.userId;
 
         this._template = templateSelector;
         this.handleDeleteCard = handleDeleteCard;
@@ -21,6 +21,9 @@ export class Card {
     }
 
     confirmLikeStatus(){
+        /*Исходный вариант функции: 
+        return Boolean(this._likes.find(item => item._id === this._ownerId));*/
+        
         if (this._likes.find(item => item._id === this._ownerId)){
             console.log('confirmLikeStatus - card is liked!');
             return true 
@@ -29,64 +32,68 @@ export class Card {
         }
     };
 
-    cardId(){
-        return this._cardId;
-    }
-
-    toggleLikeButton(){
-        const likeButton = this._element.querySelector('.card__like-button');
-        
+    toggleLikeButton(element){
+        const likeButton = element.querySelector('.card__like-button');
         if (this.confirmLikeStatus()){
             likeButton.classList.add('card__like-button_active');
         } else (!this.confirmLikeStatus())
             likeButton.classList.remove('card__like-button_active');
     }
 
-    setLikesCount(){
-        const likesNumber = this._element.querySelector('.card__like-number');
+    setLikesCount(element){
+        const likesNumber = element.querySelector('.card__like-number');
         likesNumber.textContent = this._likes.length;
-        toggleLikeButton();
+        toggleLikeButton(element);
     };
 
-    updateLikesCount(data){
+    updateLikesCount(data, element){
         this._likes = data._likes;
-        setLikesCount();
+        setLikesCount(element);
     }
 
-    showDeleteButton(){
-        const currentDeleteButton = this._element.querySelector('.card__delete-button');
+    showDeleteButton(element){
+        const currentDeleteButton = element.querySelector('.card__delete-button');
         if (this._userId === this._ownerId){
             currentDeleteButton.style.display = "block";
         }
     };
 
-    deleteCurrentCard(){
-        this._element.remove();
-        this._element = null;
+    deleteCurrentCard(element){
+        element.remove();
+        element = null;
     };
-
-    setEventListeners(){
-        const deleteButton = this._element.querySelector('.card__delete-button');
-        deleteButton.addEventListener('click', ()=>{this.handleDeleteCard()});
-
-        const likeButton = this._element.querySelector('.card__like-button');
-        likeButton.addEventListener('click', ()=> {this.handleLikeCard()});
-
-        const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
-        openFullsizeImageLink.addEventListener('click', ()=>{this.handleCardClick()});
-    }
 
     generateCard(){
         this._element = this._getCardTemplate();
-        this.updateLikesCount();
-        this.setEventListeners()
-        this.showDeleteButton();
-        
+
+        this.showDeleteButton(this._element);
+
         const generatedCardImage = this._element.querySelector('.card__image');
         generatedCardImage.src=this._link;
         generatedCardImage.alt=this._name;
         this._element.querySelector('.card__title').textContent=this._name;
 
+        const deleteButton = this._element.querySelector('.card__delete-button');
+        deleteButton.addEventListener('click', ()=>{
+            this.handleDeleteCard();
+        });
+
+        getLikesCount(this._element);
+    
+        /*const likesNumber = this._element.querySelector('.card__like-number');
+        likesNumber.textContent = this._likes.length;*/
+
+        const likeButton = this._element.querySelector('.card__like-button');
+        likeButton.addEventListener('click', ()=> {
+            this.handleLikeCard();
+        });
+
+        const openFullsizeImageLink = this._element.querySelector('.card__open-fullsize-image');
+        openFullsizeImageLink.addEventListener('click', ()=>{
+            this.handleCardClick();
+        });
+        
         return this._element;
     }
 };
+

@@ -11,3 +11,7 @@
         justify-self: center;
     }
 }
+
+.profile__avatar:hover .profile__avatar-overlay{
+    z-index:2;
+}

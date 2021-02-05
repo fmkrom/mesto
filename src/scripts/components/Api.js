@@ -1,138 +1,117 @@
 export class Api {
-    constructor(config) {
-        this._basicUrl = config.url;
-        this._headers = config.headers;
+    constructor(settings){
+        this._url = settings.url;
+        this._cohort = settings.cohort;
+        this._token = settings.token;
     }
-    
-    getCardsDataFromServer() {
-        return fetch(`${this._basicUrl}cards`,{
-            method: 'GET',
-            headers: this._headers,
-        }).then((res) => {
-            if (res.ok) {
-               return res.json();
-            }
-            return Promise.reject(`"Произошла ошибка ${res.status}"`);
-        })
-    };
 
-    getCardData(cardId){
-      return fetch(`${this._basicUrl}cards/likes/${cardId}`,{
-        method: 'GET',
-        headers: this._headers,
-      }).then((res) => {
+    //Базовый метод получения результата запроса
+
+    getRes(res){
         if (res.ok) {
           return res.json();
+        } else {
+          return Promise.reject(`Ошибка получения данных с сервера: ${res.status}`);
         }
-        return Promise.reject(`"Произошла ошибка в методе лайка карточки ${res.status}"`);
-      })
+    };
+    
+    //Методы карточек
+
+    getCards(){
+      return fetch(`${this._url}/${this._cohort}/cards`,
+      {
+       method: 'GET',
+       headers: {
+            authorization: this._token,
+            'Content-Type': 'application/json'
+          },
+      }).then(this.getRes);
     };
 
+    addCard(name, url){
+      return fetch(`${this._url}/${this._cohort}/cards`,
+        {
+        method: 'POST',
+        headers:{
+            authorization: this._token,
+            'Content-Type': 'application/json'
+          }, 
+          body:JSON.stringify({
+              name,
+              url
+          })
+        }
+      ).then(this.getRes);
+    };
 
-    likeCard(cardId) {
-      return fetch(`${this._basicUrl}cards/likes/${cardId}`,{
-          method: 'PUT',
-          headers: this._headers,
-      }).then((res) => {
-          if (res.ok) {
-            //console.log('This is result of LIKING card: ', res.status);
-            return res.json();
+    likeCard(cardId, likeStatus){
+      return fetch(`${this._url}/${this._cohort}/cards/likes/${cardId}`,
+        {
+          method: likeStatus ? 'PUT' : 'DELETE',
+          headers:{
+            authorization: this._token,
+            'Content-Type': 'application/json'
+          },
+        }
+      ).then(this.getRes);
+    };
+
+    deleteCard(cardId){
+      return fetch(`${this._url}/${this._cohort}/cards/${cardId}`,
+        {
+          method: "DELETE",
+          headers:{
+            authorization: this._token,
+            'Content-Type': 'application/json'
           }
-          return Promise.reject(`"Произошла ошибка в методе лайка карточки ${res.status}"`);
-      })
+        }
+      ).then(this.getRes);
     };
 
-    dislikeCard(cardId) {
-      return fetch(`${this._basicUrl}cards/likes/${cardId}`,{
-          method: 'DELETE',
-          headers: this._headers,
-      }).then((res) => {
-          console.log(cardId);
-          if (res.ok) {
-            //console.log('This is result of DISLIKING card: ', res.status); 
-            return res.json();
+    //Методы пользователя
+
+    getUser(){
+      return fetch(`${this._url}/${this._cohort}/users/me`,
+        {
+          method: 'GET',
+          headers: {
+            authorization: this._token
           }
-          return Promise.reject(`"Произошла ошибка ${res.status}"`);
-      })
+        }
+      ).then(this.getRes)
     };
-        
-    addCardToServer(formName, formLink) {
-      return fetch(`${this._basicUrl}cards`,{
-            method: "POST",
-            headers: this._headers,
-            body: JSON.stringify({
-                name: formName,
-                link: formLink
-            }),
-          }).then((res) => {
-            if (res.ok) {
-                //console.log('this is fetch addCardToServer result:', res);
-                //console.dir(res);
-              return res.json();
-            } return Promise.reject(`"Ошибка в addCardToServer${res.status}"`);
-        });
-    }
+    
+    setUser({name, info}){
+      return fetch(`${this._url}/${this._cohort}/users/me`,
+        {
+          method: 'PATCH',
+          headers: {
+            authorization: this._token,
+            'Content-Type': 'application/json'
+          }, 
+          body: JSON.stringify({
+            name, 
+            info
+          }
+        ).then(this.getRes)
+      }
+    )};
 
-    deleteCard(cardId) {
-        return fetch(`${this._basicUrl}cards/${cardId}`,{
-            method: "DELETE",
-            headers: this._headers,
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`"Произошла ошибка в удалении карточки: ${res.status}"`);
-        });
-    }
-
-   getUserData(){
-   return fetch(`${this._basicUrl}users/me`, {
-            method: 'GET',
-            headers: this._headers,
-        }).then((res) => {
-          if (res.ok) {
-              //console.log('This is getUserData result:', res);
-              return res.json();
-            }
-            return Promise.reject("Произошла ошибка в получнии данных пользователя");
+/*
+    editUserAvatar(url){
+      return fetch(`${this._url}/${this._cohort}/users/me/avatar`,
+      {
+        method: 'PATCH',
+        headers: {
+          authorization: this._token,
+          'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({
+          url
         })
-    };
+      }
+      ).then(this.getRes)
+    };*/
+}
 
-    setUserData(name, about){
-    return fetch(`${this._basicUrl}users/me`,{
-          method: "PATCH",
-          headers: this._headers,
-          body: JSON.stringify({
-            name: name,
-            about: about
-        }),
-      }).then((res) => {
-          if (res.ok) {
-            console.dir(res);
-            console.log(res.status, res.statusText);
-            return res.json();
-          }
-          return Promise.reject("Произошла ошибка - данные пользователя не отправились на сервер");
-      })
-    };
-
-    editAvatar(avatarUrl){
-      return fetch(`${this._basicUrl}users/me/avatar`,{
-          method: "PATCH",
-          headers: this._headers,
-          body: JSON.stringify({
-            avatar: avatarUrl}),
-      }).then((res)=>{
-        console.log(res);
-        console.dir(res);
-      }).then((res) => {
-          if (res.ok) {
-            //console.dir(res);
-            //console.log(res.status, res.statusText);
-            return res.json();
-          }
-          return Promise.reject(`Произошла ошибка в функции редактирования аватара ${res.status}`);
-      })
-    };
-};
-
+    

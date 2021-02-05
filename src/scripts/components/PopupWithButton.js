@@ -1,10 +1,11 @@
 import {Popup} from "./Popup.js";
 
 export class PopupWithButton extends Popup {
-    constructor({popup, button, handleConfirmDeletingCard}){
-        super(popup);
-        this.popup = popup;
-        this.button = button;
+    constructor({popupSelector, handleConfirmDeletingCard}){
+        super(popupSelector);
+        this.popup = document.querySelector(popupSelector);
+        this._buttonDefaultText = this._popup.querySelector('.form__button-save').textContent;
+        this.confirmDeletingButton = this.popup.querySelector('.form__button-save');
         this.handleConfirmDeletingCard = handleConfirmDeletingCard;
     }
 
@@ -13,7 +14,9 @@ export class PopupWithButton extends Popup {
     }
 
     setEventListeners(){
-            this.handleConfirmDeletingCard();
+        this.confirmDeletingButton.addEventListener('click',()=>{
+            this.handleConfirmDeletingCard();    
+        })
         super.setEventListeners();
     }
 };

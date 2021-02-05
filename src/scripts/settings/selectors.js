@@ -1,4 +1,15 @@
 export const selectors = {
-    containerClass: '.cards',
-    popupWithFullSizeImageClass: '.popup_type-fullsize-image'
+    popupWithFullSizeImageClass: '.popup_type-fullsize-image',
+
+    template: ".template",
+    cardsContainer: ".cards",
+
+    userName: ".profile__name",
+    userAbout: ".profile__job",
+    userAvatar: ".profile__image",
+
+    popupEditProfileSelector: ".popup_type-edit-profile",
+    popupFullSizeImage: ".popup_type-fullsize-image",
+    popupAddCardSelector: ".popup_type-add-card",
+    popupDeleteCardSelector: ".popup_type-delete-card",
 };

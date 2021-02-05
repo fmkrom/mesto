@@ -1,21 +1,9 @@
-function openFullSizeImage(PopupFullSizeImageClass, cardName, cardLink){
-    PopupFullSizeImageClass.openFullSizeImage(cardName, cardLink);
-    PopupFullSizeImageClass.setEventListeners();
-};
-
 function confirmCardOwner(currentCard, userId, ownerId){
     const currentDeleteButton = currentCard.querySelector('.card__delete-button');
     if (userId === ownerId){
         currentDeleteButton.style.display = "block";
     }
 };
-
-export function changeSaveButtonText(popup){
-    const button = popup.querySelector('.form__button-save');
-    button.textContent = "Сохранение...";
-};
-
-const likesSet = new Set;
 
 function createLikesSet(dataArray, currentSet){
     dataArray.likes.forEach(item => {currentSet.add(item._id)});

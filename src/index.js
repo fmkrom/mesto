@@ -1,30 +1,19 @@
-import "./pages/index.css";
+//import "./pages/index.css";
 
 //2. Импорт переменных из файла констант: 
 import {
-        popupEditProfile,
+        //popupEditProfile,
         formEditProfile,
-        popupAddCard,
+        //popupAddCard,
         buttonAddCard,
         popupFormAddPlace,
-        buttonEditProfile,
         popupFullsizeImage,
-        formFieldName,
-        formFieldJob,
         popupFormButtonSavePlace,
-        pageProfileName,
-        pageProfileJob,
-        pageProfileAvatar,
-        popupConfirmDeletingCard,
-        buttonConfirmDeletingCard,
-        popupEditAvatar,
-        formEditAvatar,
-        profileEditAvatarLink
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
-
 import {Card} from "./scripts/components/Card.js";
+import {Api} from "./scripts/components/Api.js";
 
 //3. Импорт класса валидатора:
 import {FormValidator} from "./scripts/components/FormValidator.js";
@@ -34,54 +23,27 @@ import {PopupWithFullSizeImage} from "./scripts/components/PopupWithFullSizeImag
 import {PopupWithForm} from "./scripts/components/PopupWithForm.js";
 import {PopupWithButton} from "./scripts/components/PopupWithButton.js";
 
-//5. Импорт настроек валидации:
-import {validationSettings} from "./scripts/settings/validationSettings.js";
-
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
-import {Api} from "./scripts/components/Api.js";
+//5. Импорт настроек валидации:
+import {apiSettings,
+        validationSettings
+} from "./scripts/settings/settings.js";
 
-import {createNewCard,
-        setUserDataOnPage,
-        changeSaveButtonText
-}from "./scripts/utils/utils.js";
+//6. Импорт селекторов:
+import {selectors} from "./scripts/settings/selectors.js";
 
-/*===*/
-//Класс контейнера, содержащего карточки:
+const api = new Api(apiSettings);
 
-const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(popupFullsizeImage);
+const currentUserInfo = new UserInfo(selectors);
 
-const api = new Api({
-        url: "https://mesto.nomoreparties.co/v1/cohort-18/",
-        headers: {
-            authorization: '6b4f0e7a-6b81-4fab-971b-4da07f00c7c0',
-            'Content-Type': 'application/json'
-        },
+const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(selectors.popupFullSizeImage);
+
+const popupConfirmDeletingCard = new PopupWithButton(
+        {popupSelector: selectors.popupDeleteCardSelector,
+         handleConfirmDeletingCard:()=>{}
 });
-
-const popupConfirmDeletingCardClass = new PopupWithButton(
-        {popup: popupConfirmDeletingCard,
-        button: buttonConfirmDeletingCard,
-                handleConfirmDeletingCard:()=>{return buttonConfirmDeletingCard}
-});
-popupConfirmDeletingCardClass.setEventListeners();
-
-
-//Асинхрон: получаем карточки с сервера и рендерим их методом класса Section
-api.getCardsDataFromServer().then((data) => {
-        //console.log('This is data for cards from server:', data, data._id);
-        cardsSection.renderItems(data);
-}).catch((err) => console.log(err));
-
-//Создаем Section - независимый от всех прочих элементов страницы:
-const cardsSection = new Section(
-{renderer: (item) =>{
-        createNewCard(Card, item, openedPopupWithFullSizeImage,
-                cardsSection, popupConfirmDeletingCardClass, api);
-        }
-}, '.cards');
-
-
+popupConfirmDeletingCard.setEventListeners();
 
 //Применяем класс валидатора к каждой из форм:
 const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
@@ -90,8 +52,110 @@ formProfileValidator.enableValidation(formEditProfile, validationSettings);
 const formCardValidator = new FormValidator(validationSettings, popupFormAddPlace);;
 formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 
+const createCard = (data) => {
+        const card = new Card({
+          data: { ...data, currentUserId: userId},
+          handleCardClick:()=>{
+                openedPopupWithFullSizeImage.
+                openFullSizeImage(data.name, data.link)
+          },
+          handleLikeCard:()=>{
+            api.likeCard(card.cardId(), card.confirmLikeStatus())
+            .then(data => {updateLikesCount(data)})
+            .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
+          },
+          handleDeleteCard: (data) => {
+                popupConfirmDeletingCard.openPopup();
+                popupConfirmDeletingCard.handleConfirmDeletingCard(()=>{ //Важно! Искать: здесь где-то ошибка синтаксиса!!
+                        popupConfirmDeletingCard.changeButtonText(true);
+                        api.deleteCard(data._id)
+                        .then(()=> {card.deleteCurrentCard();
+                                popupConfirmDeletingCard.closePopup()})
+                        .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
+                        .finally(() => popupConfirmDeletingCard.changeButtonText(false));
+                })
+           }
+        }, selectors.template);
+     return card.generateCard();
+};
+
 //Класс: создаем новый попап с формой для попапа добавления карточки
-const popupAddCardClass = new PopupWithForm({
+const popupAddCard = new PopupWithForm({
+        popupSelector: selectors.popupAddCardSelector,
+        handleFormSubmit:(formData) =>{
+            popupAddCard.changeButtonText(true);
+            api.addCard(formData.addPlaceName, formData.addPlaceUrl)
+            .then((data)=>{createCard(data)})
+            .catch((err) => console.log(`Ошибка создания новой карточки: ${err}`))
+            .finally(() => changeButtonText(false));
+            popupAddCard.closePopup();
+        }
+});
+popupAddCard.setEventListeners();
+
+buttonAddCard.addEventListener('click', ()=> {
+        console.log('function works!!', buttonAddCard);
+        popupAddCard.openPopup();
+        popupFormButtonSavePlace.classList.add(validationSettings.inactiveButtonClass);
+        popupFormButtonSavePlace.disabled = true;
+}); 
+
+const cardsSection = new Section({
+   renderer: (data) => {cardsSection.addElement(createCard(data))}
+   }, selectors.cardsContainer
+);
+
+const popupEditProfile = new PopupWithForm(
+        {popupSelector: selectors.popupEditProfileSelector,
+         handleFormSubmit:(formData)=>{
+             popupEditProfile.changeButtonText(true);
+             api.setUser({
+                name: formData.editProfileName,
+                info: formData.editProfileJob
+             })                    
+              .then((data)=>{
+                currentUserInfo.setUserInfo({
+                   name: data.name,
+                   about: data.about
+                })
+                popupEditProfile.closePopup();
+            }).catch((err) => console.log(`Ошибка при обновлении данных пользователя: ${err}`)
+            ).finally(() => changeButtonText(false));
+        }
+});
+popupEditProfile.setEventListeners();
+
+Promise.all([api.getCards(), api.getUser()])
+  .then(([cardsData, userData]) => {
+    userId = userData._id;
+
+    currentUserInfo.setUserInfo(userData.name, userData.about);
+    currentUserInfo.setUserAvatar(userData.avatar);
+    cardsSection.renderItems(cardsData);
+}).catch(err => console.log(`Ошибка загрузки данных: ${err}`));
+
+
+/*Далее старый код*/
+
+//Создаем Section - независимый от всех прочих элементов страницы:
+/*const cardsSection = new Section(
+{renderer: (item) =>{
+        createNewCard(Card, item, openedPopupWithFullSizeImage,
+                cardsSection, popupConfirmDeletingCardClass, api);
+        }
+}, '.cards');*/
+
+
+
+//Применяем класс валидатора к каждой из форм:
+//const formProfileValidator = new FormValidator(validationSettings, formEditProfile);
+//formProfileValidator.enableValidation(formEditProfile, validationSettings);
+
+//const formCardValidator = new FormValidator(validationSettings, popupFormAddPlace);;
+//formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
+
+//Класс: создаем новый попап с формой для попапа добавления карточки
+/*const popupAddCardClass = new PopupWithForm({
         popup: popupAddCard,
         handleFormSubmit:(formData) =>{
                 changeSaveButtonText(popupAddCard);
@@ -165,7 +229,7 @@ api.getUserData().then((data) =>{
 //ФОРМА РЕДАКТИРОВАНИЯ АВАТАРА:
 
 //Применяем валидатор к форме редактирования аватара: 
-const formEditAvatarValidator = new FormValidator(validationSettings, formEditAvatar);;
+/*const formEditAvatarValidator = new FormValidator(validationSettings, formEditAvatar);;
 formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
 
 const popupEditAvatarClass = new PopupWithForm({
@@ -186,4 +250,4 @@ const popupEditAvatarClass = new PopupWithForm({
 });
 popupEditAvatarClass.setEventListeners();
 
-profileEditAvatarLink.addEventListener('click', ()=>{popupEditAvatarClass.openPopup()});
+profileEditAvatarLink.addEventListener('click', ()=>{popupEditAvatarClass.openPopup()});*/

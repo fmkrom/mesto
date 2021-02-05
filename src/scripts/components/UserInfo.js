@@ -1,24 +1,30 @@
-import {pageProfileName,
-        pageProfileJob, 
-        formFieldName,
-        formFieldJob
-} from "../utils/constants.js"
-
 export class UserInfo{
-    constructor(userNameSelector, userJobSelector){
-        this._userName = document.querySelector(userNameSelector);
-        this._userJob = document.querySelector(userJobSelector);
+    constructor(selectors){
+        this._userName = document.querySelector(selectors.userName);
+        this._userAbout = document.querySelector(selectors.userAbout);
+        this._userAvatar = document.querySelector(selectors.userAvatar);    
     }
 
     getUserInfo(){
         return {
             userName: this._userName.textContent,
-            userJob: this._userJob.textContent
-        };    
-    }
+            userAbout: this._userAbout.textContent,
+        }
+    };
 
-    setUserInfo(formName, formJob){
-        this._userName.textContent = formName;
-        this._userJob.textContent = formJob;
-    }
+    getUserAvatar(){
+        return {
+            userAvatar: this._userAvatar.src
+        }
+    };
+
+    setUserInfo({name, about}){
+        this._userName.textContent = name;
+        this._userAbout.textContent = about;
+    };
+
+    setUserAvatar(url){
+        this._userAvatar.src = url;
+    };
 };
+

@@ -1,6 +1,6 @@
 export class Popup {
-    constructor (popup){
-        this._popup = popup;
+    constructor (popupSelector){
+        this._popup = document.querySelector(`${popupSelector}`);
     }
 
     openPopup(){
@@ -26,6 +26,15 @@ export class Popup {
                 this.closePopup();
             }
         }); 
+    };
+
+    changeButtonText(status){
+        const popupButton = this._popup.querySelector('.form__button-save');
+        if (status === true){
+            popupButton.textContent = "Сохранение..."
+        } else if (status === false) {
+            popupButton.textContent = this._buttonDefaultText;
+        }
     };
 
     setEventListeners(){
