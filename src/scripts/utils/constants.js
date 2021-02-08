@@ -23,8 +23,6 @@ export const buttonSaveProfile = formEditProfile.querySelector('.form__button-sa
 
 export const profileEditAvatarLink = document.querySelector('.profile__edit-avatar-link');
 
-export const formEditAvatar = document.querySelector('.form_edit-avatar');
-
 /*--------------------------------------------------------------------------------------------*/
 
 //Б. Попап (всплывающее окно) добавления фото
@@ -68,7 +66,17 @@ export const buttonCloseAddCard = popupAddCard.querySelector('.popup__button-clo
 
 //Попап: редактировать аватар
 
+//Кнопка: редактировать аватар
+export const buttonEditAvatar = document.querySelector('.profile__edit-avatar-link');
+
+//Форма редактирования аватара
+export const formEditAvatar = document.forms.editAvatar;
+
+//Попап редактирования аватара
 export const popupEditAvatar = document.querySelector('.popup_type-edit-avatar');
+
+//Кнопка: сохранить аватар
+export const buttonSaveAvatar = popupEditAvatar.querySelector('.form__button-save');
 
 /*=================================================================*/
 //Попап: подтвердить удаление карточки

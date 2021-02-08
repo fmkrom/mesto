@@ -97,8 +97,7 @@ export class Api {
       }
     )};
 
-/*
-    editUserAvatar(url){
+    editAvatar(url){
       return fetch(`${this._url}/${this._cohort}/users/me/avatar`,
       {
         method: 'PATCH',
@@ -111,7 +110,7 @@ export class Api {
         })
       }
       ).then(this.getRes)
-    };*/
+    };
 }
 
     

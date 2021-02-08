@@ -12,4 +12,5 @@ export const selectors = {
     popupFullSizeImage: ".popup_type-fullsize-image",
     popupAddCardSelector: ".popup_type-add-card",
     popupDeleteCardSelector: ".popup_type-delete-card",
+    popupEditAvatarSelector: ".popup_type-edit-avatar"
 };
