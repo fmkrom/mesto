@@ -9,7 +9,6 @@ export class Card {
         this._ownerId = data.owner._id;
         this._ownerName = data.owner.name;
         this._userId = data.currentUserId;
-
         this._template = templateSelector;
         
         this.confirmCardOwner = confirmCardOwner;
@@ -28,18 +27,10 @@ export class Card {
         return this._id;
     }
 
-    /*setLikesCount(element){
-        const likesNumber = element.querySelector('.card__like-number');
-        likesNumber.textContent = this._likes.length;
-            //console.log(this._likes);
-        this.toggleLikeButton(element);
-    };*/
-
     confirmLikeStatus(){
         const likesSet = new Set;
         this._likes.forEach((item)=>{likesSet.add(item._id)});
         const cardIsLiked = likesSet.has(this._userId);
-            //console.log("Card Named: ",cardName, "is liked by: ",likesSet, "with like status: ", cardIsLiked);
         return cardIsLiked;
     };
 
@@ -67,6 +58,7 @@ export class Card {
 
     updateLikesCount(data){
         this._likes = data.likes;
+        this.toggleLikeButton();
     }
 
     deleteCurrentCard(){

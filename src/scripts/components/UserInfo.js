@@ -5,6 +5,7 @@ export class UserInfo{
         this._userAvatar = document.querySelector(selectors.userAvatar);    
     }
 
+    /*
     getUserInfo(){
         return {
             userName: this._userName.textContent,
@@ -18,13 +19,15 @@ export class UserInfo{
         }
     };
 
+    */
+
     setUserInfo(data){
         this._userName.textContent = data.name;
         this._userAbout.textContent = data.about;
     };
 
-    setUserAvatar(url){
-        this._userAvatar.src = url;
+    setUserAvatar(data){
+        this._userAvatar.src = data.avatar;
     };
 };
 
