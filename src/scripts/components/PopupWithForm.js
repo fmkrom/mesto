@@ -22,6 +22,15 @@ export class PopupWithForm extends Popup {
         return this._formValues;
     }
 
+    changeButtonText(status){
+        const popupButton = this._popup.querySelector('.form__button-save');
+        if (status === true){
+            popupButton.textContent = "Сохранение..."
+        } else if (status === false) {
+            popupButton.textContent = this._buttonDefaultText;
+        }
+    };
+
     setEventListeners(){
         super.setEventListeners();
         this._form.addEventListener('submit', (evt) =>{

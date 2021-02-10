@@ -1,7 +1,7 @@
 export const apiSettings = {
     url: "https://mesto.nomoreparties.co/v1",
-    cohort: "cohort-18",
-    token: "6b4f0e7a-6b81-4fab-971b-4da07f00c7c0"
+    cohort: "cohort-20",
+    token: "d7e2da9f-ccdc-4136-a46f-5fb3950e2feb"
 };
 
 export const selectors = {

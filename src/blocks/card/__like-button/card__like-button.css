@@ -1,9 +1,9 @@
-/*@import "./_inactive/card__like-button_inactive.css";*/
-/*@import "./_active/card__like-button_active.css";*/
+@import "./_inactive/card__like-button_inactive.css";
+@import "./_active/card__like-button_active.css";
 
 .card__like-button{
     background-color: white;
-    background-image: url('../../../images/__graphics/graphics__like-button.png');
+    /*background-image: url('../../../images/__graphics/graphics__like-button.png');*/
 
     width:20px;
     height: 18px;

@@ -6,6 +6,97 @@ export function enableOpenPopupButton(button, popupClass, submitButton, settings
     })
 };
 
+
+
+
+
+
+/*export function createNewCard(cardData, cardClass, apiClass, 
+                       popupFullSizeImageClass, 
+                       popupDeleteCard, selectors){
+    const currentCard = new cardClass({
+        cardData,
+        confirmCardOwner:()=>{
+            apiClass.getUser()
+            .then(userData =>{currentCard.showDeleteButton(currentCard, userData.id)}
+            ).catch(err => console.log(`Ошибка подтверждения владельца карточки: ${err}`));
+        },
+        
+        handleCardClick:()=>{popupFullSizeImageClass.openFullSizeImage(data.name, data.link)
+        },
+        
+        handleLikeCard:()=>{
+            apiClass.likeCard(currentCard.cardId(), !currentCard.confirmLikeStatus())
+            .then(newCardData =>{currentCard.updateLikesCount(newCardData)
+            }).catch(err => console.log(`Ошибка лайка карточки: ${err}`))
+        },   
+
+        handleDeleteCard: (cardData) => {
+            popupDeleteCard.openPopup();
+            popupDeleteCard.handleConfirmDeletingCard(()=>{
+                popupDeleteCard.changeButtonText(true);
+                apiClass.deleteCard(cardData._id)
+                .then(()=> {currentCard.deleteCurrentCard(currentCard);
+                popupDeleteCard.closePopup()})
+                .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
+                .finally(() => popupDeleteCard.changeButtonText(false));
+            })
+        }
+    }, selectors.template), return currentCard.generateCard();
+}; 
+*/
+
+/*
+function createNewCard(cardData, cardClass, apiClass, 
+                       popupFullSizeImageClass, 
+                       popupDeleteCard, selectors){
+    
+    const currentCard = new cardClass({
+        cardData,
+        confirmCardOwner:()=>{
+            apiClass.getUser()
+            .then(userData =>{currentCard.showDeleteButton(currentCard, userData.id)}
+            ).catch(err => console.log(`Ошибка подтверждения владельца карточки: ${err}`));
+        },
+        
+        handleCardClick:()=>{popupFullSizeImageClass.openFullSizeImage(data.name, data.link)
+        },
+        
+        handleLikeCard:()=>{
+            apiClass.likeCard(currentCard.cardId(), !currentCard.confirmLikeStatus())
+            .then(newCardData =>{currentCard.updateLikesCount(newCardData)
+            }).catch(err => console.log(`Ошибка лайка карточки: ${err}`))
+        },   
+
+        handleDeleteCard: (cardData) => {
+            popupDeleteCard.openPopup();
+            popupDeleteCard.handleConfirmDeletingCard(()=>{
+                popupDeleteCard.changeButtonText(true);
+                apiClass.deleteCard(cardData._id)
+                .then(()=> {currentCard.deleteCurrentCard(currentCard);
+                popupDeleteCard.closePopup()})
+                .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
+                .finally(() => popupDeleteCard.changeButtonText(false));
+            })
+        }
+    }, selectors.template),
+    return currentCard.generateCard();
+};
+*/
+
+
+
+
+/*=========================================================================================*/
+/*
+export function enableOpenPopupButton(button, popupClass, submitButton, settings){
+    button.addEventListener('click', ()=>{
+        popupClass.openPopup();
+        submitButton.classList.add(settings.inactiveButtonClass);
+        submitButton.disabled = true
+    })
+};
+
 function confirmCardOwner(currentCard, userId, ownerId){
     const currentDeleteButton = currentCard.querySelector('.card__delete-button');
     if (userId === ownerId){
@@ -38,7 +129,7 @@ function toggleLikeButton(currentCard, currentSet, dataArray, currentUserId){
     })
 };
 
-export function createNewCard(CardClass, data,
+export function createNewestCard(CardClass, data,
     PopupFullSizeImageClass, NewSectionClass,
     PopupConfirmDeletingClass, apiClass){
 //console.log('This is CreateNewCard in utils: ', data, data.name, data.link, data.likes);
@@ -69,13 +160,13 @@ export function createNewCard(CardClass, data,
                 }).catch((err) => console.log(err));
             }).catch((err) => console.log(err));
         }
-        /*handleDislikeCard:()=>{            
+        handleDislikeCard:()=>{            
             apiClass.dislikeCard(data._id).then((currentData)=>{
                 apiClass.getUserData().then((user) =>{
                     toggleLikeButton(cardElement, currentData, user._id);
                 }).catch((err) => console.log(err));
             }).catch((err) => console.log(err));
-        }*/
+        
     },
     '.template');
     const cardElement = currentCard.generateCard(PopupFullSizeImageClass);
@@ -91,4 +182,4 @@ export function setUserDataOnPage(data, pageName, pageJob, pageAvatar){
 export function updateAvatarOnPage(url){
     const avatarOnPage = document.querySelector('.profile__image');
     avatarOnPage.src = url;
-};
+};*/

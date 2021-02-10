@@ -13,9 +13,25 @@ export class PopupWithButton extends Popup {
         super.openPopup();
     }
 
+    getDeleteButton(){
+        //console.log(this.confirmDeletingButton);
+        return this.confirmDeletingButton;
+    }
+
+    changeButtonText(status){
+        const popupButton = this._popup.querySelector('.form__button-save');
+        if (status === true){
+            popupButton.textContent = "Сохранение..."
+        } else if (status === false) {
+            popupButton.textContent = this._buttonDefaultText;
+        }
+    };
+
     setEventListeners(){
         this.confirmDeletingButton.addEventListener('click',()=>{
-            this.handleConfirmDeletingCard();    
+            this.handleConfirmDeletingCard();
+            
+            console.log(this._buttonDefaultText);
         })
         super.setEventListeners();
     }

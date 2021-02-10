@@ -9,6 +9,7 @@ export class Api {
 
     getRes(res){
         if (res.ok) {
+          //console.log(`Запрос обработан успешно: ${res}`);
           return res.json();
         } else {
           return Promise.reject(`Ошибка получения данных с сервера: ${res.status}`);
@@ -37,8 +38,8 @@ export class Api {
             'Content-Type': 'application/json'
           }, 
           body:JSON.stringify({
-              name,
-              url
+              name: name,
+              link: url
           })
         }
       ).then(this.getRes);
@@ -81,7 +82,7 @@ export class Api {
       ).then(this.getRes)
     };
     
-    setUser({name, info}){
+    setUser(data){
       return fetch(`${this._url}/${this._cohort}/users/me`,
         {
           method: 'PATCH',
@@ -90,12 +91,11 @@ export class Api {
             'Content-Type': 'application/json'
           }, 
           body: JSON.stringify({
-            name, 
-            info
-          }
-        ).then(this.getRes)
-      }
-    )};
+            name: data.editProfileName,
+            about: data.editProfileJob
+          })
+      }).then(this.getRes)
+    };
 
     editAvatar(url){
       return fetch(`${this._url}/${this._cohort}/users/me/avatar`,
@@ -106,7 +106,7 @@ export class Api {
           'Content-Type': 'application/json'
         }, 
         body: JSON.stringify({
-          url
+          avatar: url
         })
       }
       ).then(this.getRes)

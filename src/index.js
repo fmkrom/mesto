@@ -41,13 +41,15 @@ const api = new Api(apiSettings);
 
 const currentUserInfo = new UserInfo(selectors);
 
-//let userId = null;
+let userId = null;
 
 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(selectors.popupFullSizeImage);
 
 const popupConfirmDeletingCard = new PopupWithButton(
         {popupSelector: selectors.popupDeleteCardSelector,
-         handleConfirmDeletingCard:()=>{}
+         handleConfirmDeletingCard:()=>{
+            return popupConfirmDeletingCard.getDeleteButton();
+         }
 });
 popupConfirmDeletingCard.setEventListeners();
 
@@ -61,37 +63,43 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 const formEditAvatarValidator = new FormValidator(validationSettings, formEditAvatar);
 formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
 
-const createCard = (data) => {
+const createCard = (cardData) => {
         const card = new Card({
-          data,
-          confirmCardOwner:()=>{
-            api.getUser()
-            .then(userData => {showDeleteButton(card, userData._id)})
-            .catch(err => console.log(`Ошибка подтверждения владельца карточки: ${err}`));
-          },
+          data: {...cardData, currentUserId: userId},
           handleCardClick:()=>{
                 openedPopupWithFullSizeImage.
-                openFullSizeImage(data.name, data.link)
+                openFullSizeImage(cardData.name, cardData.link)
           },
           handleLikeCard:()=>{
-            api.likeCard(card.cardId(), card.confirmLikeStatus())
-            .then(data => {updateLikesCount(data)})
+              const currentLikeStatus = !card.confirmLikeStatus();
+              api.likeCard(card.getCardId(), currentLikeStatus)
+              .then(currentCardData =>{
+                card.updateLikesCount(currentCardData)
+                })
             .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
           },
-          handleDeleteCard: (data) => {
+          handleDeleteCard: () =>{
                 popupConfirmDeletingCard.openPopup();
-                popupConfirmDeletingCard.handleConfirmDeletingCard(()=>{
-                        popupConfirmDeletingCard.changeButtonText(true);
-                        api.deleteCard(data._id)
-                        .then(()=> {card.deleteCurrentCard(card);
-                                popupConfirmDeletingCard.closePopup()})
-                        .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
-                        .finally(() => popupConfirmDeletingCard.changeButtonText(false));
+                const deleteButton = popupConfirmDeletingCard.handleConfirmDeletingCard();
+                deleteButton.addEventListener('click',()=>{
+                     popupConfirmDeletingCard.changeButtonText(true);
+                     api.deleteCard(card.getCardId())
+                     .then(()=> {card.deleteCurrentCard(card);
+                                 popupConfirmDeletingCard.closePopup()})
+                     .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
+                     .finally(() => {popupConfirmDeletingCard.changeButtonText(false)
+                                     console.log('Card deleted sucesfully!')});
                 })
-           }
+          }
         }, selectors.template);
      return card.generateCard();
 };
+
+const cardsSection = new Section({
+        renderer: (data) =>{
+            cardsSection.addElement(createCard(data));
+        }
+}, selectors.cardsContainer);
 
 //Класс: создаем новый попап с формой для попапа добавления карточки
 const popupAddCard = new PopupWithForm({
@@ -99,7 +107,8 @@ const popupAddCard = new PopupWithForm({
         handleFormSubmit:(formData) =>{
             popupAddCard.changeButtonText(true);
             api.addCard(formData.addPlaceName, formData.addPlaceUrl)
-            .then((data)=>{createCard(data)})
+            .then((data)=>{console.log('New card uploaded sucesfully!');
+                    cardsSection.addElement(createCard(data))})
             .catch((err) => console.log(`Ошибка создания новой карточки: ${err}`))
             .finally(() => popupAddCard.changeButtonText(false));
             popupAddCard.closePopup();
@@ -109,22 +118,11 @@ popupAddCard.setEventListeners();
 
 enableOpenPopupButton(buttonAddCard, popupAddCard, popupFormButtonSavePlace, validationSettings);
 
-const cardsSection = new Section({
-    renderer: (data) =>{
-        //console.log(data.likes);
-        const newCard = createCard(data);
-        cardsSection.addElement(newCard);
-    }     
-}, selectors.cardsContainer);
-
 const popupEditProfile = new PopupWithForm(
         {popupSelector: selectors.popupEditProfileSelector,
          handleFormSubmit:(formData)=>{
              popupEditProfile.changeButtonText(true);
-             api.setUser({
-                name: formData.editProfileName,
-                info: formData.editProfileJob
-             })                    
+             api.setUser(formData)                    
               .then((data)=>{
                 currentUserInfo.setUserInfo(data);
                 popupEditProfile.closePopup();
@@ -140,21 +138,31 @@ const popupEditAvatar = new PopupWithForm(
         {popupSelector: selectors.popupEditAvatarSelector,
          handleFormSubmit:(formData)=>{
             popupEditAvatar.changeButtonText(true);
-            api.editAvatar(formData)
+            api.editAvatar(formData.avatarUrl)
             .then((data) =>{
-            currentUserInfo.setUserAvatar(data);
+            currentUserInfo.getUserAvatar(data);
             popupEditAvatar.closePopup();
             }).catch((err) => console.log(`Ошибка при обновлении автара: ${err}`)
-            ).finally(() => popupEditAvatar.changeButtonText(false));
+            ).finally(() => {popupEditAvatar.changeButtonText(false)});
         }
 });
 popupEditAvatar.setEventListeners();
+
+/*const popupDeleteCard = new PopupWithButton({
+      popupSelector: selectors.popupDeleteCardSelector,
+      handleConfirmDeletingCard:()=>{
+        popupDeleteCard.changeButtonText(true);
+        api.
+      }
+});*/
 
 enableOpenPopupButton(buttonEditAvatar, popupEditAvatar, buttonSaveAvatar, validationSettings);
 
 Promise.all([api.getCards(), api.getUser()])
   .then(([cardsData, userData]) => {
-    
+    userId = userData._id
+    //console.log(cardsData);
+
     currentUserInfo.setUserInfo(userData);
     currentUserInfo.setUserAvatar(userData.avatar);
     

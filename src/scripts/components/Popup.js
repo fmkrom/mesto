@@ -28,6 +28,7 @@ export class Popup {
         }); 
     };
 
+    /*
     changeButtonText(status){
         const popupButton = this._popup.querySelector('.form__button-save');
         if (status === true){
@@ -35,7 +36,7 @@ export class Popup {
         } else if (status === false) {
             popupButton.textContent = this._buttonDefaultText;
         }
-    };
+    };*/
 
     setEventListeners(){
         const popupCloseButton = this._popup.querySelector('.popup__button-close')
