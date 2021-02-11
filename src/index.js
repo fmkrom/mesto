@@ -1,4 +1,4 @@
-//import "./pages/index.css";
+import "./pages/index.css";
 
 //2. Импорт переменных из файла констант: 
 import {
@@ -73,10 +73,7 @@ const createCard = (cardData) => {
           handleLikeCard:()=>{
               const currentLikeStatus = !card.confirmLikeStatus();
               api.likeCard(card.getCardId(), currentLikeStatus)
-              .then(currentCardData =>{
-                card.updateLikesCount(currentCardData);
-                console.log('Card liked sucesfully', currentCardData.likes);
-                })
+              .then(currentCardData =>{card.updateLikesCount(currentCardData)})
             .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
           },
           handleDeleteCard: () =>{
@@ -88,8 +85,7 @@ const createCard = (cardData) => {
                      .then(()=> {card.deleteCurrentCard(card);
                                  popupConfirmDeletingCard.closePopup()})
                      .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
-                     .finally(() => {popupConfirmDeletingCard.changeButtonText(false)
-                                     console.log('Card deleted sucesfully!')});
+                     .finally(() => {popupConfirmDeletingCard.changeButtonText(false)});
                 })
           }
         }, selectors.template);
@@ -100,7 +96,6 @@ const cardsSection = new Section({
         renderer: (data) =>{
                 const currentCard = createCard(data);    
                 cardsSection.addElement(currentCard);
-                console.log(currentCard);
             }
 }, selectors.cardsContainer);
 
@@ -115,11 +110,6 @@ const popupAddCard = new PopupWithForm({
                     const createdCard = createCard(data);
                     console.log(createdCard);                        
                     cardsSection.addElement(createdCard);
-                    
-                    //cardsSection.addElement(createCard(data));
-
-                    /*console.log(cardsSection.addElement(createCard(data)));
-                    cardsSection.addElement(createCard(data));*/
                 })
             .catch((err) => console.log(`Ошибка создания новой карточки: ${err}`))
             .finally(() => popupAddCard.changeButtonText(false));
