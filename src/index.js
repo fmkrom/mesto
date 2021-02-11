@@ -72,7 +72,7 @@ const createCard = (cardData) => {
           },
           handleLikeCard:()=>{
               const currentLikeStatus = !card.confirmLikeStatus();
-              api.likeCard(card.getCardId(), currentLikeStatus)
+              api.likeCard(cardData._id, currentLikeStatus)
               .then(currentCardData =>{
                 card.updateLikesCount(currentCardData);
                 console.log('Card liked sucesfully', currentCardData.likes);
@@ -84,7 +84,7 @@ const createCard = (cardData) => {
                 const deleteButton = popupConfirmDeletingCard.handleConfirmDeletingCard();
                 deleteButton.addEventListener('click',()=>{
                      popupConfirmDeletingCard.changeButtonText(true);
-                     api.deleteCard(card.getCardId())
+                     api.deleteCard(cardData._id)
                      .then(()=> {card.deleteCurrentCard(card);
                                  popupConfirmDeletingCard.closePopup()})
                      .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
@@ -100,7 +100,7 @@ const cardsSection = new Section({
         renderer: (data) =>{
                 const currentCard = createCard(data);    
                 cardsSection.addElement(currentCard);
-                console.log(currentCard);
+                //console.log(currentCard);
             }
 }, selectors.cardsContainer);
 

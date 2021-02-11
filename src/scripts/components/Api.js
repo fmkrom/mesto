@@ -46,7 +46,7 @@ export class Api {
     };
 
     setCardLikeStatus(status){
-        if (status = true){
+        if (status === true){
           return 'PUT'
         } else {
           return 'DELETE'

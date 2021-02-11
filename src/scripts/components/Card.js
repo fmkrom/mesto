@@ -23,10 +23,6 @@ export class Card {
         return clonedTemplate;
     }
 
-    getCardId(){
-        return this._id;
-    }
-
     confirmLikeStatus(){
         const likesSet = new Set;
         this._likes.forEach((item)=>{likesSet.add(item._id)});
