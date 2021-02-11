@@ -45,10 +45,18 @@ export class Api {
       ).then(this.getRes);
     };
 
+    setCardLikeStatus(status){
+        if (status = true){
+          return 'PUT'
+        } else {
+          return 'DELETE'
+        }
+    }
+
     likeCard(cardId, likeStatus){
       return fetch(`${this._url}/${this._cohort}/cards/likes/${cardId}`,
         {
-          method: likeStatus ? 'PUT' : 'DELETE',
+          method: this.setCardLikeStatus(likeStatus),
           headers:{
             authorization: this._token,
             'Content-Type': 'application/json'
