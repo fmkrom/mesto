@@ -98,8 +98,10 @@ const createCard = (cardData) => {
 
 const cardsSection = new Section({
         renderer: (data) =>{
-            cardsSection.addElement(createCard(data));
-        }
+                const currentCard = createCard(data);    
+                cardsSection.addElement(currentCard);
+                console.log(currentCard);
+            }
 }, selectors.cardsContainer);
 
 //Класс: создаем новый попап с формой для попапа добавления карточки
@@ -110,7 +112,14 @@ const popupAddCard = new PopupWithForm({
             api.addCard(formData.addPlaceName, formData.addPlaceUrl)
             .then((data)=>{
                     console.log("New card:", data,"uploaded sucesfully!");
-                    cardsSection.addElement(createCard(data));
+                    const createdCard = createCard(data);
+                    console.log(createdCard);                        
+                    cardsSection.addElement(createdCard);
+                    
+                    //cardsSection.addElement(createCard(data));
+
+                    /*console.log(cardsSection.addElement(createCard(data)));
+                    cardsSection.addElement(createCard(data));*/
                 })
             .catch((err) => console.log(`Ошибка создания новой карточки: ${err}`))
             .finally(() => popupAddCard.changeButtonText(false));
@@ -159,5 +168,5 @@ Promise.all([api.getCards(), api.getUser()])
     userId = userData._id
     currentUserInfo.setUserInfo(userData);
     currentUserInfo.setUserAvatar(userData);
-    cardsSection.renderItems(cardsData);
+    cardsSection.renderItems(cardsData.reverse());
 }).catch(err => console.log(`Ошибка загрузки данных: ${err}`));
