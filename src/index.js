@@ -1,4 +1,4 @@
-//import "./pages/index.css";
+import "./pages/index.css";
 
 //2. Импорт переменных из файла констант: 
 import {
