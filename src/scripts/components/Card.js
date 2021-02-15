@@ -7,7 +7,6 @@ export class Card {
         this._id = data._id;
         this._owner = data.owner.name;
         this._ownerId = data.owner._id;
-        this._ownerName = data.owner.name;
         this._template = templateSelector;
         
         this.confirmCardOwner = confirmCardOwner;
@@ -29,6 +28,26 @@ export class Card {
         } 
     };
 
+    setLikeCount(){
+        const likesNumber = this._element.querySelector('.card__like-number');
+        likesNumber.textContent = this._likes.length;
+    }
+
+    showInactiveLikeButton(){
+        const likeButton = this._element.querySelector('.card__like-button');
+        //likeButton.style.background = "green";
+        likeButton.classList.remove('card__like-button_active');
+        likeButton.classList.add('card__like-button_inactive');
+    }
+
+    showActiveLikeButton(){
+        const likeButton = this._element.querySelector('.card__like-button');
+        //likeButton.style.background = "red";
+
+        likeButton.classList.add('card__like-button_active');
+        likeButton.classList.remove('card__like-button');
+    }
+
     confirmLikeStatus(userId){
         const likesSet = new Set;
         this._likes.forEach((item)=>{likesSet.add(item._id)});
@@ -36,29 +55,18 @@ export class Card {
         return cardIsLiked;
     };
 
-    toggleLikeButton(status){
-        //const currentLikeStatus = this.confirmLikeStatus();
-
-        const currentLikeStatus = Boolean(status);
-
-        const likesNumber = this._element.querySelector('.card__like-number');
-        likesNumber.textContent = this._likes.length;
-       
-        const likeButton = this._element.querySelector('.card__like-button');
-        if (currentLikeStatus === true){
-            likeButton.style.background = "red";
-            //likeButton.classList.add('card__like-button_active');
-            //likeButton.classList.remove('card__like-button_inactive');
-        } else {
-            likeButton.style.background = "green";
-            //likeButton.classList.remove('card__like-button_active');
-            //likeButton.classList.add('card__like-button_inactive');
+    toggleLikeButton(likeStatus){
+        if (likeStatus === true){
+            this.showActiveLikeButton();
+        } else if (likeStatus === false){
+            this.showInactiveLikeButton();
         }
     }
 
     updateLikesCount(data){
         this._likes = data.likes;
-        this.toggleLikeButton();
+        const likesNumber = this._element.querySelector('.card__like-number');
+        likesNumber.textContent = data.likes.length;   
     }
 
     deleteCurrentCard(){
@@ -81,6 +89,7 @@ export class Card {
         this._element = this._getCardTemplate();
         this.confirmCardOwner();
         //this.showDeleteButton();
+        this.setLikeCount();
         this.setEventListeners();
         this.toggleLikeButton();
         

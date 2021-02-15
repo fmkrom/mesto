@@ -6,32 +6,43 @@ export function enableOpenPopupButton(button, popupClass, submitButton, settings
     })
 };
 
+export function enableButtonOpenPopupEditProfile(button, userInfoClass, formName, formAbout, popupClass, 
+                                                 submitButton, settings){
+  button.addEventListener('click', ()=>{
+    popupClass.openPopup();
+    formName.value = userInfoClass.getUserInfo().userName;
+    formAbout.value = userInfoClass.getUserInfo().userAbout;
+    submitButton.classList.add(settings.inactiveButtonClass);
+    submitButton.disabled = true
+  })
+};
 
 export function createNewCard(cardData, cardClass, apiClass, openedPopupWithFullSizeImageClass, popupConfirmDeletingCardClass, templateSelector){
   const currentCard = new cardClass({
     data: cardData,
     confirmCardOwner:()=>{
       apiClass.getUser().then(userData =>{
-          currentCard.showDeleteButton(userData._id)
+          currentCard.showDeleteButton(userData._id);
         }).catch(err => console.log(`Ошибка подтверждения владельца карточки: ${err}`));
     },
     handleCardClick:()=>{
         openedPopupWithFullSizeImageClass.
-        openFullSizeImage(cardData.name, cardData.link)
+        openFullSizeImage(cardData.name, cardData.link);
     },
     handleLikeCard:()=>{
     apiClass.getUser().then(userData =>{  
         const currentLikeStatus = !currentCard.confirmLikeStatus(userData._id);
-        
-        console.log(Boolean(currentLikeStatus));
-
         apiClass.likeCard(cardData._id, currentLikeStatus)
         .then(currentCardData =>{
-          currentCard.toggleLikeButton(currentLikeStatus);
-          currentCard.updateLikesCount(currentCardData);
           
+        //currentCard.toggleLikeButton(currentLikeStatus);
+          console.log(`current Like status in createNewCard: ${currentLikeStatus}`);
+          currentCard.toggleLikeButton(currentLikeStatus);
+
+          currentCard.updateLikesCount(currentCardData);
           console.log('Лайк карточки успешно поставлен', currentCardData.likes);
-          })
+          
+        })
         .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
       }
     ).catch(err => console.log(`Ошибка подтверждения владельца карточки: ${err}`));
@@ -50,6 +61,7 @@ export function createNewCard(cardData, cardClass, apiClass, openedPopupWithFull
       })
     }
   }, templateSelector);
+  //console.log(currentCard.generateCard());
   return currentCard.generateCard();
 };
 

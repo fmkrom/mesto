@@ -10,7 +10,9 @@ import {
         popupFormButtonSavePlace,
         buttonEditAvatar,
         buttonSaveAvatar,
-        formEditAvatar
+        formEditAvatar,
+        formFieldName,
+        formFieldJob,
 } from "./scripts/utils/constants.js";
 
 import {Section} from "./scripts/components/Section.js";
@@ -36,6 +38,7 @@ import {apiSettings,
 import {selectors} from "./scripts/settings/selectors.js";
 
 import {enableOpenPopupButton,
+        enableButtonOpenPopupEditProfile,
         createNewCard} from "./scripts/utils/utils.js";
 
 const api = new Api(apiSettings);
@@ -108,7 +111,7 @@ const popupEditProfile = new PopupWithForm(
 });
 popupEditProfile.setEventListeners();
 
-enableOpenPopupButton(buttonEditProfile, popupEditProfile, popupFormButtonSavePlace, validationSettings);
+enableButtonOpenPopupEditProfile(buttonEditProfile, currentUserInfo, formFieldName, formFieldJob, popupEditProfile, popupFormButtonSavePlace, validationSettings);
 
 const popupEditAvatar = new PopupWithForm(
         {popupSelector: selectors.popupEditAvatarSelector,
