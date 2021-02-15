@@ -14,7 +14,6 @@ export class PopupWithButton extends Popup {
     }
 
     getDeleteButton(){
-        //console.log(this.confirmDeletingButton);
         return this.confirmDeletingButton;
     }
 
@@ -30,8 +29,6 @@ export class PopupWithButton extends Popup {
     setEventListeners(){
         this.confirmDeletingButton.addEventListener('click',()=>{
             this.handleConfirmDeletingCard();
-            
-            console.log(this._buttonDefaultText);
         })
         super.setEventListeners();
     }

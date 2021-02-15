@@ -1,7 +1,7 @@
 .card__like-button_active{
     background-color: white;
     background-image: url('../../../../images/__graphics/graphics__like-button_active.svg');
-
+/*
     width:20px;
     height: 18px;
     margin-top: 6px;
@@ -9,5 +9,5 @@
     background-size: contain;
     background-repeat: no-repeat;
 
-    border:0;
+    border:0;*/
 };

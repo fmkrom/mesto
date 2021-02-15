@@ -23,6 +23,7 @@ export function createNewCard(cardData, cardClass, apiClass, openedPopupWithFull
     confirmCardOwner:()=>{
       apiClass.getUser().then(userData =>{
           currentCard.showDeleteButton(userData._id);
+          currentCard.setLikeButton(userData._id);
         }).catch(err => console.log(`Ошибка подтверждения владельца карточки: ${err}`));
     },
     handleCardClick:()=>{
@@ -34,14 +35,10 @@ export function createNewCard(cardData, cardClass, apiClass, openedPopupWithFull
         const currentLikeStatus = !currentCard.confirmLikeStatus(userData._id);
         apiClass.likeCard(cardData._id, currentLikeStatus)
         .then(currentCardData =>{
-          
-        //currentCard.toggleLikeButton(currentLikeStatus);
-          console.log(`current Like status in createNewCard: ${currentLikeStatus}`);
+        //console.log(`current Like status in createNewCard: ${currentLikeStatus}`);
           currentCard.toggleLikeButton(currentLikeStatus);
-
           currentCard.updateLikesCount(currentCardData);
-          console.log('Лайк карточки успешно поставлен', currentCardData.likes);
-          
+        //console.log('Лайк карточки успешно поставлен', currentCardData.likes);
         })
         .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
       }
@@ -57,11 +54,11 @@ export function createNewCard(cardData, cardClass, apiClass, openedPopupWithFull
                        popupConfirmDeletingCardClass.closePopup()})
            .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
            .finally(() => {popupConfirmDeletingCardClass.changeButtonText(false)
-                           console.log('Card deleted sucesfully!')});
+            //console.log('Card deleted sucesfully!')
+          });
       })
     }
-  }, templateSelector);
-  //console.log(currentCard.generateCard());
+  }, templateSelector)
   return currentCard.generateCard();
 };
 

@@ -35,17 +35,14 @@ export class Card {
 
     showInactiveLikeButton(){
         const likeButton = this._element.querySelector('.card__like-button');
-        //likeButton.style.background = "green";
         likeButton.classList.remove('card__like-button_active');
         likeButton.classList.add('card__like-button_inactive');
     }
 
     showActiveLikeButton(){
         const likeButton = this._element.querySelector('.card__like-button');
-        //likeButton.style.background = "red";
-
         likeButton.classList.add('card__like-button_active');
-        likeButton.classList.remove('card__like-button');
+        likeButton.classList.remove('card__like-button_inactive');
     }
 
     confirmLikeStatus(userId){
@@ -54,6 +51,15 @@ export class Card {
         const cardIsLiked = likesSet.has(userId);
         return cardIsLiked;
     };
+
+    setLikeButton(userId){
+        const currentLikeStatus = this.confirmLikeStatus(userId);
+        if (currentLikeStatus === true){
+            this.showActiveLikeButton();
+        } else if (currentLikeStatus === false){
+            this.showInactiveLikeButton();
+        }
+    }
 
     toggleLikeButton(likeStatus){
         if (likeStatus === true){
@@ -91,7 +97,7 @@ export class Card {
         //this.showDeleteButton();
         this.setLikeCount();
         this.setEventListeners();
-        this.toggleLikeButton();
+        //this.toggleLikeButton();
         
         const generatedCardImage = this._element.querySelector('.card__image');
         generatedCardImage.src=this._link;
