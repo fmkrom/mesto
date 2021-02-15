@@ -18,6 +18,7 @@ export class Api {
     
     //Методы карточек
 
+    //1. Получить данные карточек
     getCards(){
       return fetch(`${this._url}/${this._cohort}/cards`,
       {
@@ -29,6 +30,7 @@ export class Api {
       }).then(this.getRes);
     };
 
+    //2. Добавить карточку
     addCard(name, url){
       return fetch(`${this._url}/${this._cohort}/cards`,
         {
@@ -45,6 +47,7 @@ export class Api {
       ).then(this.getRes);
     };
 
+    //Промежуточный метод: установить лайк-статус
     setCardLikeStatus(status){
         if (status === true){
           return 'PUT'
@@ -53,6 +56,7 @@ export class Api {
         }
     }
 
+    //Применение лайк-статуса к методу лайка карточки:
     likeCard(cardId, likeStatus){
       return fetch(`${this._url}/${this._cohort}/cards/likes/${cardId}`,
         {
@@ -65,6 +69,7 @@ export class Api {
       ).then(this.getRes);
     };
 
+    //Удалить карточку
     deleteCard(cardId){
       return fetch(`${this._url}/${this._cohort}/cards/${cardId}`,
         {
@@ -79,6 +84,7 @@ export class Api {
 
     //Методы пользователя
 
+    //Получить данные пользователя
     getUser(){
       return fetch(`${this._url}/${this._cohort}/users/me`,
         {
@@ -90,6 +96,7 @@ export class Api {
       ).then(this.getRes)
     };
     
+    //Установить новые ДП
     setUser(data){
       return fetch(`${this._url}/${this._cohort}/users/me`,
         {
@@ -105,6 +112,7 @@ export class Api {
       }).then(this.getRes)
     };
 
+    //Редактировать аватар
     editAvatar(url){
       return fetch(`${this._url}/${this._cohort}/users/me/avatar`,
       {

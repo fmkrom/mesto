@@ -1,12 +1,10 @@
-//import "./pages/index.css";
+import "./pages/index.css";
 
-//2. Импорт переменных из файла констант: 
-import {
-        formEditProfile,
+//1. Импорт переменных из файла констант: 
+import {formEditProfile,
         buttonAddCard,
         buttonEditProfile,
         popupFormAddPlace,
-        popupFullsizeImage,
         popupFormButtonSavePlace,
         buttonEditAvatar,
         buttonSaveAvatar,
@@ -15,28 +13,25 @@ import {
         formFieldJob,
 } from "./scripts/utils/constants.js";
 
+//2. Импорт компонентов:
 import {Section} from "./scripts/components/Section.js";
 import {Card} from "./scripts/components/Card.js";
 import {Api} from "./scripts/components/Api.js";
-
-//3. Импорт класса валидатора:
 import {FormValidator} from "./scripts/components/FormValidator.js";
-
-//3.2. Импорт классов модальных окон:
 import {PopupWithFullSizeImage} from "./scripts/components/PopupWithFullSizeImage.js";
 import {PopupWithForm} from "./scripts/components/PopupWithForm.js";
 import {PopupWithButton} from "./scripts/components/PopupWithButton.js";
-
 import {UserInfo} from "./scripts/components/UserInfo.js";
 
-//5. Импорт настроек валидации:
+//3. Импорт настроек:
 import {apiSettings,
         validationSettings
 } from "./scripts/settings/settings.js";
 
-//6. Импорт селекторов:
+//4. Импорт селекторов:
 import {selectors} from "./scripts/settings/selectors.js";
 
+//5. Импорт отдельных функций
 import {enableOpenPopupButton,
         enableButtonOpenPopupEditProfile,
         createNewCard} from "./scripts/utils/utils.js";
@@ -65,14 +60,14 @@ formCardValidator.enableValidation(popupFormAddPlace, validationSettings);
 const formEditAvatarValidator = new FormValidator(validationSettings, formEditAvatar);
 formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
 
+//Рендеринг секции с карточками:
 const cardsSection = new Section({
         renderer: (data) =>{
                 const currentCard = createNewCard(data, Card, api, 
                         openedPopupWithFullSizeImage, 
                         popupConfirmDeletingCard, selectors.template);
-                        //console.log(data);
                 cardsSection.addElement(currentCard);
-            }
+        }
 }, selectors.cardsContainer);
 
 //Класс: создаем новый попап с формой для попапа добавления карточки
@@ -82,7 +77,6 @@ const popupAddCard = new PopupWithForm({
             popupAddCard.changeButtonText(true);
             api.addCard(formData.addPlaceName, formData.addPlaceUrl)
             .then((newCardData)=>{
-                    //console.log("New card:", data,"uploaded sucesfully!");
                     const createdCard = createNewCard(newCardData, Card, api, 
                         openedPopupWithFullSizeImage, 
                         popupConfirmDeletingCard, selectors.template);
@@ -132,7 +126,6 @@ enableOpenPopupButton(buttonEditAvatar, popupEditAvatar, buttonSaveAvatar, valid
 
 Promise.all([api.getCards(), api.getUser()])
   .then(([cardsData, userData]) => {
-    
     currentUserInfo.setUserInfo(userData);
     currentUserInfo.setUserAvatar(userData);
     cardsSection.renderItems(cardsData.reverse());
