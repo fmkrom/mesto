@@ -1,4 +1,4 @@
-import "./pages/index.css";
+//import "./pages/index.css";
 
 //2. Импорт переменных из файла констант: 
 import {
@@ -35,7 +35,8 @@ import {apiSettings,
 //6. Импорт селекторов:
 import {selectors} from "./scripts/settings/selectors.js";
 
-import {enableOpenPopupButton} from "./scripts/utils/utils.js";
+import {enableOpenPopupButton,
+        createNewCard} from "./scripts/utils/utils.js";
 
 const api = new Api(apiSettings);
 
@@ -63,9 +64,11 @@ formEditAvatarValidator.enableValidation(formEditAvatar, validationSettings);
 
 const cardsSection = new Section({
         renderer: (data) =>{
-                const currentCard = createCard(data);    
+                const currentCard = createNewCard(data, Card, api, 
+                        openedPopupWithFullSizeImage, 
+                        popupConfirmDeletingCard, selectors.template);
+                        //console.log(data);
                 cardsSection.addElement(currentCard);
-                //console.log(currentCard);
             }
 }, selectors.cardsContainer);
 
@@ -75,17 +78,13 @@ const popupAddCard = new PopupWithForm({
         handleFormSubmit:(formData) =>{
             popupAddCard.changeButtonText(true);
             api.addCard(formData.addPlaceName, formData.addPlaceUrl)
-            .then((data)=>{
-                    console.log("New card:", data,"uploaded sucesfully!");
-                    const createdCard = createCard(data);
-                    console.log(createdCard);                        
-                    cardsSection.addElement(createdCard);
-                    
-                    //cardsSection.addElement(createCard(data));
-
-                    /*console.log(cardsSection.addElement(createCard(data)));
-                    cardsSection.addElement(createCard(data));*/
-                })
+            .then((newCardData)=>{
+                    //console.log("New card:", data,"uploaded sucesfully!");
+                    const createdCard = createNewCard(newCardData, Card, api, 
+                        openedPopupWithFullSizeImage, 
+                        popupConfirmDeletingCard, selectors.template);
+                        cardsSection.addElement(createdCard);
+             })
             .catch((err) => console.log(`Ошибка создания новой карточки: ${err}`))
             .finally(() => popupAddCard.changeButtonText(false));
             popupAddCard.closePopup();

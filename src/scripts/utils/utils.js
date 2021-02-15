@@ -7,38 +7,65 @@ export function enableOpenPopupButton(button, popupClass, submitButton, settings
 };
 
 
+export function createNewCard(cardData, cardClass, apiClass, openedPopupWithFullSizeImageClass, popupConfirmDeletingCardClass, templateSelector){
+  const currentCard = new cardClass({
+    data: cardData,
+    confirmCardOwner:()=>{
+      apiClass.getUser().then(userData =>{
+          currentCard.showDeleteButton(userData._id)
+        }).catch(err => console.log(`Ошибка подтверждения владельца карточки: ${err}`));
+    },
+    handleCardClick:()=>{
+        openedPopupWithFullSizeImageClass.
+        openFullSizeImage(cardData.name, cardData.link)
+    },
+    handleLikeCard:()=>{
+    apiClass.getUser().then(userData =>{  
+        const currentLikeStatus = !currentCard.confirmLikeStatus(userData._id);
+        
+        console.log(Boolean(currentLikeStatus));
 
-
-
-const createCard = (cardData) => {
-    const card = new Card({
-      data: cardData,
-      handleCardClick:()=>{
-            openedPopupWithFullSizeImage.
-            openFullSizeImage(cardData.name, cardData.link)
-      },
-      handleLikeCard:()=>{
-          const currentLikeStatus = !card.confirmLikeStatus();
-          api.likeCard(cardData._id, currentLikeStatus)
-          .then(currentCardData =>{
-            card.updateLikesCount(currentCardData);
-            console.log('Card liked sucesfully', currentCardData.likes);
-            })
+        apiClass.likeCard(cardData._id, currentLikeStatus)
+        .then(currentCardData =>{
+          currentCard.toggleLikeButton(currentLikeStatus);
+          currentCard.updateLikesCount(currentCardData);
+          
+          console.log('Лайк карточки успешно поставлен', currentCardData.likes);
+          })
         .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
-      },
-      handleDeleteCard: () =>{
-            popupConfirmDeletingCard.openPopup();
-            const deleteButton = popupConfirmDeletingCard.handleConfirmDeletingCard();
-            deleteButton.addEventListener('click',()=>{
-                 popupConfirmDeletingCard.changeButtonText(true);
-                 api.deleteCard(cardData._id)
-                 .then(()=> {card.deleteCurrentCard(card);
-                             popupConfirmDeletingCard.closePopup()})
-                 .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
-                 .finally(() => {popupConfirmDeletingCard.changeButtonText(false)
-                                 console.log('Card deleted sucesfully!')});
-            })
       }
-    }, selectors.template);
- return card.generateCard();
+    ).catch(err => console.log(`Ошибка подтверждения владельца карточки: ${err}`));
+    },
+    handleDeleteCard: () =>{
+      popupConfirmDeletingCardClass.openPopup();
+      const deleteButton = popupConfirmDeletingCardClass.handleConfirmDeletingCard();
+      deleteButton.addEventListener('click',()=>{
+           popupConfirmDeletingCardClass.changeButtonText(true);
+           apiClass.deleteCard(cardData._id)
+           .then(()=> {currentCard.deleteCurrentCard(currentCard);
+                       popupConfirmDeletingCardClass.closePopup()})
+           .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
+           .finally(() => {popupConfirmDeletingCardClass.changeButtonText(false)
+                           console.log('Card deleted sucesfully!')});
+      })
+    }
+  }, templateSelector);
+  return currentCard.generateCard();
 };
+
+/* Вариант функции лайка карточки:
+
+handleLikeCard:()=>{
+                api.getUser().then((userData) =>{
+                        const currentLikeStatus = !card.confirmLikeStatus(userData._id);
+
+                        api.likeCard(cardData._id, currentLikeStatus)
+                        .then(currentCardData =>{
+                            card.toggleLikeButton(currentLikeStatus, currentCardData);
+                            }
+                        )
+                        .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
+                }).catch(err => console.log(`Ошибка загрузки данных пользователя: ${err}`))
+          },
+
+*/

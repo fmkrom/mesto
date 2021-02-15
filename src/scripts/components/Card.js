@@ -8,7 +8,6 @@ export class Card {
         this._owner = data.owner.name;
         this._ownerId = data.owner._id;
         this._ownerName = data.owner.name;
-        this._userId = data.currentUserId;
         this._template = templateSelector;
         
         this.confirmCardOwner = confirmCardOwner;
@@ -23,34 +22,39 @@ export class Card {
         return clonedTemplate;
     }
 
-    confirmLikeStatus(){
+    showDeleteButton(userId){
+        const currentDeleteButton = this._element.querySelector('.card__delete-button');
+        if (userId === this._ownerId){
+            currentDeleteButton.style.display = "block";
+        } 
+    };
+
+    confirmLikeStatus(userId){
         const likesSet = new Set;
         this._likes.forEach((item)=>{likesSet.add(item._id)});
-        const cardIsLiked = likesSet.has(this._userId);
+        const cardIsLiked = likesSet.has(userId);
         return cardIsLiked;
     };
 
-    toggleLikeButton(){
-        const currentLikeStatus = this.confirmLikeStatus();
+    toggleLikeButton(status){
+        //const currentLikeStatus = this.confirmLikeStatus();
+
+        const currentLikeStatus = Boolean(status);
+
         const likesNumber = this._element.querySelector('.card__like-number');
         likesNumber.textContent = this._likes.length;
        
         const likeButton = this._element.querySelector('.card__like-button');
         if (currentLikeStatus === true){
-            likeButton.classList.add('card__like-button_active');
-            likeButton.classList.remove('card__like-button_inactive');
+            likeButton.style.background = "red";
+            //likeButton.classList.add('card__like-button_active');
+            //likeButton.classList.remove('card__like-button_inactive');
         } else {
-            likeButton.classList.remove('card__like-button_active');
-            likeButton.classList.add('card__like-button_inactive');
+            likeButton.style.background = "green";
+            //likeButton.classList.remove('card__like-button_active');
+            //likeButton.classList.add('card__like-button_inactive');
         }
     }
-
-    showDeleteButton(){
-        const currentDeleteButton = this._element.querySelector('.card__delete-button');
-        if (this._userId === this._ownerId){
-            currentDeleteButton.style.display = "block";
-        } 
-    };
 
     updateLikesCount(data){
         this._likes = data.likes;
@@ -75,7 +79,8 @@ export class Card {
 
     generateCard(){
         this._element = this._getCardTemplate();
-        this.showDeleteButton();
+        this.confirmCardOwner();
+        //this.showDeleteButton();
         this.setEventListeners();
         this.toggleLikeButton();
         
