@@ -5,7 +5,6 @@ export class Card {
         this._link = data.link;
         this._likes = data.likes;
         this._id = data._id;
-        this._owner = data.owner.name;
         this._ownerId = data.owner._id;
         this._template = templateSelector;
         
@@ -94,10 +93,8 @@ export class Card {
     generateCard(){
         this._element = this._getCardTemplate();
         this.confirmCardOwner();
-        //this.showDeleteButton();
         this.setLikeCount();
         this.setEventListeners();
-        //this.toggleLikeButton();
         
         const generatedCardImage = this._element.querySelector('.card__image');
         generatedCardImage.src=this._link;

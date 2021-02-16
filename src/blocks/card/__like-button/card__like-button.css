@@ -2,6 +2,7 @@
 @import "./_active/card__like-button_active.css";
 
 .card__like-button{
+    background-color: white;
     width:20px;
     height: 18px;
     margin-top: 6px;
