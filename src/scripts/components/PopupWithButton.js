@@ -1,21 +1,16 @@
 import {Popup} from "./Popup.js";
 
-export class PopupWithButton extends Popup {
-    constructor({popupSelector, handleConfirmDeletingCard}){
+export class PopupWithButton extends Popup{
+    constructor({popupSelector, handleConfirmDeletingButton}){
         super(popupSelector);
         this.popup = document.querySelector(popupSelector);
-        this._buttonDefaultText = this._popup.querySelector('.form__button-save').textContent;
+        this._buttonDefaultText = this.popup.querySelector('.form__button-save').textContent;
         this.confirmDeletingButton = this.popup.querySelector('.form__button-save');
-        this.handleConfirmDeletingCard = handleConfirmDeletingCard;
+        this.handleConfirmDeletingButton = handleConfirmDeletingButton;
     }
-
-    openPopup(){
-        super.openPopup();
-    }
-
-    getDeleteButton(){
-        //console.log(this.confirmDeletingButton);
-        return this.confirmDeletingButton;
+    
+    setSubmitAction(action){
+        this.handleConfirmDeletingButton = action;
     }
 
     changeButtonText(status){
@@ -29,9 +24,8 @@ export class PopupWithButton extends Popup {
 
     setEventListeners(){
         this.confirmDeletingButton.addEventListener('click',()=>{
-            this.handleConfirmDeletingCard();
-            
-            console.log(this._buttonDefaultText);
+            this.handleConfirmDeletingButton();
+            console.log('Delete button pressed!');
         })
         super.setEventListeners();
     }

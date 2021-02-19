@@ -9,10 +9,6 @@ export class PopupWithForm extends Popup {
         this._buttonDefaultText = this._popup.querySelector('.form__button-save').textContent;
     }
 
-    openPopup(){
-        super.openPopup();
-    }
-
     _getInputValues(){
         this._inputList = this._form.querySelectorAll('.form__field');
         this._formValues = {};

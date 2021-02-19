@@ -2,8 +2,6 @@ export class FormValidator{
   constructor(settings, form){
     this._settings = settings;
     this._form = form;
-
-    this._input = this._form.querySelector(this._settings.inputElement);
     this._button = this._form.querySelector(this._settings.buttonElement);
   }
 
@@ -50,23 +48,21 @@ export class FormValidator{
     }
   };
 
-  enableValidation(form, settings){
-      const inputListArray = Array.from(form.querySelectorAll(settings.inputElement));
-      const buttonToToggle = form.querySelector(settings.buttonElement);
+  enableValidation(){
+      const inputListArray = Array.from(this._form.querySelectorAll(this._settings.inputElement));
+      const buttonToToggle = this._button;
       
-      this._toggleButtonState(inputListArray, buttonToToggle, settings);
+      this._toggleButtonState(inputListArray, buttonToToggle, this._settings);
 
       inputListArray.forEach((currentInput)=>{
         currentInput.addEventListener('input',() =>{
-          this._validateInput(form, currentInput, settings);
-          this._toggleButtonState(inputListArray, buttonToToggle, settings);
+          this._validateInput(this._form, currentInput, this._settings);
+          this._toggleButtonState(inputListArray, buttonToToggle, this._settings);
         });
     });
 
-    form.addEventListener('submit', (evt)=>{
+    this._form.addEventListener('submit', (evt)=>{
       evt.preventDefault();
     });
-    //console.log('_setEventListeners works!');
   };
-
 };

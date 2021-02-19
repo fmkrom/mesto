@@ -3,15 +3,15 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" type="text/css" href="./pages/index.css" />
+      <!--<link rel="stylesheet" type="text/css" href="./pages/index.css" />-->
       <title>MESTO Russia</title>
    </head>
    <body class="body">
       <div class="page">
          <section class="header">
             <div class="header__logo">
-               <!--<img src="<%=require('./images/__graphics/graphics__logo.png')%>" class="header__vector" alt="Лого">-->
-               <img src="./images/__graphics/graphics__logo.png" class="header__vector" alt="Лого">
+               <img src="<%=require('./images/__graphics/graphics__logo.png')%>" class="header__vector" alt="Лого">
+               <!--<img src="./images/__graphics/graphics__logo.png" class="header__vector" alt="Лого">-->
             </div>
          </section>
 
@@ -19,8 +19,8 @@
 
          <section class="profile">
             <div class="profile__avatar">
-               <a href="#" class="profile__edit-avatar-link">
-                  <img src="" class="profile__image" alt="Фото профиля">
+               <a href="#" class="profile__edit-avatar-link" target="_self">
+                  <img src=" " class="profile__image" alt="Фото профиля">
                   <div class="profile__avatar-overlay"></div>
                </a>
             </div>
@@ -41,8 +41,8 @@
                   <div class="card__rectangle">
                      <button class="card__delete-button" type="button"></button>
                         <div class="card__image-block">
-                           <a href="#" class="card__open-fullsize-image">
-                              <img src="" class="card__image" alt="">
+                           <a href="#" class="card__open-fullsize-image" target="_self">
+                              <img src=" " class="card__image" alt="">
                            </a>
                         </div>
                      <div class="card__title-block">
@@ -184,6 +184,6 @@
          </section>
 
       <!--Основной скрипт-->
-      <script type="module" src="./index.js" defer></script>
+      <!--<script type="module" src="./index.js" defer></script>-->
    </body>
 </html>
