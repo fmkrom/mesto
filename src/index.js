@@ -36,8 +36,6 @@ import {selectors} from "./scripts/settings/selectors.js";
 //5. Импорт отдельных функций
 import {enableOpenPopupButton,
         enableButtonOpenPopupEditProfile,
-        //deleteCurrentCard
-        //createCard
 } from "./scripts/utils/utils.js";
 
 let currentUserId = null;
@@ -81,9 +79,7 @@ const createNewCard =(cardData)=>{
               const currentLikeStatus = !currentCard.confirmLikeStatus(currentUserId);
               api.likeCard(cardData._id, currentLikeStatus)
               .then(currentCardData =>{
-                //console.log(`current Like status in createNewCard: ${currentLikeStatus}`);
                 currentCard.updateLikesCount(currentCardData);
-                //console.log('Лайк карточки успешно поставлен', currentCardData.likes);
               })
               .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
           },
@@ -97,7 +93,6 @@ const createNewCard =(cardData)=>{
                         })
                         .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
                         .finally(() => {popupConfirmDeletingCard.changeButtonText(false)
-                        //console.log(`Card ${cardData.name} deleted sucesfully`)
                         })
                 })}
         }, selectors.template)
