@@ -11,11 +11,8 @@ import {formEditProfile,
         formEditAvatar,
         formFieldName,
         formFieldJob,
-<<<<<<< HEAD
         fullsizeImage,
         fullsizeImageTitle
-=======
->>>>>>> 7a9210bf67dee7b352b761ff6375a99f0c871974
 } from "./scripts/utils/constants.js";
 
 //2. Импорт компонентов:
@@ -39,30 +36,20 @@ import {selectors} from "./scripts/settings/selectors.js";
 //5. Импорт отдельных функций
 import {enableOpenPopupButton,
         enableButtonOpenPopupEditProfile,
-<<<<<<< HEAD
-        //deleteCurrentCard
-        //createCard
 } from "./scripts/utils/utils.js";
 
 let currentUserId = null;
-=======
-        createNewCard} from "./scripts/utils/utils.js";
->>>>>>> 7a9210bf67dee7b352b761ff6375a99f0c871974
 
 const api = new Api(apiSettings);
 
 const currentUserInfo = new UserInfo(selectors);
 
-<<<<<<< HEAD
 const openedPopupWithFullSizeImage = new PopupWithFullSizeImage({
       popupSelector: selectors.popupFullSizeImage,
       fullSizeImagePic: fullsizeImage,
       fullsizeImageTitle: fullsizeImageTitle
 });
 openedPopupWithFullSizeImage.setEventListeners();
-=======
-const openedPopupWithFullSizeImage = new PopupWithFullSizeImage(selectors.popupFullSizeImage);
->>>>>>> 7a9210bf67dee7b352b761ff6375a99f0c871974
 
 const popupConfirmDeletingCard = new PopupWithButton({
         popupSelector: selectors.popupDeleteCardSelector,
@@ -80,7 +67,6 @@ formCardValidator.enableValidation();
 const formEditAvatarValidator = new FormValidator(validationSettings, formEditAvatar);
 formEditAvatarValidator.enableValidation();
 
-<<<<<<< HEAD
 const createNewCard =(cardData)=>{
         const currentCard = new Card({
           data: cardData,
@@ -93,9 +79,7 @@ const createNewCard =(cardData)=>{
               const currentLikeStatus = !currentCard.confirmLikeStatus(currentUserId);
               api.likeCard(cardData._id, currentLikeStatus)
               .then(currentCardData =>{
-                //console.log(`current Like status in createNewCard: ${currentLikeStatus}`);
                 currentCard.updateLikesCount(currentCardData);
-                //console.log('Лайк карточки успешно поставлен', currentCardData.likes);
               })
               .catch(err => console.log(`Ошибка лайка карточки: ${err}`))
           },
@@ -109,7 +93,6 @@ const createNewCard =(cardData)=>{
                         })
                         .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
                         .finally(() => {popupConfirmDeletingCard.changeButtonText(false)
-                        //console.log(`Card ${cardData.name} deleted sucesfully`)
                         })
                 })}
         }, selectors.template)
@@ -120,14 +103,6 @@ const createNewCard =(cardData)=>{
 const cardsSection = new Section({
         renderer: (data) =>{
                 const currentCard = createNewCard(data);
-=======
-//Рендеринг секции с карточками:
-const cardsSection = new Section({
-        renderer: (data) =>{
-                const currentCard = createNewCard(data, Card, api, 
-                        openedPopupWithFullSizeImage, 
-                        popupConfirmDeletingCard, selectors.template);
->>>>>>> 7a9210bf67dee7b352b761ff6375a99f0c871974
                 cardsSection.addElement(currentCard);
         }
 }, selectors.cardsContainer);
@@ -139,15 +114,8 @@ const popupAddCard = new PopupWithForm({
             popupAddCard.changeButtonText(true);
             api.addCard(formData.addPlaceName, formData.addPlaceUrl)
             .then((newCardData)=>{
-<<<<<<< HEAD
                     const createdCard = createNewCard(newCardData);
                      cardsSection.addElement(createdCard);
-=======
-                    const createdCard = createNewCard(newCardData, Card, api, 
-                        openedPopupWithFullSizeImage, 
-                        popupConfirmDeletingCard, selectors.template);
-                        cardsSection.addElement(createdCard);
->>>>>>> 7a9210bf67dee7b352b761ff6375a99f0c871974
              })
             .catch((err) => console.log(`Ошибка создания новой карточки: ${err}`))
             .finally(() => popupAddCard.changeButtonText(false));
@@ -193,11 +161,8 @@ enableOpenPopupButton(buttonEditAvatar, popupEditAvatar, buttonSaveAvatar, valid
 
 Promise.all([api.getCards(), api.getUser()])
   .then(([cardsData, userData]) => {
-<<<<<<< HEAD
     currentUserId = userData._id;
 
-=======
->>>>>>> 7a9210bf67dee7b352b761ff6375a99f0c871974
     currentUserInfo.setUserInfo(userData);
     currentUserInfo.setUserAvatar(userData);
     
