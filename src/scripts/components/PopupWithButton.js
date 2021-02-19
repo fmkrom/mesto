@@ -8,9 +8,19 @@ export class PopupWithButton extends Popup{
         this.confirmDeletingButton = this.popup.querySelector('.form__button-save');
         this.handleConfirmDeletingButton = handleConfirmDeletingButton;
     }
+<<<<<<< HEAD
     
     setSubmitAction(action){
         this.handleConfirmDeletingButton = action;
+=======
+
+    openPopup(){
+        super.openPopup();
+    }
+
+    getDeleteButton(){
+        return this.confirmDeletingButton;
+>>>>>>> 7a9210bf67dee7b352b761ff6375a99f0c871974
     }
 
     changeButtonText(status){
@@ -24,8 +34,12 @@ export class PopupWithButton extends Popup{
 
     setEventListeners(){
         this.confirmDeletingButton.addEventListener('click',()=>{
+<<<<<<< HEAD
             this.handleConfirmDeletingButton();
             console.log('Delete button pressed!');
+=======
+            this.handleConfirmDeletingCard();
+>>>>>>> 7a9210bf67dee7b352b761ff6375a99f0c871974
         })
         super.setEventListeners();
     }
