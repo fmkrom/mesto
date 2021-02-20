@@ -12,7 +12,6 @@ export class PopupWithFullSizeImage extends Popup {
         this.fullSizeImagePic.setAttribute('src', link);
         this.fullsizeImageTitle.textContent = name;
         this.fullSizeImagePic.setAttribute('alt', name);
-        this.setEventListeners();
     }
 
 };
